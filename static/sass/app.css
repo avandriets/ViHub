@@ -1,0 +1,31 @@
+/*
+  Your use of the content in the files referenced here are subject to the terms of the license at http://aka.ms/fabric-font-license
+*/
+body {
+  min-width: 320px; }
+
+.ms-CommandBar.ms-CommandBar--navBar {
+  background-color: #767676;
+  height: 50px; }
+  .ms-CommandBar.ms-CommandBar--navBar .ms-CommandButton-button {
+    height: 50px;
+    line-height: 50px;
+    min-width: 50px;
+    color: #ffffff; }
+    .ms-CommandBar.ms-CommandBar--navBar .ms-CommandButton-button:hover {
+      color: #ffffff;
+      background: #c8c8c8; }
+    .ms-CommandBar.ms-CommandBar--navBar .ms-CommandButton-button .ms-Persona-primaryText {
+      color: #ffffff; }
+    .ms-CommandBar.ms-CommandBar--navBar .ms-CommandButton-button .ms-Persona-imageArea {
+      top: 1px;
+      left: 1px; }
+  .ms-CommandBar.ms-CommandBar--navBar .ms-CommandBar-sideCommands .ms-CommandButton {
+    border-left: 1px solid #ffffff; }
+.ms-CommandBar .ms-CommandButton + .ms-CommandButton {
+  margin-left: 0; }
+
+.m-b-1 {
+  margin-bottom: 16px !important; }
+
+/*# sourceMappingURL=app.css.map */

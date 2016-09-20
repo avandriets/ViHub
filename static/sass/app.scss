@@ -1,0 +1,81 @@
+@import '../office-ui-fabric-js-1.0.0/node_modules/office-ui-fabric-core/src/sass/_Fabric.Common';
+
+
+body{
+  min-width: 320px;
+}
+
+// Breadcrumb';
+// Button';
+// Callout';
+// CheckBox';
+// RadioButton';
+// ChoiceFieldGroup';
+
+// CommandBar
+$CommandBar-navBar-height: 50px;
+.ms-CommandBar{
+  &.ms-CommandBar--navBar{
+    background-color: $ms-color-neutralSecondaryAlt;
+    height: $CommandBar-navBar-height;
+    .ms-CommandButton-button{
+      height: $CommandBar-navBar-height;
+        line-height: $CommandBar-navBar-height;
+      min-width: $CommandBar-navBar-height;
+      color: $ms-color-white;
+      &:hover {
+        color: $ms-color-white;
+        background: $ms-color-neutralTertiaryAlt;
+      }
+      .ms-Persona-primaryText{
+        color: $ms-color-white;
+      }
+      .ms-Persona-imageArea{
+        top: 1px;
+        left: 1px;
+      }
+    }
+    .ms-CommandBar-sideCommands{
+      .ms-CommandButton{
+        border-left: 1px solid $ms-color-white;
+      }
+    }
+  }
+  .ms-CommandButton+.ms-CommandButton{
+    margin-left: 0;
+  }
+}
+
+// CommandButton
+
+// ContextualMenu;
+// DatePicker;
+// DetailsList;
+// Dialog;
+// Dropdown;
+// FacePile;
+// Label';
+// Link';
+// List';
+// ListItem';
+// MessageBanner';
+// ContextualHost';
+// MessageBar';
+// OrgChart';
+// Overlay';
+// Panel';
+// PanelHost';
+// PeoplePicker';
+// Persona';
+// PersonaCard';
+// Pivot';
+// ProgressIndicator';
+// SearchBox';
+// Spinner';
+// Table';
+// TextField';
+// Toggle';
+
+.m-b-1{
+  margin-bottom: 16px !important;
+}

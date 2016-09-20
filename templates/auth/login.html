@@ -1,0 +1,107 @@
+{% extends "base.html" %}
+{% load custom_tags %}
+
+{% block content %}
+<div class="ms-Grid">
+    <div class="ms-Grid-row">
+        <div class="ms-Grid-col ms-u-md6 ms-u-lg7"></div>
+        <div class="ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-lg5">
+
+        <h1 class="ms-font-su ">{% site_name_simple_tag %}</h1>
+            <form action="" method="post">{% csrf_token %}
+
+                <div class="ms-TextField">
+                    <label class="ms-Label ms-fontSize-m">E-mail</label>
+{#                    <input class="ms-TextField-field">#}
+                    {{ form.email }}
+                </div>
+
+                <div class="ms-TextField">
+                    <label class="ms-Label ms-fontSize-m">Пароль</label>
+{#                    <input class="ms-TextField-field">#}
+                    {{ form.password }}
+                </div>
+
+                {% if form.errors %}
+                    <br>
+                    <div class="ms-MessageBar ms-MessageBar--error">
+                        <div class="ms-MessageBar-content">
+                            <div class="ms-MessageBar-icon">
+                                <i class="ms-Icon ms-Icon--xCircle"></i>
+                            </div>
+                            <div class="ms-MessageBar-text">
+                                <p>Пожалуйста введите правильное имя пользователя и пароль.</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endif %}
+
+            <input type="submit" value="Вход" class="ms-Button ms-Button--primary "/>
+
+            </form>
+            <br>
+            <p class="ms-fontSize-mPlus">Войти используя учетную запись Office365.</p>
+            <button class="ms-Button ms-Button--primary" onclick="window.location.href='{{ sign_in_url }}'">
+                <span class="ms-Button-label">office365</span>
+            </button>
+
+            <br>
+        <br>
+            <a class="ms-fontSize-mPlus" href="{% url 'connect:register' %}">Регистрация нового пользователя</a>
+
+        </div>
+    </div>
+</div>
+{% endblock content %}
+
+{% block body_script %}
+<script>
+    (function ($) {
+        $.fn.TextField = function () {
+
+            /** Iterate through each text field provided. */
+            return this.each(function () {
+
+                /** Does it have a placeholder? */
+                if ($(this).hasClass("ms-TextField--placeholder")) {
+
+                    /** Hide the label on click. */
+                    $(this).on('click', function () {
+                        $(this).find('.ms-Label').hide();
+                    });
+
+                    /** Hide the label on focus. */
+                    $(this).find('.ms-TextField-field').on('focus', function () {
+                        $(this).siblings('.ms-Label').hide();
+                    });
+
+                    /** Show the label again when leaving the field. */
+                    $(this).find('.ms-TextField-field').on('blur', function () {
+
+                        /** Only do this if no text was entered. */
+                        if ($(this).val().length === 0) {
+                            $(this).siblings('.ms-Label').show();
+                        }
+                    });
+                }
+
+                /** Underlined - adding/removing a focus class */
+                if ($(this).hasClass('ms-TextField--underlined')) {
+
+                    /** Add is-active class - changes border color to theme primary */
+                    $(this).find('.ms-TextField-field').on('focus', function () {
+                        $(this).parent('.ms-TextField--underlined').addClass('is-active');
+                    });
+
+                    /** Remove is-active on blur of textfield */
+                    $(this).find('.ms-TextField-field').on('blur', function () {
+                        $(this).parent('.ms-TextField--underlined').removeClass('is-active');
+                    });
+                }
+
+            });
+        };
+    })(jQuery);
+
+</script>
+{% endblock body_script %}

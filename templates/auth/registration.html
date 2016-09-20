@@ -1,0 +1,190 @@
+{% extends "base.html" %}
+{% load custom_tags %}
+
+{% block content %}
+    <div class="ms-Grid">
+        <div class="ms-Grid-row">
+            <div class="ms-Grid-col ms-u-sm12 ms-u-md5 ms-u-lg5">
+
+                <form action="" method="post">{% csrf_token %}
+                    <h1 class="ms-font-xl ">Введите ваши учетные данные для регистрации</h1>
+
+                    <div class="ms-TextField is-required">
+                        <label class="ms-Label"><span>E-mail адресс</span></label>
+                        {{ form.email }}
+                    </div>
+
+                    {% if form.email.errors %}
+                        <div class="ms-MessageBar ms-MessageBar--error">
+                            <div class="ms-MessageBar-content">
+                                <div class="ms-MessageBar-icon">
+                                    <i class="ms-Icon ms-Icon--xCircle"></i>
+                                </div>
+                                <div class="ms-MessageBar-text">
+                                    {% for error in form.email.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <div class="ms-TextField is-required">
+                        <label class="ms-Label">Имя</label>
+                        {{ form.first_name }}
+                    </div>
+
+                    {% if form.first_name.errors %}
+                        <div class="ms-MessageBar ms-MessageBar--error">
+                            <div class="ms-MessageBar-content">
+                                <div class="ms-MessageBar-icon">
+                                    <i class="ms-Icon ms-Icon--xCircle"></i>
+                                </div>
+                                <div class="ms-MessageBar-text">
+                                    {% for error in form.first_name.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+
+                    <div class="ms-TextField is-required">
+                        <label class="ms-Label">Фамилия</label>
+                        {{ form.last_name }}
+                    </div>
+                    {% if form.last_name.errors %}
+                        <div class="ms-MessageBar ms-MessageBar--error">
+                            <div class="ms-MessageBar-content">
+                                <div class="ms-MessageBar-icon">
+                                    <i class="ms-Icon ms-Icon--xCircle"></i>
+                                </div>
+                                <div class="ms-MessageBar-text">
+                                    {% for error in form.last_name.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+{#                    <div class="ms-TextField">#}
+{#                        <label class="ms-Label">Имя входа в систему</label>#}
+{#                        {{ form.username }}#}
+{#                    </div>#}
+{##}
+{#                    {% if form.username.errors %}#}
+{#                        <div class="ms-MessageBar ms-MessageBar--error">#}
+{#                            <div class="ms-MessageBar-content">#}
+{#                                <div class="ms-MessageBar-icon">#}
+{#                                    <i class="ms-Icon ms-Icon--xCircle"></i>#}
+{#                                </div>#}
+{#                                <div class="ms-MessageBar-text">#}
+{#                                    {% for error in form.username.errors %}#}
+{#                                        <p>{{ error }}</p>#}
+{#                                    {% endfor %}#}
+{#                                </div>#}
+{#                            </div>#}
+{#                        </div>#}
+{#                    {% endif %}#}
+
+
+                    <div class="ms-TextField is-required">
+                        <label class="ms-Label">Пароль</label>
+                        {{ form.password1 }}
+                    </div>
+                    {% if form.password1.errors %}
+                        <div class="ms-MessageBar ms-MessageBar--error">
+                            <div class="ms-MessageBar-content">
+                                <div class="ms-MessageBar-icon">
+                                    <i class="ms-Icon ms-Icon--xCircle"></i>
+                                </div>
+                                <div class="ms-MessageBar-text">
+                                    {% for error in form.password1.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <div class="ms-TextField is-required">
+                        <label class="ms-Label">Подтверждение</label>
+                        {{ form.password2 }}
+                    </div>
+
+                    {% if form.password2.errors %}
+                        <div class="ms-MessageBar ms-MessageBar--error">
+                            <div class="ms-MessageBar-content">
+                                <div class="ms-MessageBar-icon">
+                                    <i class="ms-Icon ms-Icon--xCircle"></i>
+                                </div>
+                                <div class="ms-MessageBar-text">
+                                    {% for error in form.password2.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <input type="submit" value="Сохранить" class="ms-Button ms-Button--primary"/>
+                </form>
+
+            </div>
+        </div>
+    </div>
+{% endblock content %}
+
+{% block body_script %}
+    <script>
+        (function ($) {
+            $.fn.TextField = function () {
+
+                /** Iterate through each text field provided. */
+                return this.each(function () {
+
+                    /** Does it have a placeholder? */
+                    if ($(this).hasClass("ms-TextField--placeholder")) {
+
+                        /** Hide the label on click. */
+                        $(this).on('click', function () {
+                            $(this).find('.ms-Label').hide();
+                        });
+
+                        /** Hide the label on focus. */
+                        $(this).find('.ms-TextField-field').on('focus', function () {
+                            $(this).siblings('.ms-Label').hide();
+                        });
+
+                        /** Show the label again when leaving the field. */
+                        $(this).find('.ms-TextField-field').on('blur', function () {
+
+                            /** Only do this if no text was entered. */
+                            if ($(this).val().length === 0) {
+                                $(this).siblings('.ms-Label').show();
+                            }
+                        });
+                    }
+
+                    /** Underlined - adding/removing a focus class */
+                    if ($(this).hasClass('ms-TextField--underlined')) {
+
+                        /** Add is-active class - changes border color to theme primary */
+                        $(this).find('.ms-TextField-field').on('focus', function () {
+                            $(this).parent('.ms-TextField--underlined').addClass('is-active');
+                        });
+
+                        /** Remove is-active on blur of textfield */
+                        $(this).find('.ms-TextField-field').on('blur', function () {
+                            $(this).parent('.ms-TextField--underlined').removeClass('is-active');
+                        });
+                    }
+
+                });
+            };
+        })(jQuery);
+
+    </script>
+{% endblock body_script %}

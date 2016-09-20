@@ -1,0 +1,47 @@
+{% load custom_tags %}
+{% load staticfiles %}
+
+<!doctype html>
+<html lang="en" ng-app="ViHubApp">
+<head>
+  <meta charset="utf-8">
+  <title>{% site_name_simple_tag %}</title>
+    <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" href="{% static 'office-ui-fabric-js-1.0.0/dist/css/fabric.min.css'%}">
+    <link rel="stylesheet" href="{% static 'office-ui-fabric-js-1.0.0/dist/css/fabric.components.min.css'%}">
+    <link rel="stylesheet" href="{% static 'sass/app.css'%}">
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src="{% static 'office-ui-fabric-js-1.0.0/dist/js/fabric.js'%}"></script>
+    <script src="{% static 'office-ui-fabric-js-1.0.0/dist/js/fabric.templates.js'%}"></script>
+    <script src="{% static 'office-ui-fabric-js-1.0.0/dist/lib/pickadate.js'%}"></script>
+
+    <script src="{% static 'bower_components/angular/angular.js'%}" ></script>
+    <script src="{% static 'bower_components/angular-resource/angular-resource.js'%}" ></script>
+    <script src="{% static 'bower_components/angular-route/angular-route.js'%}" ></script>
+
+    <script src="{% static 'app/app.module.js' %}"></script>
+
+    <script src="{% static 'app/new-element/create-element.module.js' %}"></script>
+    <script src="{% static 'app/new-element/create-element.directive.js' %}"></script>
+    <script src="{% static 'app/new-element/create-element.controller.js' %}"></script>
+
+    <script src="{% static 'app/core/core.module.js' %}"></script>
+    <script src="{% static 'app/core/element/element.module.js' %}"></script>
+    <script src="{% static 'app/core/element/element.service.js' %}"></script>
+    <script src="{% static 'app/element-list/element-list.module.js' %}"></script>
+    <script src="{% static 'app/element-list/element-list.component.js' %}"></script>
+
+    {% block heads_script %}{% endblock %}
+    {% block heads_style %}{% endblock %}
+
+</head>
+
+<body>
+
+{% block content %}{% endblock %}
+
+{% block body_script %}{% endblock %}
+
+</body>
+</html>
