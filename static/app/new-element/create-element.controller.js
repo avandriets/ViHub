@@ -50,7 +50,7 @@ angular.module('createElement').controller('createElementController', ['$scope',
             parent: null,
             name: $scope.name,
             description: $scope.description,
-            hub_type: $scope.hubTypes.model,
+            element_type: $scope.hubTypes.model,
             is_delete: 0
         };
 

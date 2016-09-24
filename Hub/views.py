@@ -1,7 +1,7 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from Hub.models import Hub
-from Hub.serializers import HubSerializer
+from Hub.models import Element, Members
+from Hub.serializers import ElementSerializer, MembersSerializer
 from rest_framework import viewsets
 from rest_framework import permissions
 from django.urls import reverse
@@ -10,7 +10,6 @@ from connect.auth_helper import get_signout_url
 
 @login_required
 def hub_home(request):
-
     # if request.session['pageRefresh'] == 'false':
     #     request.session['pageRefresh'] = 'true'
     # else:
@@ -29,11 +28,19 @@ def hub_home(request):
     return render(request, 'main_page.html', context)
 
 
-class HubViewSet(viewsets.ModelViewSet):
+class ElementViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = Hub.objects.all()
-    serializer_class = HubSerializer
 
-    permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
+    queryset = Element.objects.all()
+    serializer_class = ElementSerializer
+
+
+class MembersViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+
+    queryset = Members.objects.all()
+    serializer_class = MembersSerializer
