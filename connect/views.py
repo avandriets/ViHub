@@ -71,7 +71,7 @@ def get_token(request):
     # photo = client.me.photo.get()
     # print('Мое фото: ' + me.photo)
 
-    return HttpResponseRedirect(reverse('hub:hub_home'))
+    return HttpResponseRedirect(reverse('hub:index'))
 
 
 # This is the route that is called when the user clicks the disconnect

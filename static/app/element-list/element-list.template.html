@@ -1,7 +1,14 @@
 <li class="ms-List-item ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-xl4 m-b-1" ng-repeat="element in $ctrl.obj">
     <div class="ms-ListItem is-unread">
-        <span class="ms-ListItem-primaryText">{{ element.name }}</span>
-        <span class="ms-ListItem-secondaryText">Автор</span>
+
+        <span class="ms-ListItem-secondaryText">
+            <a class="ms-Link"
+               href="/{{ element.id }}"
+               title="{{ element.name }}"
+            >{{ element.name }}</a>
+        </span>
+
+        <span class="ms-ListItem-secondaryText">{{ element.first_name }} {{ element.last_name }}</span>
         <span class="ms-ListItem-tertiaryText">{{ element.description }}</span>
         <span class="ms-ListItem-metaText">{{ element.created_at|date:'hh:mm dd.MM.yyyy' }}</span>
         <div class="ms-ListItem-selectionTarget"></div>

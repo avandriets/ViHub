@@ -9,11 +9,15 @@ class MembersSerializer(serializers.ModelSerializer):
 
 
 class ElementSerializer(serializers.ModelSerializer):
+    username = serializers.ReadOnlyField(source='owner.username', required=False)
+    first_name = serializers.ReadOnlyField(source='owner.first_name', required=False)
+    last_name = serializers.ReadOnlyField(source='owner.last_name', required=False)
     members = MembersSerializer(many=True, read_only=True)
 
     class Meta:
         model = Element
-        fields = ('parent','name', 'description', 'is_delete', 'element_type', 'created_at', 'updated_at', 'members', 'owner')
+        fields = ('id', 'parent','name', 'description', 'is_delete', 'element_type', 'created_at', 'updated_at',
+                  'members', 'owner', 'username', 'first_name', 'last_name')
 
     def create(self, validated_data):
         hub = super(ElementSerializer, self).create(validated_data)

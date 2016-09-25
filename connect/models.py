@@ -16,7 +16,7 @@ class AccountManager(BaseUserManager):
         #     raise ValueError('Users must have a valid username.')
 
         account = self.model(email=self.normalize_email(email), username=self.normalize_email(email).split('@')[0] )
-
+        #account.username = self.normalize_email(email).split('@')[0]
         account.is_staff = False
         account.is_superuser = False
 

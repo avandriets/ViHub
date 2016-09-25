@@ -17,11 +17,11 @@ class Element(models.Model):
     is_delete = models.SmallIntegerField(verbose_name='Удален', null=False, blank=False, help_text='Удален - 1')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
-    owner = models.ForeignKey(Account, null=True, related_name='albun_owner')
+    owner = models.ForeignKey(Account, null=True, related_name='element_owner')
 
 
 class Members(models.Model):
-    element = models.ForeignKey(Element, related_name='members')
+    element = models.ForeignKey(Element,on_delete=models.CASCADE, related_name='members')
     user_involved = models.ForeignKey(Account, null=True, related_name='user_involved')
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -40,6 +40,7 @@ class MyRegistrationForm(forms.ModelForm):
     def save(self, commit=True):
         user = super(MyRegistrationForm, self).save(commit=False)
         user.set_password(self.cleaned_data['password1'])
+        user.username = user.email.split('@')[0]
         if commit:
             user.save()
         return user

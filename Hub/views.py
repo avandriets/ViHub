@@ -44,3 +44,13 @@ class MembersViewSet(viewsets.ModelViewSet):
 
     queryset = Members.objects.all()
     serializer_class = MembersSerializer
+
+
+@login_required
+def hub_detail_view(request, id):
+
+    redirect_uri = request.build_absolute_uri(reverse('connect:get_token'))
+    context = {
+        'logoutUrl': get_signout_url(redirect_uri)
+    }
+    return render(request, 'detail_page.html', context)

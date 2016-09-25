@@ -1,0 +1,71 @@
+{% load custom_tags %}
+
+<div class="ms-CommandBar  ms-CommandBar--navBar ">
+    <div class="ms-CommandBar-sideCommands ms-u-hiddenMdDown">
+        <div class="ms-CommandButton  ms-CommandButton--noLabel ms-u-hiddenSm">
+            <button class="ms-CommandButton-button">
+                <span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--Settings"></i></span><span class="ms-CommandButton-label"></span>
+            </button>
+        </div><!--
+--><div class="ms-CommandButton  ms-CommandButton--noLabel ms-u-hiddenSm">
+            <button class="ms-CommandButton-button">
+                <span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--Help"></i></span><span class="ms-CommandButton-label"></span>
+            </button>
+        </div><!--
+--><div class="ms-CommandButton  ms-CommandButton--dropdown  ">
+            <button class="ms-CommandButton-button ms-Persona">
+                <div class="ms-Persona-imageArea">
+                    <!-- <img class="ms-Persona-image" src="Persona.Person2.png"> -->
+                    <span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--Contact"></i></span>
+                </div>
+                <div class="ms-CommandButton-label ms-Persona-details ">
+                    <div class="ms-Persona-primaryText">{{ user.username }}</div>
+                </div>
+            </button>
+            <ul class="ms-ContextualMenu  is-opened ms-ContextualMenu--hasIcons">
+                <li class="ms-ContextualMenu-item ms-ContextualMenu-item--divider"></li>
+                <li class="ms-ContextualMenu-item ">
+                    <a class="ms-ContextualMenu-link " tabindex="1">Изменить профиль</a>
+                    <i class="ms-Icon ms-Icon--Repair "></i>
+                </li>
+
+                {% if user.provider == 'D' %}
+                    <li class="ms-ContextualMenu-item">
+                        <a href="{% url 'connect:disconnect' %}" class="ms-ContextualMenu-link">Выход</a>
+                        <i class="ms-Icon ms-Icon--Door "></i>
+                    </li>
+                {% else %}
+                    <li class="ms-ContextualMenu-item">
+                        <a href="{{ logoutUrl }}" class="ms-ContextualMenu-link">Выход</a>
+                        <i class="ms-Icon ms-Icon--Door "></i>
+                    </li>
+                {% endif %}
+
+            </ul>
+        </div>
+    </div>
+    <div class="ms-CommandBar-mainArea">
+        <div class="ms-CommandButton ms-CommandButton--actionButton ms-u-hiddenLgUp ms-PanelLeftExample ms-PanelExample">
+            <button class="ms-CommandButton-button">
+                <span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--GlobalNavButton"></i></span><span class="ms-CommandButton-label"></span>
+            </button>
+            <div class="ms-Panel ms-Panel--left">
+                <button class="ms-Panel-closeButton ms-PanelAction-close">
+                    <i class="ms-Panel-closeIcon ms-Icon ms-Icon--Cancel"></i>
+                </button>
+                <div class="ms-Panel-contentInner">
+                    <p class="ms-Panel-headerText">Left Panel</p>
+                    <div class="ms-Panel-content">
+                        <span class="ms-font-m">Content goes here</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="ms-CommandButton">
+            <a class="ms-CommandButton-button ms-Link" href="{% url 'hub:index' %}">
+                <span class="ms-font-xxl">{% site_name_simple_tag %}</span>
+                <span class="ms-CommandButton-label"></span>
+            </a>
+        </div>
+    </div>
+</div>
