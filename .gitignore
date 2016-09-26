@@ -10,6 +10,7 @@ bower_components/
 connect/__pycache__/
 connect/migrations/0001_initial.py
 connect/migrations/__pycache__/
+connect/migrations/
 db.sqlite3
 devEnv/
 node_modules/
@@ -19,3 +20,7 @@ static/css/.DS_Store
 static/office-ui-fabric-core-4.0.0/
 static/office-ui-fabric-js-1.0.0/
 templates/.DS_Store
+Hub/migrations/
+VirtualEnv/
+Hub/migrations/0002_auto_20160924_0950.py
+Hub/migrations/0003_auto_20160926_2057.py
