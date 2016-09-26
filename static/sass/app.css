@@ -4,6 +4,10 @@
 body {
   min-width: 320px; }
 
+.login-page {
+  background: blue;
+  height: 100%; }
+
 .ms-CommandBar.ms-CommandBar--navBar {
   background-color: #767676;
   height: 50px; }

@@ -61,3 +61,9 @@ def hub_detail_view(request, id):
         'logoutUrl': get_signout_url(redirect_uri)
     }
     return render(request, 'detail_page.html', context)
+
+
+def hub_test(request):
+    context = {
+    }
+    return render(request, 'test_page.html', context)
