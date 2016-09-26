@@ -1,32 +1,17 @@
 import msgraph
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
-from django.shortcuts import render, render_to_response, redirect
-from django.template import RequestContext
+from django.shortcuts import render, redirect
 from django.urls import reverse
-import connect
 from ViHub import settings
 from connect import config
 from connect.MsProvider import MyAuthProvider
+from connect.account_serializer import AccountSerializer
 from connect.auth_helper import get_signin_url, get_signout_url, get_token_from_code, get_user_info_from_token
 from connect.form import MyRegistrationForm as RegistrationForm, MyAuthenticationForm
 from connect.models import Account
-
-# def home(request):
-#     redirect_uri = request.build_absolute_uri(reverse('connect:get_token'))
-#     sign_in_url = get_signin_url(redirect_uri)
-#     request.session['logoutUrl'] = get_signout_url(redirect_uri)
-#     context = {
-#         'sign_in_url': sign_in_url
-#     }
-#     return render(request, 'auth/login.html', context)
-
-
-# This is the route that is the redirect URI of your registered
-# Azure application. An authorization code is returned here that
-# is swapped for an access token in auth_helper.
+from rest_framework import viewsets
 
 
 def get_token(request):
@@ -128,3 +113,11 @@ def my_login(request):
     }
 
     return render(request, 'auth/login.html', context)
+
+
+class AccountViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Account.objects.all()
+    serializer_class = AccountSerializer

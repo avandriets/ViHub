@@ -1,11 +1,10 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
-from Hub.models import Element, Members
-from Hub.serializers import ElementSerializer, MembersSerializer
-from rest_framework import viewsets
-from rest_framework import permissions
 from django.urls import reverse
+from Hub.models import Element, Members, Favorite
+from Hub.serializers import ElementSerializer, MembersSerializer, FavoriteSerializer
 from connect.auth_helper import get_signout_url
+from rest_framework import viewsets
 
 
 @login_required
@@ -44,6 +43,14 @@ class MembersViewSet(viewsets.ModelViewSet):
 
     queryset = Members.objects.all()
     serializer_class = MembersSerializer
+
+
+class FavoriteViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Favorite.objects.all()
+    serializer_class = FavoriteSerializer
 
 
 @login_required

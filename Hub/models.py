@@ -19,9 +19,20 @@ class Element(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
     owner = models.ForeignKey(Account, null=True, related_name='element_owner')
 
+    def get_all_favorite(self):
+        favorites = Favorite.objects.filter(element=self)
+        return favorites
+
 
 class Members(models.Model):
     element = models.ForeignKey(Element,on_delete=models.CASCADE, related_name='members')
     user_involved = models.ForeignKey(Account, null=True, related_name='user_involved')
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+
+class Favorite(models.Model):
+    element = models.ForeignKey(Element,on_delete=models.CASCADE, related_name='favorite')
+    owner = models.ForeignKey(Account, null=True)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
