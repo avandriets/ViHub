@@ -9,9 +9,17 @@ from connect import config
 from connect.MsProvider import MyAuthProvider
 from connect.account_serializer import AccountSerializer
 from connect.auth_helper import get_signin_url, get_signout_url, get_token_from_code, get_user_info_from_token
-from connect.form import MyRegistrationForm as RegistrationForm, MyAuthenticationForm
+from connect.form import MyRegistrationForm as RegistrationForm, MyAuthenticationForm, UserEditForm
 from connect.models import Account
 from rest_framework import viewsets
+
+
+class AccountViewSet(viewsets.ModelViewSet):
+    """
+    API endpoint that allows users to be viewed or edited.
+    """
+    queryset = Account.objects.all()
+    serializer_class = AccountSerializer
 
 
 def get_token(request):
@@ -115,9 +123,26 @@ def my_login(request):
     return render(request, 'auth/login.html', context)
 
 
-class AccountViewSet(viewsets.ModelViewSet):
-    """
-    API endpoint that allows users to be viewed or edited.
-    """
-    queryset = Account.objects.all()
-    serializer_class = AccountSerializer
+@login_required
+def profile_edit(request):
+
+    user = request.user
+
+
+    if request.method == 'POST':
+        postdata = request.POST.copy()
+        FORMUser = UserEditForm(data=postdata, instance=user)
+
+        if FORMUser.is_valid():
+            FORMUser.save()
+
+            return redirect('connect:profile')
+
+    else:
+        FORMUser = UserEditForm(instance=user)
+
+    context = {
+        'form': FORMUser
+    }
+
+    return render(request, 'auth/profile.html', context)

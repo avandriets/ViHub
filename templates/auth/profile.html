@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+{% load custom_tags %}
+
+{% block content %}
+
+    <div class="th-body" ng-controller = "createElementController as elementsCtrl">
+
+        <header>
+            {% nav_bar %}
+        </header>
+
+        <main>
+            <div class="ms-Grid">
+                <div class="ms-Grid-row">
+                    <div class="ms-Grid-col ms-u-sm12">
+                        <h1 class="ms-font-xxl">Изменение профиля</h1>
+
+                        <form action="" method="post">{% csrf_token %}
+
+                    <div class="ms-TextField ">
+                        <label class="ms-Label"><span>Отображаемое имя пользователя</span></label>
+                        {{ form.username }}
+                    </div>
+
+                    {% if form.username.errors %}
+                        <div class="ms-MessageBar ms-MessageBar--error">
+                            <div class="ms-MessageBar-content">
+                                <div class="ms-MessageBar-icon">
+                                    <i class="ms-Icon ms-Icon--xCircle"></i>
+                                </div>
+                                <div class="ms-MessageBar-text">
+                                    {% for error in form.username.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <div class="ms-TextField is-required">
+                        <label class="ms-Label">Имя</label>
+                        {{ form.first_name }}
+                    </div>
+
+                    {% if form.first_name.errors %}
+                        <div class="ms-MessageBar ms-MessageBar--error">
+                            <div class="ms-MessageBar-content">
+                                <div class="ms-MessageBar-icon">
+                                    <i class="ms-Icon ms-Icon--xCircle"></i>
+                                </div>
+                                <div class="ms-MessageBar-text">
+                                    {% for error in form.first_name.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+
+                    <div class="ms-TextField is-required">
+                        <label class="ms-Label">Фамилия</label>
+                        {{ form.last_name }}
+                    </div>
+                    {% if form.last_name.errors %}
+                        <div class="ms-MessageBar ms-MessageBar--error">
+                            <div class="ms-MessageBar-content">
+                                <div class="ms-MessageBar-icon">
+                                    <i class="ms-Icon ms-Icon--xCircle"></i>
+                                </div>
+                                <div class="ms-MessageBar-text">
+                                    {% for error in form.last_name.errors %}
+                                        <p>{{ error }}</p>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+
+                    <input type="submit" value="Сохранить" class="ms-Button ms-Button--primary"/>
+                </form>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+    </div>
+
+{% endblock %}
+
+
+{% block body_script %}
+
+    <script type="text/javascript">
+        var CommandButtonElements = document.querySelectorAll(".ms-CommandButton");
+        for (var i = 0; i < CommandButtonElements.length; i++) {
+            new fabric['CommandButton'](CommandButtonElements[i]);
+        }
+    </script>
+    <script type="text/javascript">
+        var CommandBarElements = document.querySelectorAll(".ms-CommandBar");
+        for (var i = 0; i < CommandBarElements.length; i++) {
+            new fabric['CommandBar'](CommandBarElements[i]);
+        }
+    </script>
+    <script type="text/javascript">
+        var DropdownHTMLElements = document.querySelectorAll('.ms-Dropdown');
+        for (var i = 0; i < DropdownHTMLElements.length; ++i) {
+            var Dropdown = new fabric['Dropdown'](DropdownHTMLElements[i]);
+        }
+    </script>
+    <script type="text/javascript">
+        var PanelExamples = document.getElementsByClassName("ms-PanelExample");
+        for (var i = 0; i < PanelExamples.length; i++) {
+            (function () {
+                var PanelExampleButton = PanelExamples[i].querySelector(".ms-CommandButton-button");
+                var PanelExamplePanel = PanelExamples[i].querySelector(".ms-Panel");
+                PanelExampleButton.addEventListener("click", function (i) {
+                    new fabric['Panel'](PanelExamplePanel);
+                });
+            }());
+        }
+    </script>
+
+{% endblock %}

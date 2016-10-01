@@ -49,7 +49,7 @@ class FavoriteViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = Favorite.objects.all()
+    queryset = Element.objects.all()
     serializer_class = FavoriteSerializer
 
 
@@ -67,3 +67,13 @@ def hub_test(request):
     context = {
     }
     return render(request, 'test_page.html', context)
+
+
+@login_required
+def about(request):
+
+    redirect_uri = request.build_absolute_uri(reverse('connect:get_token'))
+    context = {
+        'logoutUrl': get_signout_url(redirect_uri)
+    }
+    return render(request, 'about_page.html', context)

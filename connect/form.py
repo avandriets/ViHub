@@ -134,3 +134,24 @@ class MyAuthenticationForm(forms.Form):
 
     def get_user(self):
         return self.user_cache
+
+
+class UserEditForm(forms.ModelForm):
+    class Meta:
+        model = Account
+        fields = ("first_name",
+                  "last_name",
+                  "username")
+
+    # username is enforced to some particular rules
+    u_error = _("User name needs to match domain convention.")
+    username = forms.RegexField(label=u'Имя входа в систему', regex=r'^\w', max_length=9,
+                                widget=forms.TextInput({'class': 'ms-TextField-field', 'placeholder': 'Отображаемое имя пользователя'}),
+                                error_messages={'invalid': u_error})
+    first_name = forms.CharField(required=False,label=u'Имя', max_length=30,
+                                 widget=forms.TextInput({'class': 'ms-TextField-field', 'placeholder': 'Имя'})
+                                 )
+
+    last_name = forms.CharField(required=False,label=u'Фамилия', max_length=30,
+                                widget=forms.TextInput({'class': 'ms-TextField-field', 'placeholder': 'Фамилия'})
+                                )
