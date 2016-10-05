@@ -1,4 +1,4 @@
-<li class="ms-List-item ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-xl4 m-b-1" ng-repeat="element in $ctrl.obj">
+<li *ngFor="let element of elementsList" class="ms-List-item ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-xl4 m-b-1">
     <div class="ms-ListItem is-unread">
 
         <span class="ms-ListItem-secondaryText">
@@ -12,10 +12,12 @@
         <span class="ms-ListItem-tertiaryText">{{ element.description }}</span>
         <span class="ms-ListItem-metaText">{{ element.created_at|date:'hh:mm dd.MM.yyyy' }}</span>
         <div class="ms-ListItem-selectionTarget"></div>
+
         <div class="ms-ListItem-actions">
-            <div class="ms-ListItem-action"><i class="ms-Icon ms-Icon--attachment"></i></div>
-            <div class="ms-ListItem-action"><i class="ms-Icon ms-Icon--x"></i></div>
-            <div class="ms-ListItem-action"><i class="ms-Icon ms-Icon--flag"></i></div>
+            <div class="ms-ListItem-action"><i class="ms-Icon ms-Icon--Mail"></i></div>
+            <div class="ms-ListItem-action"><i class="ms-Icon ms-Icon--Delete"></i></div>
+            <div class="ms-ListItem-action"><i class="ms-Icon ms-Icon--Flag"></i></div>
+            <div class="ms-ListItem-action"><i class="ms-Icon ms-Icon--Pinned"></i></div>
         </div>
     </div>
 </li>

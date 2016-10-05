@@ -9,6 +9,9 @@ class MembersSerializer(serializers.ModelSerializer):
 
 
 class FavoriteListSerializer(serializers.ListSerializer):
+    def update(self, instance, validated_data):
+        pass
+
     def to_representation(self, data):
         elements_ids = list(Favorite.objects.filter(owner=self.context['request'].user).values_list("element_id",flat=True))
         data = data.filter(id__in=elements_ids)
