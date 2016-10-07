@@ -12,7 +12,8 @@ export class ElementsService {
     private elementsUrl = '/rest/elements/';
     private headers = new Headers({'Content-Type': 'application/json'});
 
-    test = 'Hello medved';
+    elementsSet: Element[] = [];
+
     constructor(private http: Http) {
     }
 
@@ -22,8 +23,8 @@ export class ElementsService {
             .get(this.elementsUrl)
             .toPromise()
             .then((response) => {
-                let elementsSet = response.json() as Element[];
-                return elementsSet;
+                this.elementsSet = response.json() as Element[];
+                return this.elementsSet;
             })
             .catch(this.handleError);
 

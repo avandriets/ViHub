@@ -1,7 +1,7 @@
 /**
  * Created by AVAndriets on 04.10.16.
  */
-import {Component, ViewChild} from '@angular/core';
+import {Component, ViewChild, Input} from '@angular/core';
 import {AfterViewInit} from '@angular/core';
 import {AddElementDialogComponent} from './add-element-dialog.component'
 
@@ -13,6 +13,7 @@ import {AddElementDialogComponent} from './add-element-dialog.component'
 
 export class CommandBarComponent implements AfterViewInit {
 
+    @Input('title') myTitle:string;
     window_fabric: any;
 
     @ViewChild(AddElementDialogComponent) addDialog: AddElementDialogComponent
