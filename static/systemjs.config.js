@@ -6,12 +6,12 @@
   System.config({
     paths: {
       // paths serve as alias
-      'npm:': 'static/node_modules/'
+      'npm:': '/static/node_modules/'
     },
     // map tells the System loader where to look for things
     map: {
       // our app is within the app folder
-      app: 'static/app',
+      app: '/static/app',
 
       // angular bundles
       '@angular/core': 'npm:@angular/core/bundles/core.umd.js',
@@ -28,7 +28,7 @@
       'rxjs':                      'npm:rxjs',
       'angular-in-memory-web-api': 'npm:angular-in-memory-web-api',
       //my libraries
-      'fabric_js': 'npm:office-ui-fabric-js/dist/js/fabric.js'
+      'fabric_js': 'static/node_modules/office-ui-fabric-js/dist/js/fabric.js',
     },
     // packages tells the System loader how to load when no filename and/or no extension
     packages: {

@@ -9,8 +9,10 @@ import 'rxjs/add/operator/toPromise';
 
 @Injectable()
 export class ElementsService {
-    private elementsUrl = 'rest/elements';
+    private elementsUrl = '/rest/elements/';
+    private headers = new Headers({'Content-Type': 'application/json'});
 
+    test = 'Hello medved';
     constructor(private http: Http) {
     }
 
@@ -20,13 +22,19 @@ export class ElementsService {
             .get(this.elementsUrl)
             .toPromise()
             .then((response) => {
-                let sss = response.json() as Element[];
-                console.log('Get data');
-                console.log(sss);
-                return sss;
+                let elementsSet = response.json() as Element[];
+                return elementsSet;
             })
             .catch(this.handleError);
 
+    }
+
+    create(name: string, description: string, element_type:string): Promise<Element> {
+        return this.http
+            .post(this.elementsUrl, JSON.stringify({name: name, description: description, element_type: element_type}), {headers: this.headers})
+            .toPromise()
+            .then(res => res.json())
+            .catch(this.handleError);
     }
 
     private handleError(error: any): Promise<any> {

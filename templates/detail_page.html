@@ -9,6 +9,8 @@
             {% nav_bar %}
         </header>
 
+        <my-app></my-app>
+
         <div class="ms-CommandBar ms-u-hiddenMdDown">
             <div class="ms-CommandBar-sideCommands">
                 <div class="ms-CommandButton">
@@ -21,132 +23,244 @@
                             <i class="ms-Icon ms-Icon--List"></i>
                         </li>
                         <li class="ms-ContextualMenu-item">
-                            <a class="ms-ContextualMenu-link " tabindex="1">Плитка</a>
+                            <a class="ms-ContextualMenu-link " tabindex="1">White board</a>
                             <i class="ms-Icon ms-Icon--Tiles"></i>
                         </li>
                     </ul>
                 </div>
-                <div class="ms-CommandButton ms-CommandButton--noLabel ms-PanelExample">
-                    <button class="ms-CommandButton-button">
-                        <span class="ms-CommandButton-icon "><i class="ms-Icon ms-Icon--Filter"></i></span><span class="ms-CommandButton-label"></span>
-                    </button>
-                    <div class="ms-Panel">
-                        <button class="ms-Panel-closeButton ms-PanelAction-close">
-                            <i class="ms-Panel-closeIcon ms-Icon ms-Icon--Cancel"></i>
-                        </button>
-                        <div class="ms-Panel-contentInner">
-                            <p class="ms-Panel-headerText">Panel</p>
-                            <div class="ms-Panel-content">
-                                <a class="ms-ContextualMenu-link " tabindex="1">Элементы</a>
-                                <a class="ms-ContextualMenu-link " tabindex="1">Избранное</a>
-                                <a class="ms-ContextualMenu-link" tabindex="1">Корзина</a>
-                                <a class="ms-ContextualMenu-link  is-disabled " tabindex="1">Файлы</a>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
             </div>
             <div class="ms-CommandBar-mainArea">
-                <div class="ms-SearchBox  ms-SearchBox--commandBar">
-                    <input class="ms-SearchBox-field" type="text" value="">
-                    <label class="ms-SearchBox-label">
-                        <i class="ms-SearchBox-icon ms-Icon ms-Icon--Search"></i>
-                        <span class="ms-SearchBox-text">Search</span>
-                    </label>
-                    <div class="ms-CommandButton ms-SearchBox-clear ms-CommandButton--noLabel  ">
-                        <button class="ms-CommandButton-button">
-                            <span class="ms-CommandButton-icon "><i class="ms-Icon ms-Icon--Cancel"></i></span><span class="ms-CommandButton-label"></span>
-                        </button>
-                    </div>
-                    <div class="ms-CommandButton ms-SearchBox-exit ms-CommandButton--noLabel  ">
-                        <button class="ms-CommandButton-button">
-                            <span class="ms-CommandButton-icon "><i class="ms-Icon ms-Icon--ChromeBack"></i></span><span class="ms-CommandButton-label"></span>
-                        </button>
-                    </div>
-                    <div class="ms-CommandButton ms-SearchBox-filter ms-CommandButton--noLabel  ">
-                        <button class="ms-CommandButton-button">
-                            <span class="ms-CommandButton-icon "><i class="ms-Icon ms-Icon--Filter"></i></span><span class="ms-CommandButton-label"></span>
-                        </button>
-                    </div>
-                </div>
-
                 <div class="ms-CommandButton">
-                    <button class="ms-Button ms-Button--hero"><span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--CirclePlus"></i></span><span class="ms-CommandButton-label">Создать</span></button>
+                    <button class="ms-CommandButton-button">
+                        <span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--CirclePlus"></i></span><span class="ms-CommandButton-label">Создать</span><span class="ms-CommandButton-dropdownIcon"><i class="ms-Icon ms-Icon--ChevronDown"></i></span>
+                    </button>
+                    <ul class="ms-ContextualMenu is-opened ms-ContextualMenu--hasIcons" style="width: 100px;">
+                        <li class="ms-ContextualMenu-item">
+                            <a class="ms-ContextualMenu-link " tabindex="1">Элемент</a>
+                            <i class="ms-Icon ms-Icon--List"></i>
+                        </li>
+                        <li class="ms-ContextualMenu-item">
+                            <a class="ms-ContextualMenu-link " tabindex="1">Сообщение</a>
+                            <i class="ms-Icon ms-Icon--Tiles"></i>
+                        </li>
+                        <li class="ms-ContextualMenu-item">
+                            <a class="ms-ContextualMenu-link " tabindex="1">Заметка</a>
+                            <i class="ms-Icon ms-Icon--Tiles"></i>
+                        </li>
+                    </ul>
+                </div>
+                <div class="ms-CommandButton">
+                    <button class="ms-CommandButton-button"><span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--Edit"></i></span><span class="ms-CommandButton-label">Изменить</span></button>
+                </div>
+                <div class="ms-CommandButton">
+                    <button class="ms-CommandButton-button"><span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--Delete"></i></span><span class="ms-CommandButton-label">Удалить</span></button>
+                </div>
+                <div class="ms-CommandButton">
+                    <button class="ms-CommandButton-button">
+                        <span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--Filter"></i></span>
+                        <span class="ms-CommandButton-label">Отбор</span>
+                        <span class="ms-CommandButton-dropdownIcon"><i class="ms-Icon ms-Icon--ChevronDown"></i></span>
+                    </button>
+                    <ul class="ms-ContextualMenu is-opened ms-ContextualMenu--hasIcons" style="width: 100px;">
+                        <li class="ms-ContextualMenu-item">
+                            <a class="ms-ContextualMenu-link " tabindex="1">Фильтр 1</a>
+                            <i class="ms-Icon ms-Icon--List"></i>
+                        </li>
+                        <li class="ms-ContextualMenu-item">
+                            <a class="ms-ContextualMenu-link " tabindex="1">Фильтр 2</a>
+                            <i class="ms-Icon ms-Icon--Tiles"></i>
+                        </li>
+                    </ul>
+                </div>
+                <div class="ms-CommandButton">
+                    <button class="ms-CommandButton-button">
+                        <span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--People"></i></span>
+                        <span class="ms-CommandButton-label">Пользователи</span>
+                        <span class="ms-CommandButton-dropdownIcon"><i class="ms-Icon ms-Icon--ChevronDown"></i></span>
+                    </button>
+                    <ul class="ms-ContextualMenu is-opened ms-ContextualMenu--hasIcons" style="width: 100px;">
+                        <li class="ms-ContextualMenu-item">
+                            <a class="ms-ContextualMenu-link " tabindex="1">Добавить</a>
+                            <i class="ms-Icon ms-Icon--CirclePlus"></i>
+                        </li>
+                        <li class="ms-ContextualMenu-item">
+                            <a class="ms-ContextualMenu-link " tabindex="1">Участники</a>
+                            <i class="ms-Icon ms-Icon--List"></i>
+                        </li>
+                    </ul>
+                </div>
+                <div class="ms-CommandButton ms-CommandBar-overflowButton ms-CommandButton--noLabel  ">
+                    <button class="ms-CommandButton-button">
+                        <span class="ms-CommandButton-icon "><i class="ms-Icon ms-Icon--More"></i></span><span class="ms-CommandButton-label"></span></button>
+
+                    <ul class="ms-ContextualMenu  is-opened ms-ContextualMenu--hasIcons">
+                        <li class="ms-ContextualMenu-item ">
+                            <a class="ms-ContextualMenu-link " tabindex="1">Folder</a>
+                            <i class="ms-Icon ms-Icon--Folder "></i>
+                        </li>
+                        <li class="ms-ContextualMenu-item ms-ContextualMenu-item--divider"></li>
+                        <li class="ms-ContextualMenu-item ">
+                            <a class="ms-ContextualMenu-link " tabindex="1">Plain Text Document</a>
+                            <i class="ms-Icon ms-Icon--Page "></i>
+                        </li>
+                        <li class="ms-ContextualMenu-item ">
+                            <a class="ms-ContextualMenu-link " tabindex="1">A Coffee</a>
+                            <i class="ms-Icon ms-Icon--Coffee "></i>
+                        </li>
+                        <li class="ms-ContextualMenu-item ">
+                            <a class="ms-ContextualMenu-link " tabindex="1">Picture</a>
+                            <i class="ms-Icon ms-Icon--Picture "></i>
+                        </li>
+                        <li class="ms-ContextualMenu-item ">
+                            <a class="ms-ContextualMenu-link " tabindex="1">Money</a>
+                            <i class="ms-Icon ms-Icon--Money "></i>
+                        </li>
+                    </ul>
                 </div>
             </div>
         </div>
 
         <main>
+            <h1 class="ms-font-xxl">Элементы: Название элемента №1</h1>
             <div class="ms-Grid">
                 <div class="ms-Grid-row">
                     <div class="ms-Grid-col ms-u-sm12">
-                        <h1 class="ms-font-xxl">Элементы</h1>
-                        <div class="ms-Grid-row">
-                            <ul class="ms-List">
-
-                                <my-app></my-app>
-
+                        <div class="ms-Breadcrumb ">
+                            <div class="ms-Breadcrumb-overflow">
+                                <div class="ms-Breadcrumb-overflowButton ms-Icon ms-Icon--More" tabindex="1"></div>
+                                <div class="ms-Breadcrumb-overflowMenu">
+                                    <ul class="ms-ContextualMenu is-open"></ul>
+                                </div>
+                            </div>
+                            <ul class="ms-Breadcrumb-list">
+                                <li class="ms-Breadcrumb-listItem">
+                                    <a class="ms-Breadcrumb-itemLink" tabindex="0">Главная</a>
+                                    <i class="ms-Breadcrumb-chevron ms-Icon ms-Icon--ChevronRight"></i>
+                                </li>
+                                <li class="ms-Breadcrumb-listItem">
+                                    <a class="ms-Breadcrumb-itemLink" tabindex="0">Имя элемента</a>
+                                    <i class="ms-Breadcrumb-chevron ms-Icon ms-Icon--ChevronRight"></i>
+                                </li>
+                                <li class="ms-Breadcrumb-listItem">
+                                    <a class="ms-Breadcrumb-itemLink" tabindex="0">Имя элемента</a>
+                                    <i class="ms-Breadcrumb-chevron ms-Icon ms-Icon--ChevronRight"></i>
+                                </li>
                             </ul>
+                        </div>
+                        <div class="ms-Grid-row">
+                            <div class="ms-List">
+                                <div class="ms-List-item ms-Grid-col ms-u-sm12 ms-u-xl6">
+                                    <h1 class="ms-font-xxl">Сообщения</h1>
+                                    <ul class="ms-List">
+                                        <li class="ms-List-item m-b-1 rrr1">
+                                            <div class="ms-ListItem">
+                                                <span class="ms-ListItem-primaryText">Cообщение</span>
+                                            </div>
+                                        </li>
+                                        <li class="ms-List-item m-b-1 rrr2">
+                                            <div class="ms-ListItem">
+                                                <span class="ms-ListItem-primaryText">Cообщение</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                                <div class="ms-List-item ms-Grid-col ms-u-sm12 ms-u-xl6">
+                                    <h1 class="ms-font-xxl">Заметки</h1>
+                                    <ul class="ms-List">
+                                        <li class="ms-List-item m-b-1 rrr3">
+                                            <div class="ms-ListItem">
+                                                <span class="ms-ListItem-primaryText">Заметка 1</span>
+                                                <span class="ms-ListItem-tertiaryText">Today we discussed the importance of a, b, and c in regards to d.</span>
+                                            </div>
+                                        </li>
+                                        <li class="ms-List-item m-b-1 rrr3">
+                                            <div class="ms-ListItem">
+                                                <span class="ms-ListItem-primaryText">Заметка 2</span>
+                                                <span class="ms-ListItem-tertiaryText">Today we discussed the importance of a, b, and c in regards to d.</span>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+            <div class="ms-u-clearfix"></div>
         </main>
+    </div>
 
-
-    <div class="ms-Dialog">
-        <div class="ms-Dialog-title">Новый элемент</div>
-        <div class="ms-Dialog-content">
-            <p class="ms-Dialog-subText">Тип элемента влияет на функциональность элемента.</p>
-
-            <div class="ms-MessageBar ms-MessageBar--error">
-                <div class="ms-MessageBar-content">
-                    <div class="ms-MessageBar-icon">
-                        <i class="ms-Icon ms-Icon--xCircle"></i>
-                    </div>
-                    <div class="ms-MessageBar-text">
-                        {% verbatim %}
-                        {{ errorMessage }}<br>
-                        {% endverbatim %}
-                    </div>
+  <footer-elements>
+    <div class="ms-Grid">
+      <div class="ms-Grid-row">
+        <div class="ms-Grid-col ms-u-sm12">
+          <h1 class="ms-font-xxl">Элементы</h1>
+          <div class="ms-Grid-row">
+            <ul class="ms-List">
+              <li class="ms-List-item ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-xl4 m-b-1">
+                <div class="ms-ListItem is-unread">
+                  <span class="ms-ListItem-primaryText">Заголовок</span>
+                  <span class="ms-ListItem-secondaryText">Автор</span>
+                  <span class="ms-ListItem-tertiaryText">Today we discussed the importance of a, b, and c in regards to d.</span>
+                  <span class="ms-ListItem-metaText">2:42p</span>
+                  <div class="ms-ListItem-selectionTarget"></div>
+                  <div class="ms-ListItem-actions">
+                    <div class="ms-ListItem-action"><i class="ms-Icon ms-Icon--attachment"></i></div>
+                    <div class="ms-ListItem-action"><i class="ms-Icon ms-Icon--x"></i></div>
+                    <div class="ms-ListItem-action"><i class="ms-Icon ms-Icon--flag"></i></div>
+                  </div>
                 </div>
-            </div>
-
-            <div class="ms-TextField is-required">
-                <label class="ms-Label">Название</label>
-                <input class="ms-TextField-field" type="text" >
-            </div>
-
-            <div class="ms-TextField ms-Dropdown is-required" tabindex="0">
-                <label class="ms-Label">Тип</label>
-                <i class="ms-Dropdown-caretDown ms-Icon ms-Icon--ChevronDown"></i>
-                <select class="ms-Dropdown-select">
-                    <option value="W">Workflow</option>
-                    <option value="K">Wiki</option>
-                    <option value="H">White board</option>
-                </select>
-
-            </div>
-
-            <div class="ms-TextField ms-TextField--multiline is-required">
-                <label class="ms-Label">Описание</label>
-                <textarea class="ms-TextField-field" type="text"></textarea>
-            </div>
+              </li>
+              <li class="ms-List-item ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-xl4 m-b-1">
+                <div class="ms-ListItem is-unread">
+                  <span class="ms-ListItem-primaryText">Заголовок</span>
+                  <span class="ms-ListItem-secondaryText">Автор</span>
+                  <span class="ms-ListItem-tertiaryText">Today we discussed the importance of a, b, and c in regards to d.</span>
+                  <span class="ms-ListItem-metaText">2:42p</span>
+                  <div class="ms-ListItem-selectionTarget"></div>
+                  <div class="ms-ListItem-actions">
+                    <div class="ms-ListItem-action"><i class="ms-Icon ms-Icon--attachment"></i></div>
+                    <div class="ms-ListItem-action"><i class="ms-Icon ms-Icon--x"></i></div>
+                    <div class="ms-ListItem-action"><i class="ms-Icon ms-Icon--flag"></i></div>
+                  </div>
+                </div>
+              </li>
+              <li class="ms-List-item ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-xl4 m-b-1">
+                <div class="ms-ListItem is-unread">
+                  <span class="ms-ListItem-primaryText">Заголовок</span>
+                  <span class="ms-ListItem-secondaryText">Автор</span>
+                  <span class="ms-ListItem-tertiaryText">Today we discussed the importance of a, b, and c in regards to d.</span>
+                  <span class="ms-ListItem-metaText">2:42p</span>
+                  <div class="ms-ListItem-selectionTarget"></div>
+                  <div class="ms-ListItem-actions">
+                    <div class="ms-ListItem-action"><i class="ms-Icon ms-Icon--attachment"></i></div>
+                    <div class="ms-ListItem-action"><i class="ms-Icon ms-Icon--x"></i></div>
+                    <div class="ms-ListItem-action"><i class="ms-Icon ms-Icon--flag"></i></div>
+                  </div>
+                </div>
+              </li>
+              <li class="ms-List-item ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-xl4 m-b-1">
+                <div class="ms-ListItem is-unread">
+                  <span class="ms-ListItem-primaryText">Заголовок</span>
+                  <span class="ms-ListItem-secondaryText">Автор</span>
+                  <span class="ms-ListItem-tertiaryText">Today we discussed the importance of a, b, and c in regards to d.</span>
+                  <span class="ms-ListItem-metaText">2:42p</span>
+                  <div class="ms-ListItem-selectionTarget"></div>
+                  <div class="ms-ListItem-actions">
+                    <div class="ms-ListItem-action"><i class="ms-Icon ms-Icon--attachment"></i></div>
+                    <div class="ms-ListItem-action"><i class="ms-Icon ms-Icon--x"></i></div>
+                    <div class="ms-ListItem-action"><i class="ms-Icon ms-Icon--flag"></i></div>
+                  </div>
+                </div>
+              </li>
+            </ul>
+          </div>
         </div>
-        <div class="ms-Dialog-actions">
-            <button class="ms-Button  ms-Button--primary">
-                <span class="ms-Button-label">Сохранить</span>
-            </button>
-
-            <button class="ms-Button ms-Dialog-action">
-                <span class="ms-Button-label">Отмена</span>
-            </button>
-        </div>
-
-
+      </div>
     </div>
-
-    </div>
+  </footer-elements>
 
 {% endblock %}
 

@@ -9,96 +9,10 @@
             {% nav_bar %}
         </header>
 
-        <my-app></my-app>
-
         <main>
-            <div class="ms-Grid">
-                <div class="ms-Grid-row">
-                    <div class="ms-Grid-col ms-u-sm12">
-                        <h1 class="ms-font-xxl">Элементы</h1>
-                        <div class="ms-Grid-row">
-                            <ul class="ms-List">
-
-                                <elements-list></elements-list>
-
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-
-
-                <div class="ms-Grid-row">
-                    <div class="ms-Grid-col ms-u-sm12">
-                        <h1 class="ms-font-xxl">Избранное</h1>
-                        <div class="ms-Grid-row">
-                            <ul class="ms-List">
-
-                                <elements-list></elements-list>
-
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-            </div>
+            <my-app></my-app>
         </main>
 
-
-    <div class="ms-Dialog">
-        <div class="ms-Dialog-title">Новый элемент</div>
-        <div class="ms-Dialog-content">
-            <p class="ms-Dialog-subText">Тип элемента влияет на функциональность элемента.</p>
-
-            <div class="ms-MessageBar ms-MessageBar--error">
-                <div class="ms-MessageBar-content">
-                    <div class="ms-MessageBar-icon">
-                        <i class="ms-Icon ms-Icon--xCircle"></i>
-                    </div>
-                    <div class="ms-MessageBar-text">
-                        {% verbatim %}
-                        {{ errorMessage }}<br>
-                        {% endverbatim %}
-                    </div>
-                </div>
-            </div>
-
-            <div class="ms-TextField is-required">
-                <label class="ms-Label">Название</label>
-                <input class="ms-TextField-field" type="text">
-            </div>
-
-            <div class="ms-TextField ms-Dropdown is-required" tabindex="0">
-                <label class="ms-Label">Тип</label>
-                <i class="ms-Dropdown-caretDown ms-Icon ms-Icon--ChevronDown"></i>
-                <select class="ms-Dropdown-select">
-{#                    {% verbatim %}#}
-{#                    <option ng-repeat="option in hubTypes.availableTypes" value="{{option.id}}">{{option.name}}</option>#}
-{#                    {% endverbatim %}#}
-                    <option value="W">Workflow</option>
-                    <option value="K">Wiki</option>
-                    <option value="H">White board</option>
-                </select>
-
-            </div>
-
-            <div class="ms-TextField ms-TextField--multiline is-required">
-                <label class="ms-Label">Описание</label>
-                <textarea class="ms-TextField-field" type="text"></textarea>
-            </div>
-        </div>
-        <div class="ms-Dialog-actions">
-            <button class="ms-Button  ms-Button--primary">
-                <span class="ms-Button-label">Сохранить</span>
-            </button>
-
-            <button class="ms-Button ms-Dialog-action">
-                <span class="ms-Button-label">Отмена</span>
-            </button>
-        </div>
-
-
-    </div>
 
     </div>
 

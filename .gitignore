@@ -42,3 +42,5 @@ static/app/main.js
 static/app/main.js.map
 static/typings/
 static/node_modules/
+static/app/add-element-dialog.component.js
+static/app/add-element-dialog.component.js.map

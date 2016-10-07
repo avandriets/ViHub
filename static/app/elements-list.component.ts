@@ -4,7 +4,7 @@ import { ElementsService } from './elements.service';
 
 @Component({
     selector: 'elements-list',
-    templateUrl: 'static/app/element.component.html',
+    templateUrl: '/static/app/elements-list.component.html',
 })
 export class ElementsListComponent implements OnInit{
 

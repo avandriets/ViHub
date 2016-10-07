@@ -7,10 +7,7 @@ import { Component } from '@angular/core';
 @Component({
   moduleId: module.id,
   selector: 'my-app',
-  template: '<command-bar></command-bar> ' +
-  '<elements-list></elements-list>'
-     +
-  '<elements-list></elements-list>'
+  templateUrl: './app.component.html'
 })
 export class AppComponent {
 }
