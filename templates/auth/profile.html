@@ -12,7 +12,7 @@
         <main>
             <div class="ms-Grid">
                 <div class="ms-Grid-row">
-                    <div class="ms-Grid-col ms-u-sm12">
+                    <div class="ms-Grid-col ms-u-sm12 ms-u-mdOffset1 ms-u-md10 ms-u-lgOffset3 ms-u-lg6">
                         <h1 class="ms-font-xxl">Изменение профиля</h1>
 
                         <form action="" method="post">{% csrf_token %}
@@ -76,8 +76,9 @@
                             </div>
                         </div>
                     {% endif %}
-
-                    <input type="submit" value="Сохранить" class="ms-Button ms-Button--primary"/>
+                    <p>
+                        <button type="submit" class="ms-Button ms-Button--primary"><span class="ms-Button-label">Сохранить</span></button>
+                    </p>
                 </form>
                     </div>
                 </div>
