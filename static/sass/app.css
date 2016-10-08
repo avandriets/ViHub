@@ -4,10 +4,6 @@
 body {
   min-width: 320px; }
 
-.login-page {
-  background: blue;
-  height: 100%; }
-
 .ms-CommandBar.ms-CommandBar--navBar {
   background-color: #767676;
   height: 50px; }
@@ -31,5 +27,21 @@ body {
 
 .m-b-1 {
   margin-bottom: 16px !important; }
+
+.login-page {
+  background-image: url("https://secure.aadcdn.microsoftonline-p.com/ests/2.1.4856.17/content/images/default_signin_illustration.png");
+  background-position: bottom left;
+  background-size: auto 100%; }
+
+.login-page-block {
+  min-height: 100vh; }
+  .login-page-block > div {
+    max-width: 400px;
+    padding: 0 20px 0;
+    margin: 0 auto;
+    box-sizing: border-box; }
+
+.ms-Card {
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4); }
 
 /*# sourceMappingURL=app.css.map */

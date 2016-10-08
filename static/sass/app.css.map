@@ -1,7 +1,7 @@
 {
 "version": 3,
-"mappings": "AAuBA;;EAEE;ACtBF,IAAI;EACF,SAAS,EAAE,KAAK;;AAElB,WAAW;EACT,UAAU,EAAE,IAAI;EAChB,MAAM,EAAE,IAAI;;AAYZ,oCAAuB;EACrB,gBAAgB,EC4DS,OAA6B;ED3DtD,MAAM,EAJiB,IAAI;EAK3B,6DAAwB;IACtB,MAAM,EANe,IAAI;IAOvB,WAAW,EAPQ,IAAI;IAQzB,SAAS,EARY,IAAI;IASzB,KAAK,ECSsB,OAAO;IDRlC,mEAAQ;MACN,KAAK,ECOoB,OAAO;MDNhC,UAAU,ECAe,OAAO;IDElC,qFAAuB;MACrB,KAAK,ECGoB,OAAO;IDDlC,mFAAqB;MACnB,GAAG,EAAE,GAAG;MACR,IAAI,EAAE,GAAG;EAIX,kFAAiB;IACf,WAAW,EAAE,iBAAyB;AAI5C,oDAAmC;EACjC,WAAW,EAAE,CAAC;;AAkClB,MAAM;EACJ,aAAa,EAAE,eAAe",
-"sources": ["../office-ui-fabric-js-1.0.0/node_modules/office-ui-fabric-core/src/sass/_Fabric.Typography.Fonts.scss","app.scss","../office-ui-fabric-js-1.0.0/node_modules/office-ui-fabric-core/src/sass/_Fabric.Color.Variables.scss"],
+"mappings": "AAuBA;;EAEE;ACtBF,IAAI;EACF,SAAS,EAAE,KAAK;;AAYhB,oCAAuB;EACrB,gBAAgB,ECgES,OAA6B;ED/DtD,MAAM,EAJiB,IAAI;EAK3B,6DAAwB;IACtB,MAAM,EANe,IAAI;IAOvB,WAAW,EAPQ,IAAI;IAQzB,SAAS,EARY,IAAI;IASzB,KAAK,ECasB,OAAO;IDZlC,mEAAQ;MACN,KAAK,ECWoB,OAAO;MDVhC,UAAU,ECIe,OAAO;IDFlC,qFAAuB;MACrB,KAAK,ECOoB,OAAO;IDLlC,mFAAqB;MACnB,GAAG,EAAE,GAAG;MACR,IAAI,EAAE,GAAG;EAIX,kFAAiB;IACf,WAAW,EAAE,iBAAyB;AAI5C,oDAAmC;EACjC,WAAW,EAAE,CAAC;;AAkClB,MAAM;EACJ,aAAa,EAAE,eAAe;;AAKhC,WAAW;EACT,gBAAgB,EAAE,kHAAkH;EACpI,mBAAmB,EAAE,WAAW;EAChC,eAAe,EAAE,SAAS;;AAE5B,iBAAiB;EACf,UAAU,EAAE,KAAK;EACjB,uBAAM;IACJ,SAAS,EAAE,KAAK;IAChB,OAAO,EAAE,QAAQ;IACjB,MAAM,EAAE,MAAM;IACd,UAAU,EAAE,UAAU;;AAK1B,QAAS;EEnFP,UAAU,EAAE,4BAAsE",
+"sources": ["../node_modules/office-ui-fabric-core/src/sass/_Fabric.Typography.Fonts.scss","app.scss","../node_modules/office-ui-fabric-core/src/sass/_Fabric.Color.Variables.scss","../node_modules/office-ui-fabric-core/src/sass/_Fabric.Mixins.scss"],
 "names": [],
 "file": "app.css"
 }

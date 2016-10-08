@@ -3,54 +3,58 @@
 
 {% block content %}
 <div class="login-page">
-
-<div class="ms-Grid">
+    <div class="ms-Grid">
     <div class="ms-Grid-row">
-        <div class="ms-Grid-col ms-u-md6 ms-u-lg7"></div>
-        <div class="ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-lg5">
+        <div class="ms-Grid-col ms-u-sm12 ms-u-lgOffset6 ms-u-lg6 ms-u-xlOffset8 ms-u-xl4 ms-bgColor-white login-page-block">
+            <div>
+                <h1 class="ms-font-su">{% site_name_simple_tag %}</h1>
+                <form action="" method="post">{% csrf_token %}
 
-        <h1 class="ms-font-su ">{% site_name_simple_tag %}</h1>
-            <form action="" method="post">{% csrf_token %}
+                    <div class="ms-TextField">
+                        <label class="ms-Label ms-fontSize-m">E-mail</label>
+                        {#                    <input class="ms-TextField-field">#}
+                        {{ form.email }}
+                    </div>
 
-                <div class="ms-TextField">
-                    <label class="ms-Label ms-fontSize-m">E-mail</label>
-{#                    <input class="ms-TextField-field">#}
-                    {{ form.email }}
-                </div>
+                    <div class="ms-TextField">
+                        <label class="ms-Label ms-fontSize-m">Пароль</label>
+                        {#                    <input class="ms-TextField-field">#}
+                        {{ form.password }}
+                    </div>
 
-                <div class="ms-TextField">
-                    <label class="ms-Label ms-fontSize-m">Пароль</label>
-{#                    <input class="ms-TextField-field">#}
-                    {{ form.password }}
-                </div>
-
-                {% if form.errors %}
-                    <br>
-                    <div class="ms-MessageBar ms-MessageBar--error">
-                        <div class="ms-MessageBar-content">
-                            <div class="ms-MessageBar-icon">
-                                <i class="ms-Icon ms-Icon--xCircle"></i>
-                            </div>
-                            <div class="ms-MessageBar-text">
-                                <p>Пожалуйста введите правильное имя пользователя и пароль.</p>
+                    {% if form.errors %}
+                        <br>
+                        <div class="ms-MessageBar ms-MessageBar--error">
+                            <div class="ms-MessageBar-content">
+                                <div class="ms-MessageBar-icon">
+                                    <i class="ms-Icon ms-Icon--xCircle"></i>
+                                </div>
+                                <div class="ms-MessageBar-text">
+                                    <p>Пожалуйста введите правильное имя пользователя и пароль.</p>
+                                </div>
                             </div>
                         </div>
-                    </div>
-                {% endif %}
+                    {% endif %}
+<!--
+                    <input type="submit" value="Вход" class="ms-Button ms-Button--primary "/>
+-->                 <p>
+                        <button type="submit" class="ms-Button ms-Button--primary"><span class="ms-Button-label">Вход</span></button>
+                    </p>
 
-            <input type="submit" value="Вход" class="ms-Button ms-Button--primary "/>
 
-            </form>
-            <br>
-            <p class="ms-fontSize-mPlus">Войти используя учетную запись Office365.</p>
-            <button class="ms-Button ms-Button--primary" onclick="window.location.href='{{ sign_in_url }}'">
-                <span class="ms-Button-label">office365</span>
-            </button>
+                </form>
+                <p class="ms-fontSize-mPlus">Войти используя учетную запись Office365.</p>
+                <div class="ms-CommandButton">
+                  <button class="ms-CommandButton-button" onclick="window.location.href='{{ sign_in_url }}'">
+                    <span class="ms-CommandButton-icon ms-fontColor-red"><i class="ms-Icon ms-Icon--OfficeLogo"></i></span><span class="ms-CommandButton-label">Office365</span>
+                  </button>
+                </div>
+                <p>
+                    <a class="ms-Link" href="{% url 'connect:register' %}">Регистрация нового пользователя</a>
+                </p>
 
-            <br>
-        <br>
-            <a class="ms-fontSize-mPlus" href="{% url 'connect:register' %}">Регистрация нового пользователя</a>
 
+            </div>
         </div>
     </div>
 </div>
