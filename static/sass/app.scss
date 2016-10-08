@@ -5,6 +5,9 @@ body{
   min-width: 320px;
 }
 // Breadcrumb';
+.ms-Breadcrumb{
+  margin: 5px 0 1px;
+}
 // Button';
 // Callout';
 // CheckBox';
@@ -95,7 +98,6 @@ $CommandBar-navBar-height: 50px;
     box-sizing: border-box;
   }
 }
-
 
 .ms-Card {
   @include drop-shadow;

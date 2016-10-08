@@ -4,6 +4,9 @@
 body {
   min-width: 320px; }
 
+.ms-Breadcrumb {
+  margin: 5px 0 1px; }
+
 .ms-CommandBar.ms-CommandBar--navBar {
   background-color: #767676;
   height: 50px; }
