@@ -5,6 +5,7 @@ import {Component, ViewChild, Input} from '@angular/core';
 import {AfterViewInit} from '@angular/core';
 import {AddElementDialogComponent} from './add-element-dialog.component'
 import { WindowRef } from './WindowRef';
+import {ElementsService} from './elements.service';
 
 @Component({
     selector: 'command-bar',
@@ -13,16 +14,20 @@ import { WindowRef } from './WindowRef';
 
 export class CommandBarComponent implements AfterViewInit {
 
-    @Input('title') myTitle:string;
-    window_fabric: any;
-
     @ViewChild(AddElementDialogComponent) addDialog: AddElementDialogComponent
 
-    constructor( private winRef: WindowRef) {}
+    constructor(private elementService: ElementsService, private winRef: WindowRef) {}
 
     onClickShowDialog(): void {
-        console.log('Add hub click');
         this.addDialog.openDialog();
+    }
+
+    onCardViewClick() :void{
+        this.elementService.cardView = true;
+    }
+
+    onTableViewClick() :void{
+        this.elementService.cardView = false;
     }
 
     onClickShowPanel() : void{
@@ -48,8 +53,6 @@ export class CommandBarComponent implements AfterViewInit {
     }
 
     ngAfterViewInit(): void {
-
-        //this.window_fabric = window.fabric;
 
         var CommandButtonElements = document.querySelectorAll(".ms-CommandButton");
         for (var i = 0; i < CommandButtonElements.length; i++) {

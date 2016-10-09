@@ -27,7 +27,6 @@ export class ElementDetailComponent implements OnInit {
     constructor(private elementService: ElementsService,
                 private route: ActivatedRoute,
                 private location: Location) {
-        console.log(' !!! ');
     }
 
     ngOnInit(): void {

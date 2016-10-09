@@ -8,7 +8,6 @@ import { Router } from '@angular/router';
     templateUrl: '/static/app/elements-list.component.html',
 })
 export class ElementsListComponent implements OnInit {
-
     error: any;
 
     constructor(private elementService: ElementsService, private router: Router,) {
