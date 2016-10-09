@@ -44,3 +44,11 @@ static/typings/
 static/node_modules/
 static/app/add-element-dialog.component.js
 static/app/add-element-dialog.component.js.map
+static/app/WindowRef.js
+static/app/WindowRef.js.map
+static/app/app.routing.js
+static/app/app.routing.js.map
+static/app/dashboard.component.js
+static/app/dashboard.component.js.map
+static/app/element-detail.component.js
+static/app/element-detail.component.js.map

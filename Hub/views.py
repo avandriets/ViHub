@@ -1,10 +1,11 @@
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
 from django.urls import reverse
-from Hub.models import Element, Members, Favorite
+from rest_framework import viewsets
+
+from Hub.models import Element, Members
 from Hub.serializers import ElementSerializer, MembersSerializer, FavoriteSerializer
 from connect.auth_helper import get_signout_url
-from rest_framework import viewsets
 
 
 @login_required

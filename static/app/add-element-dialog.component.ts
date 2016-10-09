@@ -1,6 +1,7 @@
 import {Component, Input} from '@angular/core';
 import { OnInit } from '@angular/core';
 import { ElementsService } from './elements.service';
+import { WindowRef } from './WindowRef';
 
 
 @Component({
@@ -14,7 +15,6 @@ export class AddElementDialogComponent implements OnInit{
     errorMessage: string;
 
     add_dialog:any;
-    window_fabric: any;
 
     name:string;
     description:string;
@@ -22,7 +22,7 @@ export class AddElementDialogComponent implements OnInit{
 
     modelTypes: any;
 
-    constructor( private elementService: ElementsService) {
+    constructor( private elementService: ElementsService, private winRef: WindowRef) {
         this.name = '';
         this.description = '';
         this.modelTypes = [{id: 'W', name: 'Workflow'},
@@ -76,9 +76,8 @@ export class AddElementDialogComponent implements OnInit{
     }
 
     ngOnInit(): void {
-        this.window_fabric = window.fabric;
 
         let dialog =  document.querySelector(".th-body").querySelector(".ms-Dialog");
-        this.add_dialog = new this.window_fabric['Dialog'](dialog);
+        this.add_dialog = new this.winRef.nativeWindow.fabric['Dialog'](dialog);
     }
 }

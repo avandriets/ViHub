@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {OnInit} from '@angular/core';
 import {ElementsService} from './elements.service';
+import { Router } from '@angular/router';
 
 @Component({
     selector: 'elements-list',
@@ -10,7 +11,7 @@ export class ElementsListComponent implements OnInit {
 
     error: any;
 
-    constructor(private elementService: ElementsService) {
+    constructor(private elementService: ElementsService, private router: Router,) {
     }
 
     ngOnInit(): void {
@@ -20,7 +21,10 @@ export class ElementsListComponent implements OnInit {
     private getElements() {
         this.elementService.getElements().then((elements) => {
             }
-        )
-            .catch(error => this.error = error);
+        ).catch(error => this.error = error);
+    }
+
+    gotoDetail(element: Element): void {
+        this.router.navigate(['/element', element.id]);
     }
 }

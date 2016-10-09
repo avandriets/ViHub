@@ -17,6 +17,20 @@ export class ElementsService {
     constructor(private http: Http) {
     }
 
+    getElementById(id:number) :Promise<Element>{
+
+        const url = `${this.elementsUrl}${id}/`;
+
+        return this.http
+            .get(url)
+            .toPromise()
+            .then((response) => {
+                let element = response.json() as Element;
+                return element;
+            })
+            .catch(this.handleError);
+    }
+
     getElements(): Promise<Element[]> {
 
         return this.http

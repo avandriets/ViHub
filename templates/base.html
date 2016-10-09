@@ -2,30 +2,28 @@
 {% load staticfiles %}
 
 <!doctype html>
-<html lang="en" ng-app="ViHubApp">
+<html lang="en">
 <head>
-  <meta charset="utf-8">
-  <title>{% site_name_simple_tag %}</title>
+    <base href="/">
+    <meta charset="utf-8">
+    <title>{% site_name_simple_tag %}</title>
     <link rel="stylesheet" href="{% static 'css/normalize.css' %}">
-
-    <link rel="stylesheet" href="{% static 'node_modules/office-ui-fabric-js/dist/css/fabric.min.css'%}">
-    <link rel="stylesheet" href="{% static 'node_modules/office-ui-fabric-js/dist/css/fabric.components.min.css'%}">
-
-
-    <link rel="stylesheet" href="{% static 'sass/app.css'%}">
+    <link rel="stylesheet" href="{% static 'node_modules/office-ui-fabric-js/dist/css/fabric.min.css' %}">
+    <link rel="stylesheet" href="{% static 'node_modules/office-ui-fabric-js/dist/css/fabric.components.min.css' %}">
+    <link rel="stylesheet" href="{% static 'sass/app.css' %}">
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 
-    <script src="{% static 'node_modules/office-ui-fabric-js/dist/js/fabric.js'%}"></script>
-    <script src="{% static 'node_modules/office-ui-fabric-js/dist/js/fabric.templates.js'%}"></script>
-    <script src="{% static 'node_modules/office-ui-fabric-js/dist/lib/pickadate.js'%}"></script>
+    <script src="{% static 'node_modules/office-ui-fabric-js/dist/js/fabric.js' %}"></script>
+    <script src="{% static 'node_modules/office-ui-fabric-js/dist/js/fabric.templates.js' %}"></script>
+    <script src="{% static 'node_modules/office-ui-fabric-js/dist/lib/pickadate.js' %}"></script>
 
-    <script src="{% static 'node_modules/core-js/client/shim.min.js'%}"></script>
-    <script src="{% static 'node_modules/zone.js/dist/zone.js'%}"></script>
-    <script src="{% static 'node_modules/reflect-metadata/Reflect.js'%}"></script>
-    <script src="{% static 'node_modules/systemjs/dist/system.src.js'%}"></script>
+    <script src="{% static 'node_modules/core-js/client/shim.min.js' %}"></script>
+    <script src="{% static 'node_modules/zone.js/dist/zone.js' %}"></script>
+    <script src="{% static 'node_modules/reflect-metadata/Reflect.js' %}"></script>
+    <script src="{% static 'node_modules/systemjs/dist/system.src.js' %}"></script>
 
-    <script src="{% static 'systemjs.config.js'%}"></script>
+    <script src="{% static 'systemjs.config.js' %}"></script>
 
     <script>
         System.import('app').catch(function (err) {
