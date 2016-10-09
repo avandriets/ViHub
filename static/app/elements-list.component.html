@@ -1,4 +1,4 @@
-<ul class="ms-List">
+<ul *ngIf="elementService.cardView == true" class="ms-List">
     <li *ngFor="let element of elementService.elementsSet" class="ms-List-item ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-xl4 m-b-1">
         <div class="ms-ListItem is-unread">
 
@@ -11,12 +11,32 @@
 
             <span class="ms-ListItem-secondaryText">{{ element.first_name }} {{ element.last_name }}</span>
             <span class="ms-ListItem-tertiaryText">{{ element.description }}</span>
-            <span class="ms-ListItem-metaText">{{ element.created_at|date:'hh:mm dd.MM.yyyy' }}</span>
+            <span class="ms-ListItem-metaText">{{ element.created_at|date:'hh:mm  dd.MM.yyyy' }}</span>
             <div class="ms-ListItem-selectionTarget"></div>
 
             <div class="ms-ListItem-actions">
-                <div (click)="gotoDetail(element)" class="ms-ListItem-action"><i class="ms-Icon ms-Icon--Flag"></i></div>
+                <div (click)="gotoDetail(element)" class="ms-ListItem-action"><i [ngClass]="{'ms-Icon ms-Icon--Flag': true, 'ms-fontColor-yellow': element.is_favorite}"></i></div>
             </div>
         </div>
     </li>
 </ul>
+
+<table *ngIf="elementService.cardView == false" class="ms-Table ">
+  <thead>
+    <tr>
+        <th>Название</th>
+        <th>Автор</th>
+        <th>Дата</th>
+        <th></th>
+    </tr>
+  </thead>
+  <tbody>
+
+  <tr *ngFor="let element of elementService.elementsSet">
+          <td>{{ element.name }}</td>
+          <td>{{ element.first_name }} {{ element.last_name }}</td>
+          <td>{{ element.created_at|date:'hh:mm  dd.MM.yyyy' }}</td>
+          <td><i [ngClass]="{'ms-Icon ms-Icon--Flag': true, 'ms-fontColor-yellow': element.is_favorite}"></i></td>
+  </tr>
+  </tbody>
+</table>

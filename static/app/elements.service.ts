@@ -13,6 +13,7 @@ export class ElementsService {
     private headers = new Headers({'Content-Type': 'application/json'});
 
     elementsSet: Element[] = [];
+    cardView: boolean = true;
 
     constructor(private http: Http) {
     }
