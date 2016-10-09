@@ -8,6 +8,30 @@ body {
   margin: 5px 0 1px; }
 
 .ms-Card {
+  font-family: "Segoe UI WestEuropean", "Segoe UI", -apple-system, BlinkMacSystemFont, "Roboto", "Helvetica Neue", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -webkit-animation-name: fadeIn, slideUpIn10;
+  -moz-animation-name: fadeIn, slideUpIn10;
+  -ms-animation-name: fadeIn, slideUpIn10;
+  -o-animation-name: fadeIn, slideUpIn10;
+  animation-name: fadeIn, slideUpIn10;
+  -webkit-animation-duration: 0.167s;
+  -moz-animation-duration: 0.167s;
+  -ms-animation-duration: 0.167s;
+  -o-animation-duration: 0.167s;
+  -webkit-animation-timing-function: cubic-bezier(0.1, 0.25, 0.75, 0.9);
+  -moz-animation-timing-function: cubic-bezier(0.1, 0.25, 0.75, 0.9);
+  -ms-animation-timing-function: cubic-bezier(0.1, 0.25, 0.75, 0.9);
+  -o-animation-timing-function: cubic-bezier(0.1, 0.25, 0.75, 0.9);
+  animation-timing-function: cubic-bezier(0.1, 0.25, 0.75, 0.9);
+  -webkit-animation-fill-mode: both;
+  -moz-animation-fill-mode: both;
+  -ms-animation-fill-mode: both;
+  -o-animation-fill-mode: both;
+  animation-fill-mode: both;
+  color: #333333;
+  font-size: 14px;
+  font-weight: 400;
   box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4); }
 
 .ms-Card-header {
