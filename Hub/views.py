@@ -1,9 +1,13 @@
 from django.contrib.auth.decorators import login_required
+from django.db import Error
 from django.shortcuts import render
 from django.urls import reverse
+from rest_framework import status
 from rest_framework import viewsets
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
-from Hub.models import Element, Members
+from Hub.models import Element, Members, Favorite
 from Hub.serializers import ElementSerializer, MembersSerializer, FavoriteSerializer
 from connect.auth_helper import get_signout_url
 
@@ -50,7 +54,7 @@ class FavoriteViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    queryset = Element.objects.all()
+    queryset = Favorite.objects.all()
     serializer_class = FavoriteSerializer
 
 
@@ -78,3 +82,27 @@ def about(request):
         'logoutUrl': get_signout_url(redirect_uri)
     }
     return render(request, 'about_page.html', context)
+
+
+@login_required
+@api_view(['POST'])
+def set_favorite(request, id_obj):
+
+    if request.method == 'POST':
+        try:
+            element = Element.objects.get(id=id_obj)
+        except Element.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        try:
+            favorite_data = Favorite.objects.filter(owner=request.user, element=id_obj)
+            if favorite_data.count() == 0:
+                favorite_obj = Favorite.objects.create(element=element, owner=request.user)
+                favorite_obj.save()
+                return Response({"message": "successfully add to favorite"})
+            else:
+                favorite_data = Favorite.objects.filter(owner=request.user, element=id_obj)
+                favorite_data.delete()
+                return Response({"message": "successfully remove from favorite"})
+        except Error:
+            return Response({"message": "db error"}, status=status.HTTP_404_NOT_FOUND)

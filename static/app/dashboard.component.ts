@@ -18,6 +18,7 @@ export class DashboardComponent implements OnInit {
 
   ngOnInit(): void {
     this.elementService.getElements();
+    this.elementService.getFavorite();
   }
 
   gotoDetail(element: Element): void {

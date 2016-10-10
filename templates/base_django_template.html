@@ -1,4 +1,3 @@
-{% extends "base_django_template.html" %}
 {% load custom_tags %}
 {% load staticfiles %}
 
@@ -19,20 +18,7 @@
     <script src="{% static 'node_modules/office-ui-fabric-js/dist/js/fabric.templates.js' %}"></script>
     <script src="{% static 'node_modules/office-ui-fabric-js/dist/lib/pickadate.js' %}"></script>
 
-    {% block angular_script %}
-    <script src="{% static 'node_modules/core-js/client/shim.min.js' %}"></script>
-    <script src="{% static 'node_modules/zone.js/dist/zone.js' %}"></script>
-    <script src="{% static 'node_modules/reflect-metadata/Reflect.js' %}"></script>
-    <script src="{% static 'node_modules/systemjs/dist/system.src.js' %}"></script>
-
-    <script src="{% static 'systemjs.config.js' %}"></script>
-
-    <script>
-        System.import('app').catch(function (err) {
-            console.error(err);
-        });
-    </script>
-    {% endblock angular_script %}
+    {% block angular_script %}{% endblock %}
 
     {% block heads_script %}{% endblock %}
     {% block heads_style %}{% endblock %}

@@ -1,14 +1,14 @@
 import {Component} from '@angular/core';
 import {OnInit} from '@angular/core';
 import {ElementsService} from './elements.service';
-import {Element} from './element';
 import {Router} from '@angular/router';
+import {Favorite} from './element'
 
 @Component({
-    selector: 'elements-list',
-    templateUrl: '/static/app/elements-list.component.html',
+    selector: 'favorite-list',
+    templateUrl: '/static/app/favorite-list.component.html',
 })
-export class ElementsListComponent implements OnInit {
+export class FavoriteListComponent implements OnInit {
     error: any;
 
     constructor(private elementService: ElementsService, private router: Router,) {
@@ -19,17 +19,18 @@ export class ElementsListComponent implements OnInit {
     }
 
     private getElements() {
-        this.elementService.getElements().then((elements) => {
+        this.elementService.getFavorite().then((elements) => {
             }
         ).catch(error => this.error = error);
     }
 
-    gotoDetail(element: Element): void {
-        this.router.navigate(['/element', element.id]);
+    gotoDetail(element: Favorite): void {
+        this.router.navigate(['/element', element.element]);
     }
 
-    changeFavorite(element: Element): void {
-        this.elementService.setFavorite(element.id).then((ret)=> {
+    changeFavorite(element: Favorite): void {
+        console.log('Click setFavorite');
+        this.elementService.setFavorite(element.element).then((ret)=> {
             this.elementService.getElements();
             this.elementService.getFavorite();
         }).catch((error) => {

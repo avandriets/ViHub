@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from Hub.views import ElementViewSet, MembersViewSet, FavoriteViewSet
+from Hub.views import ElementViewSet, MembersViewSet, FavoriteViewSet, set_favorite
 from connect.views import AccountViewSet
 from rest_framework import routers
 
@@ -25,10 +25,12 @@ router.register(r'element-members', MembersViewSet)
 router.register(r'element-favorite', FavoriteViewSet)
 router.register(r'users', AccountViewSet)
 
+# hello_world
 urlpatterns = [
     url(r'^', include('Hub.urls', namespace='hub')),
     url(r'^admin/', admin.site.urls),
     url(r'^connect/', include('connect.urls', namespace='connect')),
     # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^rest/', include(router.urls)),
+    url(r'^set_favorite/(?P<id_obj>\d+)$', set_favorite),
 ]
