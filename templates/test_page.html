@@ -152,6 +152,19 @@
                 new fabric['ChoiceFieldGroup'](ChoiceFieldGroupElements[i]);
             }
         </script>
+        <div class="ms-Toggle">
+          <input type="checkbox" id="demo-toggle-3" class="ms-Toggle-input">
+          <label for="demo-toggle-3" class="ms-Toggle-field" tabindex="0">
+            <span class="ms-Label ms-Label--off">Видна&nbsp;для&nbsp;всех</span>
+            <span class="ms-Label ms-Label--on">Личная</span>
+          </label>
+        </div>
+        <script type="text/javascript">
+            var ToggleElements = document.querySelectorAll(".ms-Toggle");
+            for(var i = 0; i < ToggleElements.length; i++) {
+                new fabric['Toggle'](ToggleElements[i]);
+            }
+        </script>
     </div>
 
     <div class="ms-Dialog-actions">
