@@ -4,7 +4,7 @@
 
 import {Injectable} from '@angular/core';
 import {Element, Favorite} from './element';
-import {Headers, Http, Response} from '@angular/http';
+import {Headers, Http, Response, URLSearchParams} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
 @Injectable()
@@ -36,10 +36,18 @@ export class ElementsService {
             .catch(this.handleError);
     }
 
-    getElements(): Promise<Element[]> {
+    getElements(parent:number): Promise<Element[]> {
+
+        let parent_param: string = "-1";
+        if(parent != null){
+            parent_param = parent.toString();
+        }
+
+        let params = new URLSearchParams();
+        params.set('parent', parent_param); // the user's search value
 
         return this.http
-            .get(this.elementsUrl)
+            .get(this.elementsUrl, { search: params })
             .toPromise()
             .then((response) => {
                 this.elementsSet = response.json() as Element[];

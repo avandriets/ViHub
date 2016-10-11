@@ -47,3 +47,5 @@ static/app/element-detail.component.js
 static/app/element-detail.component.js.map
 static/app/favorite-list.component.js
 static/app/favorite-list.component.js.map
+static/app/detail-command-bar.compotent.js
+static/app/detail-command-bar.compotent.js.map

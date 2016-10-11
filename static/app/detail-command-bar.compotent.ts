@@ -1,34 +1,16 @@
-/**
- * Created by AVAndriets on 04.10.16.
- */
-import {Component, ViewChild, Input} from '@angular/core';
+import {Component} from '@angular/core';
 import {OnInit} from '@angular/core';
-import {AddElementDialogComponent} from './add-element-dialog.component'
 import { WindowRef } from './WindowRef';
 import {ElementsService} from './elements.service';
 
 @Component({
-    selector: 'command-bar',
-    templateUrl: '/static/app/command-bar.component.html',
+    selector: 'detail-command-bar',
+    templateUrl: '/static/app/detail-command-bar.component.html',
 })
 
-export class CommandBarComponent implements OnInit {
-
-    @ViewChild(AddElementDialogComponent) addDialog: AddElementDialogComponent
+export class DetailCommandBarComponent implements OnInit {
 
     constructor(private elementService: ElementsService, private winRef: WindowRef) {}
-
-    onClickShowDialog(): void {
-        this.addDialog.openDialog();
-    }
-
-    onCardViewClick() :void{
-        this.elementService.cardView = true;
-    }
-
-    onTableViewClick() :void{
-        this.elementService.cardView = false;
-    }
 
     ngOnInit(): void {
 
@@ -46,5 +28,9 @@ export class CommandBarComponent implements OnInit {
         // for (var i = 0; i < DropdownHTMLElements.length; ++i) {
         //     var Dropdown = new this.winRef.nativeWindow.fabric['Dropdown'](DropdownHTMLElements[i]);
         // }
+    }
+
+    onClickCreateElement() :void{
+        console.log("Create element click");
     }
 }

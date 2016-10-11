@@ -15,25 +15,6 @@
                 </li>
             </ul>
         </div>
-        <div class="ms-CommandButton ms-CommandButton--noLabel ms-PanelExample">
-            <button (click)="onClickShowPanel()" class="ms-CommandButton-button">
-                <span class="ms-CommandButton-icon "><i class="ms-Icon ms-Icon--Filter"></i></span><span class="ms-CommandButton-label"></span>
-            </button>
-            <div class="ms-Panel">
-                <button class="ms-Panel-closeButton ms-PanelAction-close">
-                    <i class="ms-Panel-closeIcon ms-Icon ms-Icon--Cancel"></i>
-                </button>
-                <div class="ms-Panel-contentInner">
-                    <p class="ms-Panel-headerText">Panel</p>
-                    <div class="ms-Panel-content">
-                        <a class="ms-ContextualMenu-link " tabindex="1">Элементы</a>
-                        <a class="ms-ContextualMenu-link " tabindex="1">Избранное</a>
-                        <a class="ms-ContextualMenu-link" tabindex="1">Корзина</a>
-                        <a class="ms-ContextualMenu-link  is-disabled " tabindex="1">Файлы</a>
-                    </div>
-                </div>
-            </div>
-        </div>
     </div>
     <div class="ms-CommandBar-mainArea">
         <div class="ms-SearchBox  ms-SearchBox--commandBar">
@@ -59,9 +40,11 @@
             </div>
         </div>
 
-        <div class="ms-CommandButton">
-            <button (click)="onClickShowDialog()" class="ms-Button ms-Button--hero"><span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--CirclePlus"></i></span><span class="ms-CommandButton-label">Создать</span></button>
+        <div class="ms-CommandButton    ">
+            <button (click)="onClickShowDialog()" class="ms-CommandButton-button">
+                <span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--CirclePlus"></i></span><span class="ms-CommandButton-label">Создать</span></button>
         </div>
+
     </div>
 </div>
 

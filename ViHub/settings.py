@@ -147,6 +147,16 @@ STATICFILES_DIRS = [
     # '/var/www/static/',
 ]
 
+REST_FRAMEWORK = {
+    #'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+    # 'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated', ),
+    # 'PAGE_SIZE': 1000,
+    # 'DEFAULT_AUTHENTICATION_CLASSES': (
+    #     'oauth2_provider.ext.rest_framework.OAuth2Authentication',
+    # ),
+    'DEFAULT_FILTER_BACKENDS': ('rest_framework.filters.DjangoFilterBackend',),
+}
+
 AUTH_USER_MODEL = 'connect.Account'
 LOGIN_URL = '/connect/'
 

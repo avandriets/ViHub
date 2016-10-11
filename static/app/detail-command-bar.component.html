@@ -1,0 +1,85 @@
+<div class="ms-CommandBar ms-u-hiddenMdDown">
+    <div class="ms-CommandBar-sideCommands">
+        <div class="ms-CommandButton">
+            <button class="ms-CommandButton-button">
+                <span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--Tiles"></i></span><span class="ms-CommandButton-label">Вид</span><span class="ms-CommandButton-dropdownIcon"><i class="ms-Icon ms-Icon--ChevronDown"></i></span>
+            </button>
+            <ul class="ms-ContextualMenu ms-ContextualMenu--hasIcons" style="width: 100px;">
+                <li class="ms-ContextualMenu-item">
+                    <a class="ms-ContextualMenu-link " tabindex="1">Список</a>
+                    <i class="ms-Icon ms-Icon--List"></i>
+                </li>
+                <li class="ms-ContextualMenu-item">
+                    <a class="ms-ContextualMenu-link " tabindex="1">White board</a>
+                    <i class="ms-Icon ms-Icon--Tiles"></i>
+                </li>
+            </ul>
+        </div>
+
+    </div>
+    <div class="ms-CommandBar-mainArea">
+
+        <div class="ms-CommandButton">
+            <button class="ms-CommandButton-button"><span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--Edit"></i></span><span class="ms-CommandButton-label">Изменить</span></button>
+        </div>
+        <div class="ms-CommandButton">
+            <button class="ms-CommandButton-button"><span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--Delete"></i></span><span class="ms-CommandButton-label">Удалить</span></button>
+        </div>
+
+        <div class="ms-CommandButton">
+            <button class="ms-CommandButton-button">
+                <span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--CirclePlus"></i></span><span class="ms-CommandButton-label">Создать</span><span class="ms-CommandButton-dropdownIcon"><i class="ms-Icon ms-Icon--ChevronDown"></i></span>
+            </button>
+            <ul class="ms-ContextualMenu is-opened ms-ContextualMenu--hasIcons" style="width: 100px;">
+                <li (click)="onClickCreateElement()" class="ms-ContextualMenu-item">
+                    <a class="ms-ContextualMenu-link " tabindex="1">Элемент</a>
+                    <i class="ms-Icon ms-Icon--List"></i>
+                </li>
+                <li class="ms-ContextualMenu-item">
+                    <a class="ms-ContextualMenu-link " tabindex="1">Сообщение</a>
+                    <i class="ms-Icon ms-Icon--Tiles"></i>
+                </li>
+                <li class="ms-ContextualMenu-item">
+                    <a class="ms-ContextualMenu-link " tabindex="1">Заметка</a>
+                    <i class="ms-Icon ms-Icon--Tiles"></i>
+                </li>
+            </ul>
+        </div>
+        <div class="ms-CommandButton">
+            <button class="ms-CommandButton-button">
+                <span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--Filter"></i></span>
+                <span class="ms-CommandButton-label">Отбор</span>
+                <span class="ms-CommandButton-dropdownIcon"><i class="ms-Icon ms-Icon--ChevronDown"></i></span>
+            </button>
+            <ul class="ms-ContextualMenu is-opened ms-ContextualMenu--hasIcons" style="width: 100px;">
+                <li class="ms-ContextualMenu-item">
+                    <a class="ms-ContextualMenu-link " tabindex="1">Фильтр 1</a>
+                    <i class="ms-Icon ms-Icon--List"></i>
+                </li>
+                <li class="ms-ContextualMenu-item">
+                    <a class="ms-ContextualMenu-link " tabindex="1">Фильтр 2</a>
+                    <i class="ms-Icon ms-Icon--Tiles"></i>
+                </li>
+            </ul>
+        </div>
+        <div class="ms-CommandButton">
+            <button class="ms-CommandButton-button">
+                <span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--People"></i></span>
+                <span class="ms-CommandButton-label">Пользователи</span>
+                <span class="ms-CommandButton-dropdownIcon"><i class="ms-Icon ms-Icon--ChevronDown"></i></span>
+            </button>
+            <ul class="ms-ContextualMenu is-opened ms-ContextualMenu--hasIcons" style="width: 100px;">
+                <li class="ms-ContextualMenu-item">
+                    <a class="ms-ContextualMenu-link " tabindex="1">Добавить</a>
+                    <i class="ms-Icon ms-Icon--CirclePlus"></i>
+                </li>
+                <li class="ms-ContextualMenu-item">
+                    <a class="ms-ContextualMenu-link " tabindex="1">Участники</a>
+                    <i class="ms-Icon ms-Icon--List"></i>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<add-element-dialog></add-element-dialog>

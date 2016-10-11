@@ -6,6 +6,7 @@ from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
+from rest_framework import filters
 
 from Hub.models import Element, Members, Favorite
 from Hub.serializers import ElementSerializer, MembersSerializer, FavoriteSerializer
@@ -36,9 +37,24 @@ class ElementViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-
     queryset = Element.objects.all()
     serializer_class = ElementSerializer
+
+    filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter,)
+    filter_fields = ('parent',)
+    ordering_fields = ('created_at', 'updated_at')
+
+    def filter_queryset(self, queryset):
+
+        queryset = Element.objects.all()
+
+        parent_val = self.request.query_params.get('parent', None)
+
+        if parent_val is not None:
+            queryset = queryset.filter(parent=parent_val)
+
+        # return super(PollutionMarkViewSet, self).filter_queryset(queryset)
+        return queryset
 
 
 class MembersViewSet(viewsets.ModelViewSet):

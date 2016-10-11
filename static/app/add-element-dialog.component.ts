@@ -60,7 +60,7 @@ export class AddElementDialogComponent implements OnInit{
         this.elementService.create(this.name, this.description, this.element_type)
             .then((data) => {
 
-                let ss = this.elementService.getElements();
+                this.elementService.getElements(-1);
                 this.name= '';
                 this.description = '';
                 this.errorMessage = '';

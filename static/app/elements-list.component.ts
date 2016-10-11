@@ -1,5 +1,5 @@
 import {Component} from '@angular/core';
-import {OnInit} from '@angular/core';
+import {OnInit, Input} from '@angular/core';
 import {ElementsService} from './elements.service';
 import {Element} from './element';
 import {Router} from '@angular/router';
@@ -10,6 +10,7 @@ import {Router} from '@angular/router';
 })
 export class ElementsListComponent implements OnInit {
     error: any;
+    @Input() parentCode:number;
 
     constructor(private elementService: ElementsService, private router: Router,) {
     }
@@ -19,7 +20,9 @@ export class ElementsListComponent implements OnInit {
     }
 
     private getElements() {
-        this.elementService.getElements().then((elements) => {
+        console.log("Parent code:");
+        console.log(this.parentCode);
+        this.elementService.getElements(this.parentCode).then((elements) => {
             }
         ).catch(error => this.error = error);
     }
@@ -30,7 +33,7 @@ export class ElementsListComponent implements OnInit {
 
     changeFavorite(element: Element): void {
         this.elementService.setFavorite(element.id).then((ret)=> {
-            this.elementService.getElements();
+            this.elementService.getElements(this.parentCode);
             this.elementService.getFavorite();
         }).catch((error) => {
             console.log(error);

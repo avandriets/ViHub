@@ -31,7 +31,7 @@ export class FavoriteListComponent implements OnInit {
     changeFavorite(element: Favorite): void {
         console.log('Click setFavorite');
         this.elementService.setFavorite(element.element).then((ret)=> {
-            this.elementService.getElements();
+            this.elementService.getElements(-1);
             this.elementService.getFavorite();
         }).catch((error) => {
             console.log(error);

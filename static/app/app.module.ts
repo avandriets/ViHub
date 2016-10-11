@@ -9,6 +9,8 @@ import {AppComponent}  from './app.component';
 import {ElementsListComponent}  from './elements-list.component';
 import {FavoriteListComponent}  from './favorite-list.component';
 import {CommandBarComponent}  from './command-bar.compotent';
+import {DetailCommandBarComponent}  from './detail-command-bar.compotent';
+import {DashboardComponent} from './dashboard.component'
 import {AddElementDialogComponent} from './add-element-dialog.component';
 import { routing, routedComponents } from './app.routing';
 
@@ -20,6 +22,8 @@ import { routing, routedComponents } from './app.routing';
         ElementsListComponent,
         FavoriteListComponent,
         CommandBarComponent,
+        DetailCommandBarComponent,
+        DashboardComponent,
         AddElementDialogComponent,
         routedComponents
     ],
