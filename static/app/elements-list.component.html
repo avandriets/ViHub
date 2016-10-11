@@ -1,4 +1,4 @@
-<ul *ngIf="elementService.cardView == true" class="ms-List">
+<div *ngIf="elementService.cardView == true">
 
     <div *ngFor="let element of elementService.elementsSet" class="ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-xl3 ms-u-xxl3  m-b-1">
         <div class="ms-Card ">
@@ -15,7 +15,7 @@
         </div>
     </div>
 
-</ul>
+</div>
 
 <table *ngIf="elementService.cardView == false" class="ms-Table ">
     <thead>
