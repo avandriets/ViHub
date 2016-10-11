@@ -95,6 +95,75 @@
             </div>
         </div>
     </div>
+<!-- Новые сообщение -->
+<div class="ms-Dialog is-open" style="display: none;">
+    <div class="ms-Dialog-title">Новые сообщение</div>
+    <div class="ms-Dialog-content">
+        <div class="ms-TextField">
+            <label class="ms-Label">Тема</label>
+            <input class="ms-TextField-field ng-untouched ng-pristine ng-valid" type="text" ng-reflect-model="">
+        </div>
+        <div class="ms-TextField ms-TextField--multiline">
+            <label class="ms-Label">Тело сообщения</label>
+            <textarea class="ms-TextField-field ng-untouched ng-pristine ng-valid" type="text" ng-reflect-model=""></textarea>
+        </div>
+    </div>
+    <div class="ms-Dialog-actions">
+        <button class="ms-Button ms-Dialog-action">
+            <span class="ms-Button-label">Отмена</span>
+        </button>
+        <button class="ms-Button  ms-Button--primary">
+            <span class="ms-Button-label">Отправить</span>
+        </button>
+    </div>
+</div>
+
+<!-- Новая заметка -->
+<div class="ms-Dialog is-open" style="display: block">
+    <div class="ms-Dialog-title">Новая заметка</div>
+    <div class="ms-Dialog-content">
+        <div class="ms-TextField">
+            <label class="ms-Label">Тема</label>
+            <input class="ms-TextField-field ng-untouched ng-pristine ng-valid" type="text" ng-reflect-model="">
+        </div>
+        <div class="ms-TextField ms-TextField--multiline">
+            <label class="ms-Label">Тело заметки</label>
+            <textarea class="ms-TextField-field ng-untouched ng-pristine ng-valid" type="text" ng-reflect-model=""></textarea>
+        </div>
+        <div class="ms-ChoiceFieldGroup" id="choicefieldgroup" role="radiogroup">
+          <ul class="ms-ChoiceFieldGroup-list">
+            <div class="ms-RadioButton">
+              <input tabindex="-1" type="radio" class="ms-RadioButton-input">
+              <label role="radio" class="ms-RadioButton-field is-checked" tabindex="0" aria-checked="true" name="choicefieldgroup">
+                <span class="ms-Label">Видна для всех</span>
+              </label>
+            </div>
+            <div class="ms-RadioButton">
+              <input tabindex="-1" type="radio" class="ms-RadioButton-input">
+              <label role="radio" class="ms-RadioButton-field" tabindex="0" aria-checked="false" name="choicefieldgroup">
+                <span class="ms-Label">Личная</span>
+              </label>
+            </div>
+          </ul>
+        </div>
+        <script type="text/javascript">
+          var ChoiceFieldGroupElements = document.querySelectorAll(".ms-ChoiceFieldGroup");
+            for(var i = 0; i < ChoiceFieldGroupElements.length; i++) {
+                new fabric['ChoiceFieldGroup'](ChoiceFieldGroupElements[i]);
+            }
+        </script>
+    </div>
+
+    <div class="ms-Dialog-actions">
+        <button class="ms-Button ms-Dialog-action">
+            <span class="ms-Button-label">Отмена</span>
+        </button>
+        <button class="ms-Button  ms-Button--primary">
+            <span class="ms-Button-label">Отправить</span>
+        </button>
+    </div>
+</div>
+
 </div>
 
 {% endblock %}
