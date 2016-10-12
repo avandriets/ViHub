@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {ElementsService} from '../Utility/elements.service';
-import {Element} from '../element';
+import {Element} from '../Utility/element';
 import {Router} from '@angular/router';
 
 @Component({

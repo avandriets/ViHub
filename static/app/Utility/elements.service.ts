@@ -3,7 +3,7 @@
  */
 
 import {Injectable} from '@angular/core';
-import {Element, Favorite} from '../element';
+import {Element, Favorite} from './element';
 import {Headers, Http, Response, URLSearchParams} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 

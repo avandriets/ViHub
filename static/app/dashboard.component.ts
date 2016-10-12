@@ -1,7 +1,7 @@
 import {Component, OnInit, AfterViewInit} from '@angular/core';
 import {Router} from '@angular/router';
 
-import {Element, Favorite} from './element';
+import {Element, Favorite} from './Utility/element';
 import {ElementsService} from './Utility/elements.service';
 import {WindowRef} from './Utility/WindowRef';
 
