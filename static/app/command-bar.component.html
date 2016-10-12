@@ -40,7 +40,7 @@
             </div>
         </div>
 
-        <div class="ms-CommandButton    ">
+        <div class="ms-CommandButton">
             <button (click)="onClickShowDialog()" class="ms-CommandButton-button">
                 <span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--CirclePlus"></i></span><span class="ms-CommandButton-label">Создать</span></button>
         </div>
@@ -48,4 +48,4 @@
     </div>
 </div>
 
-<add-element-dialog></add-element-dialog>
+<add-element-dialog (onAddElement)="onLocalDataChange()"></add-element-dialog>

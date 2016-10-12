@@ -4,6 +4,7 @@
 
 export class Element {
     id: number;
+    element: number;
     parent: number;
     name: string;
     description: string;
@@ -19,7 +20,6 @@ export class Element {
 }
 
 export class Favorite extends Element{
-    element: number;
     element_created_at: string;
     element_updated_at: string;
     element_owner: number;

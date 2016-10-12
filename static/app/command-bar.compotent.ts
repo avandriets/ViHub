@@ -1,7 +1,7 @@
 /**
  * Created by AVAndriets on 04.10.16.
  */
-import {Component, ViewChild, Input} from '@angular/core';
+import {Component, ViewChild, Input, Output, EventEmitter} from '@angular/core';
 import {OnInit} from '@angular/core';
 import {AddElementDialogComponent} from './add-element-dialog.component'
 import { WindowRef } from './WindowRef';
@@ -14,7 +14,9 @@ import {ElementsService} from './elements.service';
 
 export class CommandBarComponent implements OnInit {
 
-    @ViewChild(AddElementDialogComponent) addDialog: AddElementDialogComponent
+    @ViewChild(AddElementDialogComponent) addDialog: AddElementDialogComponent;
+
+    @Output() onDataChange = new EventEmitter();
 
     constructor(private elementService: ElementsService, private winRef: WindowRef) {}
 
@@ -28,6 +30,11 @@ export class CommandBarComponent implements OnInit {
 
     onTableViewClick() :void{
         this.elementService.cardView = false;
+    }
+
+    onLocalDataChange() :void{
+        console.log("command bar date change");
+        this.onDataChange.emit();
     }
 
     ngOnInit(): void {

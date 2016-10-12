@@ -1,6 +1,6 @@
 <div *ngIf="elementService.cardView == true">
 
-    <div *ngFor="let element of elementService.elementsSet" class="ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-xl3 ms-u-xxl3  m-b-1">
+    <div *ngFor="let element of localElements" class="ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-xl3 ms-u-xxl3  m-b-1">
         <div class="ms-Card ">
             <div class="ms-Card-header">
                 <div class="ms-Card-primaryText">{{ element.name | slice:0:25 }}</div>
@@ -28,7 +28,7 @@
     </thead>
     <tbody>
 
-    <tr *ngFor="let element of elementService.elementsSet">
+    <tr *ngFor="let element of localElements">
         <td class="ms-Link" (click)="gotoDetail(element)">{{ element.name}}</td>
         <td>{{ element.first_name }} {{ element.last_name }}</td>
         <td>{{ element.created_at|date:'hh:mm  dd.MM.yyyy' }}</td>

@@ -1,24 +1,30 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit, AfterViewInit} from '@angular/core';
 import {Router} from '@angular/router';
 
-import {Element} from './element';
+import {Element, Favorite} from './element';
 import {ElementsService} from './elements.service';
-import { WindowRef } from './WindowRef';
+import {WindowRef} from './WindowRef';
 
 @Component({
     moduleId: module.id,
     selector: 'my-dashboard',
     templateUrl: 'dashboard.component.html'
 })
-export class DashboardComponent implements OnInit {
+export class DashboardComponent implements OnInit, AfterViewInit {
 
+    elementsSet: Element[] = [];
+
+    favoriteSet: Favorite[] = [];
+    error: any;
     constructor(private router: Router,
                 private elementService: ElementsService, private winRef: WindowRef) {
     }
 
     ngOnInit(): void {
-        this.elementService.getElements(-1);
-        this.elementService.getFavorite();
+        this.getData();
+    }
+
+    ngAfterViewInit(): void {
 
         var CommandBarElements = document.querySelectorAll(".ms-CommandBar");
         for (var i = 0; i < CommandBarElements.length; i++) {
@@ -34,6 +40,27 @@ export class DashboardComponent implements OnInit {
         for (var i = 0; i < DropdownHTMLElements.length; ++i) {
             var Dropdown = new this.winRef.nativeWindow.fabric['Dropdown'](DropdownHTMLElements[i]);
         }
+    }
+
+    getData(): void {
+
+        this.elementService.getElements(-1).then((elements) => {
+            this.elementsSet = elements;
+        }).catch((error)=> {
+            console.log(error);
+            this.error = error;
+        });
+        this.elementService.getFavorite().then((favorites) => {
+            this.favoriteSet = favorites;
+        }).catch((error)=> {
+            console.log(error);
+            this.error = error;
+        });
+
+    }
+
+    onDataChange(): void {
+        this.getData();
     }
 
     gotoDetail(element: Element): void {

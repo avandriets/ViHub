@@ -1,11 +1,11 @@
-<command-bar></command-bar>
+<command-bar (onDataChange)="onDataChange()"></command-bar>
 
 <div class="ms-Grid">
     <div class="ms-Grid-row">
         <div class="ms-Grid-col ms-u-sm12">
             <h1 class="ms-font-xxl">Элементы</h1>
             <div class="ms-Grid-row">
-                    <elements-list [parentCode]="-1"></elements-list>
+                    <elements-list [localElements]="elementsSet" (onSetFavorite)="onDataChange()"></elements-list>
             </div>
         </div>
     </div>
@@ -14,7 +14,7 @@
         <div class="ms-Grid-col ms-u-sm12">
             <h1 class="ms-font-xxl">Избранное</h1>
             <div class="ms-Grid-row">
-                <favorite-list></favorite-list>
+                <elements-list [localElements]="favoriteSet" (onSetFavorite)="onDataChange()"></elements-list>
             </div>
         </div>
     </div>

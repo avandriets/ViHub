@@ -17,6 +17,8 @@ import {WindowRef} from './WindowRef';
 export class ElementDetailComponent implements OnInit {
 
     element: Element;
+    elementsSet: Element[] = [];
+    error:any;
 
     constructor(private elementService: ElementsService,
                 private route: ActivatedRoute,
@@ -33,9 +35,12 @@ export class ElementDetailComponent implements OnInit {
                     console.log(this.element);
                     console.log(id);
 
-                    this.elementService.getElements(this.element.id);
-                    this.elementService.getFavorite();
-
+                    this.elementService.getElements(this.element.element)
+                        .then((retElements) => {
+                            this.elementsSet = retElements;
+                        }).catch((error)=>{
+                        this.error = error;
+                    });
                 }
             );
         });

@@ -15,8 +15,6 @@ export class ElementsService {
 
     private headers = new Headers({'Content-Type': 'application/json'});
 
-    elementsSet: Element[] = [];
-    favoriteSet: Favorite[] = [];
     cardView: boolean = true;
 
     constructor(private http: Http) {
@@ -50,11 +48,9 @@ export class ElementsService {
             .get(this.elementsUrl, { search: params })
             .toPromise()
             .then((response) => {
-                this.elementsSet = response.json() as Element[];
-                return this.elementsSet;
+                return response.json() as Element[];
             })
             .catch(this.handleError);
-
     }
 
     getFavorite(): Promise<Favorite[]> {
@@ -63,8 +59,7 @@ export class ElementsService {
             .get(this.favoriteUrl)
             .toPromise()
             .then((response) => {
-                this.favoriteSet = response.json() as Favorite[];
-                return this.favoriteSet;
+                return response.json() as Favorite[];
             })
             .catch(this.handleError);
 

@@ -31,6 +31,10 @@ class FavoriteSerializer(serializers.ModelSerializer):
     element_created_at = serializers.ReadOnlyField(source='element.created_at', required=False)
     element_updated_at = serializers.ReadOnlyField(source='element.updated_at', required=False)
     element_owner = serializers.ReadOnlyField(source='element.owner.id', required=False)
+    is_favorite = serializers.SerializerMethodField('get_favorite')
+
+    def get_favorite(self, element):
+        return True
 
     class Meta:
         list_serializer_class = FavoriteListSerializer
@@ -39,7 +43,7 @@ class FavoriteSerializer(serializers.ModelSerializer):
                   'is_delete', 'element_type', 'created_at', 'updated_at',
                   'owner', 'username', 'first_name', 'last_name',
                   'element_created_at', 'element_updated_at',
-                  'element_owner'
+                  'element_owner' , 'is_favorite'
                   )
 
     def create(self, validated_data):
@@ -66,6 +70,10 @@ class ElementSerializer(serializers.ModelSerializer):
     members = MembersSerializer(many=True, read_only=True)
     # favorite = FavoriteSerializer(many=True, read_only=True, required=False)
     is_favorite = serializers.SerializerMethodField('get_favorite')
+    element = serializers.SerializerMethodField('get_element_id')
+
+    def get_element_id(self, element):
+        return element.id
 
     def get_favorite(self, element):
         qs = Favorite.objects.filter(owner=element.owner, element=element)
@@ -77,7 +85,7 @@ class ElementSerializer(serializers.ModelSerializer):
     class Meta:
         list_serializer_class = ElementsListSerializer
         model = Element
-        fields = ('id', 'parent', 'name', 'description', 'is_delete', 'element_type', 'created_at', 'updated_at',
+        fields = ('id', 'element', 'parent', 'name', 'description', 'is_delete', 'element_type', 'created_at', 'updated_at',
                   'members', 'owner', 'username', 'first_name', 'last_name'
                   , 'is_favorite'
                   )
