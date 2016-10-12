@@ -2,6 +2,7 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
 import { OnInit, AfterViewInit } from '@angular/core';
 import { ElementsService } from '../Utility/elements.service';
 import { WindowRef } from '../Utility/WindowRef';
+import {BaseDialog} from "../Utility/BaseDialog";
 
 
 @Component({
@@ -9,36 +10,32 @@ import { WindowRef } from '../Utility/WindowRef';
     templateUrl: '/static/app/Dialogs/add-element-dialog.component.html',
 })
 
-export class AddElementDialogComponent implements OnInit{
-
-    hasError = false;
-    errorMessage: string;
-
-    add_dialog:any;
-
-    name:string;
-    description:string;
-    element_type: any;
-
-    modelTypes: any;
+export class AddElementDialogComponent extends BaseDialog{
 
     @Output() onAddElement = new EventEmitter();
 
-    constructor( private elementService: ElementsService, private winRef: WindowRef) {
-        this.name = '';
-        this.description = '';
-        this.modelTypes = [{id: 'W', name: 'Workflow'},
+    getEventEmitter(): any {
+        return this.onAddElement;
+    }
+
+    name:string = '';
+    description:string = '';
+    element_type: any;
+    modelTypes: Object[] = [{id: 'W', name: 'Workflow'},
             {id: 'K', name: 'Wiki'},
             {id: 'H', name: 'White board'}];
+
+
+    constructor( private elementService: ElementsService, public winRef: WindowRef) {
+        super(winRef);
+
+        // this.name = '';
+        // this.description = '';
+        // this.modelTypes = [{id: 'W', name: 'Workflow'},
+        //     {id: 'K', name: 'Wiki'},
+        //     {id: 'H', name: 'White board'}];
     }
 
-    openDialog(): void {
-        this.add_dialog.open();
-    }
-
-    closeDialog(): void {
-        this.add_dialog.close();
-    }
 
     onCreateElement(): void
     {
@@ -57,7 +54,6 @@ export class AddElementDialogComponent implements OnInit{
             return;
         }
 
-
         this.elementService.create(this.name, this.description, this.element_type)
             .then((data) => {
 
@@ -74,10 +70,5 @@ export class AddElementDialogComponent implements OnInit{
                 this.errorMessage = error;
                 this.hasError = true;
             });
-    }
-
-    ngOnInit(): void {
-        let dialog =  document.querySelector(".th-body").querySelector(".ms-Dialog");
-        this.add_dialog = new this.winRef.nativeWindow.fabric['Dialog'](dialog);
     }
 }

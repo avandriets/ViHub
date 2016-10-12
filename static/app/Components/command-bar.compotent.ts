@@ -1,24 +1,26 @@
-/**
- * Created by AVAndriets on 04.10.16.
- */
-import {Component, ViewChild, Input, Output, EventEmitter} from '@angular/core';
-import {OnInit} from '@angular/core';
+import {Component, ViewChild, Output, EventEmitter} from '@angular/core';
 import {AddElementDialogComponent} from '../Dialogs/add-element-dialog.component'
 import { WindowRef } from '../Utility/WindowRef';
 import {ElementsService} from '../Utility/elements.service';
+import {BaseCommandBar} from '../Utility/BaseCommandBar';
 
 @Component({
     selector: 'command-bar',
     templateUrl: '/static/app/Components/command-bar.component.html',
 })
 
-export class CommandBarComponent implements OnInit {
+export class CommandBarComponent extends BaseCommandBar {
 
-    @ViewChild(AddElementDialogComponent) addDialog: AddElementDialogComponent;
+    getEventEmitter(): any {
+        return this.onDataChange;
+    }
 
     @Output() onDataChange = new EventEmitter();
+    @ViewChild(AddElementDialogComponent) addDialog: AddElementDialogComponent;
 
-    constructor(private elementService: ElementsService, private winRef: WindowRef) {}
+    constructor(private elementService: ElementsService, private winRef: WindowRef) {
+        super();
+    }
 
     onClickShowDialog(): void {
         this.addDialog.openDialog();
@@ -30,12 +32,5 @@ export class CommandBarComponent implements OnInit {
 
     onTableViewClick() :void{
         this.elementService.cardView = false;
-    }
-
-    onLocalDataChange() :void{
-        this.onDataChange.emit();
-    }
-
-    ngOnInit(): void {
     }
 }

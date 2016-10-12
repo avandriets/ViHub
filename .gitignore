@@ -61,3 +61,9 @@ static/app/Components/detail-command-bar.compotent.js
 static/app/Components/detail-command-bar.compotent.js.map
 static/app/Components/elements-list.component.js
 static/app/Components/elements-list.component.js.map
+static/app/Utility/BaseCommandBar.js
+static/app/Utility/BaseCommandBar.js.map
+static/app/Utility/BaseDialog.js
+static/app/Utility/BaseDialog.js.map
+static/app/Utility/element.js
+static/app/Utility/element.js.map
