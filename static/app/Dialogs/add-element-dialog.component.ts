@@ -6,7 +6,7 @@ import { WindowRef } from '../Utility/WindowRef';
 
 @Component({
     selector: 'add-element-dialog',
-    templateUrl: '/static/app/add-element-dialog.component.html',
+    templateUrl: '/static/app/Dialogs/add-element-dialog.component.html',
 })
 
 export class AddElementDialogComponent implements OnInit{

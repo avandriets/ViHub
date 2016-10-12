@@ -5,7 +5,7 @@ import {ElementsService} from '../Utility/elements.service';
 
 @Component({
     selector: 'detail-command-bar',
-    templateUrl: '/static/app/detail-command-bar.component.html',
+    templateUrl: '/static/app/Components/detail-command-bar.component.html',
 })
 
 export class DetailCommandBarComponent implements OnInit {

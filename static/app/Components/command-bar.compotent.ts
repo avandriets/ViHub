@@ -9,7 +9,7 @@ import {ElementsService} from '../Utility/elements.service';
 
 @Component({
     selector: 'command-bar',
-    templateUrl: '/static/app/command-bar.component.html',
+    templateUrl: '/static/app/Components/command-bar.component.html',
 })
 
 export class CommandBarComponent implements OnInit {
