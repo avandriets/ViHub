@@ -1,7 +1,7 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import { OnInit, AfterViewInit } from '@angular/core';
-import { ElementsService } from './elements.service';
-import { WindowRef } from './WindowRef';
+import { ElementsService } from '../Utility/elements.service';
+import { WindowRef } from '../Utility/WindowRef';
 
 
 @Component({
@@ -42,7 +42,6 @@ export class AddElementDialogComponent implements OnInit{
 
     onCreateElement(): void
     {
-
         this.name = this.name.trim();
         this.description = this.description.trim();
 
@@ -62,8 +61,6 @@ export class AddElementDialogComponent implements OnInit{
         this.elementService.create(this.name, this.description, this.element_type)
             .then((data) => {
 
-                //this.elementService.getElements(-1);
-                console.log("Add dialog data change");
                 this.onAddElement.emit();
 
                 this.name= '';
@@ -77,27 +74,10 @@ export class AddElementDialogComponent implements OnInit{
                 this.errorMessage = error;
                 this.hasError = true;
             });
-
     }
 
     ngOnInit(): void {
-
         let dialog =  document.querySelector(".th-body").querySelector(".ms-Dialog");
         this.add_dialog = new this.winRef.nativeWindow.fabric['Dialog'](dialog);
-
-        // var CommandBarElements = document.querySelectorAll(".ms-CommandBar");
-        // for (var i = 0; i < CommandBarElements.length; i++) {
-        //     new this.winRef.nativeWindow.fabric['CommandBar'](CommandBarElements[i]);
-        // }
-        //
-        // var CommandButtonElements = document.querySelectorAll(".ms-CommandButton");
-        // for (var i = 0; i < CommandButtonElements.length; i++) {
-        //     new this.winRef.nativeWindow.fabric['CommandButton'](CommandButtonElements[i]);
-        // }
-        //
-        // var DropdownHTMLElements = document.querySelectorAll('.ms-Dropdown');
-        // for (var i = 0; i < DropdownHTMLElements.length; ++i) {
-        //     var Dropdown = new this.winRef.nativeWindow.fabric['Dropdown'](DropdownHTMLElements[i]);
-        // }
     }
 }

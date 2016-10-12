@@ -5,8 +5,8 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Location}               from '@angular/common';
 import {Element} from './element'
-import {ElementsService} from './elements.service'
-import {WindowRef} from './WindowRef';
+import {ElementsService} from './Utility/elements.service'
+import {WindowRef} from './Utility/WindowRef';
 
 
 @Component({

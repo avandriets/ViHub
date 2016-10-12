@@ -2,8 +2,8 @@ import {Component, OnInit, AfterViewInit} from '@angular/core';
 import {Router} from '@angular/router';
 
 import {Element, Favorite} from './element';
-import {ElementsService} from './elements.service';
-import {WindowRef} from './WindowRef';
+import {ElementsService} from './Utility/elements.service';
+import {WindowRef} from './Utility/WindowRef';
 
 @Component({
     moduleId: module.id,

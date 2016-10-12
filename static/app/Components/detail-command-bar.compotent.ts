@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {OnInit} from '@angular/core';
-import { WindowRef } from './WindowRef';
-import {ElementsService} from './elements.service';
+import { WindowRef } from '../Utility/WindowRef';
+import {ElementsService} from '../Utility/elements.service';
 
 @Component({
     selector: 'detail-command-bar',

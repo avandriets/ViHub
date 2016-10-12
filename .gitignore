@@ -49,3 +49,15 @@ static/app/favorite-list.component.js
 static/app/favorite-list.component.js.map
 static/app/detail-command-bar.compotent.js
 static/app/detail-command-bar.compotent.js.map
+static/app/Dialogs/add-element-dialog.component.js
+static/app/Dialogs/add-element-dialog.component.js.map
+static/app/Utility/WindowRef.js
+static/app/Utility/WindowRef.js.map
+static/app/Utility/elements.service.js
+static/app/Utility/elements.service.js.map
+static/app/Components/command-bar.compotent.js
+static/app/Components/command-bar.compotent.js.map
+static/app/Components/detail-command-bar.compotent.js
+static/app/Components/detail-command-bar.compotent.js.map
+static/app/Components/elements-list.component.js
+static/app/Components/elements-list.component.js.map
