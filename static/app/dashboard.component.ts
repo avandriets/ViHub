@@ -60,6 +60,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
 
     onDataChange(): void {
+        console.log("DashboardComponent onDataChange");
         this.getData();
     }
 

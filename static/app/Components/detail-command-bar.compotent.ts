@@ -1,36 +1,29 @@
-import {Component} from '@angular/core';
-import {OnInit} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
+import {EventEmitter, Output} from '@angular/core';
 import { WindowRef } from '../Utility/WindowRef';
 import {ElementsService} from '../Utility/elements.service';
+import {BaseCommandBar} from "../Utility/BaseCommandBar";
+import {AddElementDialogComponent} from "../Dialogs/add-element-dialog.component";
 
 @Component({
     selector: 'detail-command-bar',
     templateUrl: '/static/app/Components/detail-command-bar.component.html',
 })
 
-export class DetailCommandBarComponent implements OnInit {
+export class DetailCommandBarComponent extends BaseCommandBar {
 
-    constructor(private elementService: ElementsService, private winRef: WindowRef) {}
+    @Output() onDataChange = new EventEmitter();
+    @ViewChild(AddElementDialogComponent) addDialog: AddElementDialogComponent;
 
-    ngOnInit(): void {
+    getEventEmitter(): any {
+        return this.onDataChange;
+    }
 
-        // var CommandButtonElements = document.querySelectorAll(".ms-CommandButton");
-        // for (var i = 0; i < CommandButtonElements.length; i++) {
-        //     new this.winRef.nativeWindow.fabric['CommandButton'](CommandButtonElements[i]);
-        // }
-        //
-        // var CommandBarElements = document.querySelectorAll(".ms-CommandBar");
-        // for (var i = 0; i < CommandBarElements.length; i++) {
-        //     new this.winRef.nativeWindow.fabric['CommandBar'](CommandBarElements[i]);
-        // }
-        //
-        // var DropdownHTMLElements = document.querySelectorAll('.ms-Dropdown');
-        // for (var i = 0; i < DropdownHTMLElements.length; ++i) {
-        //     var Dropdown = new this.winRef.nativeWindow.fabric['Dropdown'](DropdownHTMLElements[i]);
-        // }
+    constructor(private elementService: ElementsService, private winRef: WindowRef) {
+        super();
     }
 
     onClickCreateElement() :void{
-        console.log("Create element click");
+        this.addDialog.openDialog();
     }
 }
