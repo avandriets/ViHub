@@ -25,7 +25,8 @@ export abstract class BaseDialog implements OnInit {
     }
 
     ngOnInit(): void {
-        let dialog =  document.querySelector(".th-body").querySelector(".ms-Dialog");
-        this.dialogInstance = new this.winRef.nativeWindow.fabric['Dialog'](dialog);
+        this.initComponent();
     }
+
+    abstract initComponent() :void;
 }

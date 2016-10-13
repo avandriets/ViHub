@@ -1,7 +1,6 @@
-<div class="ms-Dialog" id="addDialogID">
-    <div class="ms-Dialog-title">Новый элемент</div>
+<div class="ms-Dialog" id="editDialogID">
+    <div class="ms-Dialog-title">Редактировать элемент</div>
     <div class="ms-Dialog-content">
-        <p class="ms-Dialog-subText">Тип элемента влияет на функциональность элемента.</p>
         <div *ngIf="hasError" class="ms-MessageBar ms-MessageBar--error">
             <div class="ms-MessageBar-content">
                 <div class="ms-MessageBar-icon">
@@ -18,15 +17,6 @@
             <input [(ngModel)]="name" class="ms-TextField-field" type="text">
         </div>
 
-        <div class="ms-TextField ms-Dropdown is-required" tabindex="0">
-            <label class="ms-Label">Тип</label>
-            <i class="ms-Dropdown-caretDown ms-Icon ms-Icon--ChevronDown"></i>
-            <select [(ngModel)]="element_type" class="ms-Dropdown-select">
-                <option *ngFor="let elType of modelTypes" [value]="elType.id">{{ elType.name }}</option>
-            </select>
-
-        </div>
-
         <div class="ms-TextField ms-TextField--multiline is-required">
             <label class="ms-Label">Описание</label>
             <textarea [(ngModel)]="description" class="ms-TextField-field" type="text"></textarea>
@@ -34,7 +24,7 @@
     </div>
 
     <div class="ms-Dialog-actions">
-        <button (click)="onCreateElement()" class="ms-Button  ms-Button--primary">
+        <button (click)="onSaveElement()" class="ms-Button  ms-Button--primary">
             <span class="ms-Button-label">Сохранить</span>
         </button>
         <button class="ms-Button ms-Dialog-action">

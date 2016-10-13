@@ -10,7 +10,7 @@ ELEM_TYPE = (
 
 
 class Element(models.Model):
-    parent = models.ForeignKey('self', blank=True, null=True, related_name='tree', default=-1)
+    parent = models.ForeignKey('self', blank=True, null=True, related_name='tree', on_delete=models.CASCADE)
     name = models.CharField(verbose_name='Наименование', max_length=100, help_text='Наименование')
     description = models.CharField(verbose_name='Описание', max_length=300, null=True, blank=True, help_text='Описание')
     element_type = models.CharField(verbose_name='Тип хаба', max_length=1, choices=ELEM_TYPE, help_text='Тип хаба')

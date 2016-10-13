@@ -20,13 +20,6 @@
     <div class="ms-CommandBar-mainArea">
 
         <div class="ms-CommandButton">
-            <button class="ms-CommandButton-button"><span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--Edit"></i></span><span class="ms-CommandButton-label">Изменить</span></button>
-        </div>
-        <div class="ms-CommandButton">
-            <button class="ms-CommandButton-button"><span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--Delete"></i></span><span class="ms-CommandButton-label">Удалить</span></button>
-        </div>
-
-        <div class="ms-CommandButton">
             <button class="ms-CommandButton-button">
                 <span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--CirclePlus"></i></span><span class="ms-CommandButton-label">Создать</span><span class="ms-CommandButton-dropdownIcon"><i class="ms-Icon ms-Icon--ChevronDown"></i></span>
             </button>
@@ -45,6 +38,14 @@
                 </li>
             </ul>
         </div>
+
+        <div class="ms-CommandButton">
+            <button (click)="onClickEditElement()" class="ms-CommandButton-button"><span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--Edit"></i></span><span class="ms-CommandButton-label">Изменить</span></button>
+        </div>
+        <div class="ms-CommandButton">
+            <button class="ms-CommandButton-button"><span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--Delete"></i></span><span class="ms-CommandButton-label">Удалить</span></button>
+        </div>
+
         <div class="ms-CommandButton">
             <button class="ms-CommandButton-button">
                 <span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--Filter"></i></span>
@@ -82,4 +83,5 @@
     </div>
 </div>
 
-<add-element-dialog (onAddElement)="onLocalDataChange()"></add-element-dialog>
+<add-element-dialog [parentElement]="currentElement" (onAddElement)="onLocalDataChange()"></add-element-dialog>
+<edit-element-dialog [editedElement]="currentElement" (onEditElement)="onLocalDataChange()"></edit-element-dialog>

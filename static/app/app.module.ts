@@ -12,6 +12,7 @@ import {DetailCommandBarComponent}  from './Components/detail-command-bar.compot
 import {DashboardComponent} from './dashboard.component'
 import {AddElementDialogComponent} from './Dialogs/add-element-dialog.component';
 import { routing, routedComponents } from './app.routing';
+import {EditElementDialogComponent} from "./Dialogs/edit-element-dialog.component";
 
 @NgModule({
     imports: [
@@ -23,6 +24,7 @@ import { routing, routedComponents } from './app.routing';
         DetailCommandBarComponent,
         DashboardComponent,
         AddElementDialogComponent,
+        EditElementDialogComponent,
         routedComponents
     ],
     providers: [

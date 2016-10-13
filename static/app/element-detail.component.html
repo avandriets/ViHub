@@ -1,4 +1,5 @@
-<detail-command-bar></detail-command-bar>
+<detail-command-bar (onDataChange)="dataChange()" [currentElement]="element"></detail-command-bar>
+
 <div class="ms-Grid">
     <div class="ms-Grid-row">
         <div class="ms-List-item ms-Grid-col ms-u-sm12 ms-u-xl4">
@@ -60,6 +61,6 @@
 <div class="ms-Grid">
     <h2 class="ms-font-xl">Элементы</h2>
     <div class="ms-Grid-row">
-        <elements-list [localElements]="elementsSet"></elements-list>
+        <elements-list [localElements]="elementsSet" (onSetFavorite)="dataChange()"></elements-list>
     </div>
 </div>

@@ -3,7 +3,7 @@
  */
 
 import {Injectable} from '@angular/core';
-import {Element, Favorite} from './element';
+import {ElementVi, Favorite} from './element';
 import {Headers, Http, Response, URLSearchParams} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
@@ -20,7 +20,7 @@ export class ElementsService {
     constructor(private http: Http) {
     }
 
-    getElementById(id:number) :Promise<Element>{
+    getElementById(id: number): Promise<ElementVi> {
 
         const url = `${this.elementsUrl}${id}/`;
 
@@ -28,16 +28,16 @@ export class ElementsService {
             .get(url)
             .toPromise()
             .then((response) => {
-                let element = response.json() as Element;
+                let element = response.json() as ElementVi;
                 return element;
             })
             .catch(this.handleError);
     }
 
-    getElements(parent:number): Promise<Element[]> {
+    getElements(parent: number): Promise<ElementVi[]> {
 
         let parent_param: string = "-1";
-        if(parent != null){
+        if (parent != null) {
             parent_param = parent.toString();
         }
 
@@ -45,10 +45,10 @@ export class ElementsService {
         params.set('parent', parent_param); // the user's search value
 
         return this.http
-            .get(this.elementsUrl, { search: params })
+            .get(this.elementsUrl, {search: params})
             .toPromise()
             .then((response) => {
-                return response.json() as Element[];
+                return response.json() as ElementVi[];
             })
             .catch(this.handleError);
     }
@@ -65,9 +65,9 @@ export class ElementsService {
 
     }
 
-    create(name: string, description: string, element_type:string): Promise<Element> {
+    createElement(name: string, description: string, element_type: string, parentElement: ElementVi): Promise<ElementVi> {
         return this.http
-            .post(this.elementsUrl, JSON.stringify({name: name, description: description, element_type: element_type}), {headers: this.headers})
+            .post(this.elementsUrl, JSON.stringify({name: name, description: description, element_type: element_type, parent: parentElement.element}), {headers: this.headers})
             .toPromise()
             .then(res => res.json())
             .catch(this.handleError);
@@ -78,15 +78,26 @@ export class ElementsService {
         return Promise.reject(error.message || error);
     }
 
-    setFavorite(id: number): Promise<any>{
+    setFavorite(id: number): Promise<any> {
         const url = `/set_favorite/${id}`;
 
         return this.http
-            .post(url,null,{headers: this.headers})
+            .post(url, null, {headers: this.headers})
             .toPromise()
             .then((response) => {
                 return response.json();
             })
+            .catch(this.handleError);
+    }
+
+    editElement(currentElement: ElementVi) {
+
+        const url = `${this.elementsUrl}${currentElement.element}/`;
+
+        return this.http
+            .put(url, JSON.stringify(currentElement), {headers: this.headers})
+            .toPromise()
+            .then(() => currentElement)
             .catch(this.handleError);
     }
 }

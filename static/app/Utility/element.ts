@@ -2,7 +2,7 @@
  * Created by AVAndriets on 04.10.16.
  */
 
-export class Element {
+export class ElementVi {
     id: number;
     element: number;
     parent: number;
@@ -19,7 +19,7 @@ export class Element {
     last_name: string;
 }
 
-export class Favorite extends Element{
+export class Favorite extends ElementVi{
     element_created_at: string;
     element_updated_at: string;
     element_owner: number;

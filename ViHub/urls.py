@@ -16,6 +16,8 @@ Including another URLconf
 from django.conf.urls import url, include
 from django.contrib import admin
 from Hub.views import ElementViewSet, MembersViewSet, FavoriteViewSet, set_favorite
+from Messages.views import MessageViewSet
+from Notes.views import NoteViewSet
 from connect.views import AccountViewSet
 from rest_framework import routers
 
@@ -24,8 +26,10 @@ router.register(r'elements', ElementViewSet)
 router.register(r'element-members', MembersViewSet)
 router.register(r'element-favorite', FavoriteViewSet)
 router.register(r'users', AccountViewSet)
+router.register(r'messages', MessageViewSet)
+router.register(r'notes', NoteViewSet)
 
-# hello_world
+
 urlpatterns = [
     url(r'^', include('Hub.urls', namespace='hub')),
     url(r'^admin/', admin.site.urls),

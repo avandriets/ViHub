@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {ElementsService} from '../Utility/elements.service';
-import {Element} from '../Utility/element';
+import {ElementVi} from '../Utility/element';
 import {Router} from '@angular/router';
 
 @Component({
@@ -11,7 +11,7 @@ import {Router} from '@angular/router';
 export class ElementsListComponent implements OnInit {
 
     error: any;
-    @Input() localElements:Element[] = [];
+    @Input() localElements:ElementVi[] = [];
     @Output() onSetFavorite = new EventEmitter();
 
     constructor(private elementService: ElementsService, private router: Router,) {
@@ -21,11 +21,11 @@ export class ElementsListComponent implements OnInit {
         // this.getElements();
     }
 
-    gotoDetail(element: Element): void {
+    gotoDetail(element: ElementVi): void {
         this.router.navigate(['/element', element.element]);
     }
 
-    changeFavorite(element: Element): void {
+    changeFavorite(element: ElementVi): void {
         this.elementService.setFavorite(element.element).then((ret)=> {
             this.onSetFavorite.emit();
             // this.elementService.getElements(this.parentCode);

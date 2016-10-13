@@ -43,6 +43,8 @@ INSTALLED_APPS = [
     'ViHub',
     'connect',
     'Hub',
+    'Messages',
+    'Notes',
 ]
 
 MIDDLEWARE = [

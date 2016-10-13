@@ -1,7 +1,7 @@
 import {Component, OnInit, AfterViewInit} from '@angular/core';
 import {Router} from '@angular/router';
 
-import {Element, Favorite} from './Utility/element';
+import {ElementVi, Favorite} from './Utility/element';
 import {ElementsService} from './Utility/elements.service';
 import {WindowRef} from './Utility/WindowRef';
 
@@ -12,7 +12,7 @@ import {WindowRef} from './Utility/WindowRef';
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
 
-    elementsSet: Element[] = [];
+    elementsSet: ElementVi[] = [];
 
     favoriteSet: Favorite[] = [];
     error: any;
@@ -64,7 +64,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         this.getData();
     }
 
-    gotoDetail(element: Element): void {
+    gotoDetail(element: ElementVi): void {
         let link = ['/element', element.id];
         this.router.navigate(link);
     }

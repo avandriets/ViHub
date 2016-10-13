@@ -4,7 +4,7 @@
 import {Component, Input, OnInit, AfterViewInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Location}               from '@angular/common';
-import {Element} from './Utility/element'
+import {ElementVi} from './Utility/element'
 import {ElementsService} from './Utility/elements.service'
 import {WindowRef} from './Utility/WindowRef';
 
@@ -16,10 +16,11 @@ import {WindowRef} from './Utility/WindowRef';
 
 export class ElementDetailComponent implements OnInit, AfterViewInit {
 
-    element: Element;
+    element: ElementVi;
 
-    elementsSet: Element[] = [];
+    elementsSet: ElementVi[] = [];
     error: any;
+
     constructor(private elementService: ElementsService,
                 private route: ActivatedRoute,
                 private location: Location,
@@ -49,17 +50,22 @@ export class ElementDetailComponent implements OnInit, AfterViewInit {
             this.elementService.getElementById(id).then(
                 (element) => {
                     this.element = element;
-                    console.log(this.element);
-                    console.log(id);
-
-                    this.elementService.getElements(this.element.element)
-                        .then((retElements) => {
-                            this.elementsSet = retElements;
-                        }).catch((error)=> {
-                        this.error = error;
-                    });
+                    this.getData();
                 }
             );
         });
+    }
+
+    getData(): void {
+        this.elementService.getElements(this.element.element)
+            .then((retElements) => {
+                this.elementsSet = retElements;
+            }).catch((error)=> {
+            this.error = error;
+        });
+    }
+
+    dataChange(): void {
+        this.getData();
     }
 }

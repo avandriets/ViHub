@@ -51,7 +51,11 @@ class ElementViewSet(viewsets.ModelViewSet):
         parent_val = self.request.query_params.get('parent', None)
 
         if parent_val is not None:
-            queryset = queryset.filter(parent=parent_val)
+            if parent_val != '-1':
+                queryset = queryset.filter(parent=parent_val)
+            else:
+                queryset = queryset.filter(parent__isnull=True)
+
 
         # return super(PollutionMarkViewSet, self).filter_queryset(queryset)
         return queryset

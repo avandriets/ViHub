@@ -67,3 +67,9 @@ static/app/Utility/BaseDialog.js
 static/app/Utility/BaseDialog.js.map
 static/app/Utility/element.js
 static/app/Utility/element.js.map
+Messages/__pycache__/
+Notes/__pycache__/
+static/app/Dialogs/delete-element-dialog.component.js
+static/app/Dialogs/delete-element-dialog.component.js.map
+static/app/Dialogs/edit-element-dialog.component.js
+static/app/Dialogs/edit-element-dialog.component.js.map
