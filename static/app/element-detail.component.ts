@@ -21,6 +21,7 @@ export class ElementDetailComponent implements OnInit, AfterViewInit {
     elementsSet: ElementVi[] = [];
     messagesSet: MessageVi[] = [];
     notesSet: NoteVi[] = [];
+    breadcrumbs: ElementVi[] = [];
 
     error: any;
 
@@ -54,8 +55,18 @@ export class ElementDetailComponent implements OnInit, AfterViewInit {
                 (element) => {
                     this.element = element;
                     this.getData();
+                    this.getBeadCrumbs();
                 }
             );
+        });
+    }
+
+    private getBeadCrumbs() {
+        this.elementService.getBreadcrumbs(this.element.element)
+            .then((retCrumbs) => {
+                this.breadcrumbs = retCrumbs;
+            }).catch((error)=> {
+            this.error = error;
         });
     }
 

@@ -87,3 +87,5 @@ static/app/Dialogs/view-message-dialog.component.js
 static/app/Dialogs/view-message-dialog.component.js.map
 static/app/Utility/base-classes.js
 static/app/Utility/base-classes.js.map
+static/app/Components/breadcrumbs.component.js
+static/app/Components/breadcrumbs.component.js.map

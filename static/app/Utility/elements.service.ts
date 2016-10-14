@@ -91,7 +91,7 @@ export class ElementsService {
             .catch(this.handleError);
     }
 
-    editElement(currentElement: ElementVi) {
+    editElement(currentElement: ElementVi): Promise<ElementVi> {
 
         const url = `${this.elementsUrl}${currentElement.element}/`;
 
@@ -102,7 +102,7 @@ export class ElementsService {
             .catch(this.handleError);
     }
 
-    createMessage(newMessage: MessageVi) {
+    createMessage(newMessage: MessageVi): Promise<MessageVi> {
         return this.http
             .post(this.messageUrl, JSON.stringify(newMessage), {headers: this.headers})
             .toPromise()
@@ -110,7 +110,7 @@ export class ElementsService {
             .catch(this.handleError);
     }
 
-    createNote(newNote: NoteVi) {
+    createNote(newNote: NoteVi): Promise<NoteVi> {
         return this.http
             .post(this.noteUrl, JSON.stringify(newNote), {headers: this.headers})
             .toPromise()
@@ -118,7 +118,7 @@ export class ElementsService {
             .catch(this.handleError);
     }
 
-    editNote(editedNote: NoteVi) {
+    editNote(editedNote: NoteVi): Promise<NoteVi> {
 
         const url = `${this.noteUrl}${editedNote.id}/`;
 
@@ -129,7 +129,7 @@ export class ElementsService {
             .catch(this.handleError);
     }
 
-    deleteNote(deleteNote: NoteVi) {
+    deleteNote(deleteNote: NoteVi): Promise<NoteVi> {
 
         const url = `${this.noteUrl}${deleteNote.id}/`;
 
@@ -140,7 +140,7 @@ export class ElementsService {
             .catch(this.handleError);
     }
 
-    getMessages(element: number) {
+    getMessages(element: number): Promise<MessageVi[]> {
 
         let element_owner: string = "-1";
         if (element != null) {
@@ -159,7 +159,7 @@ export class ElementsService {
             .catch(this.handleError);
     }
 
-    getNotes(element: number) {
+    getNotes(element: number): Promise<NoteVi[]> {
 
         let element_owner: string = "-1";
         if (element != null) {
@@ -174,6 +174,18 @@ export class ElementsService {
             .toPromise()
             .then((response) => {
                 return response.json() as NoteVi[];
+            })
+            .catch(this.handleError);
+    }
+
+    getBreadcrumbs(element: number): Promise<ElementVi[]> {
+        const url = `/vi-hub/breadcrumbs/${element}`;
+
+        return this.http
+            .get(url, {headers: this.headers})
+            .toPromise()
+            .then((response) => {
+                return response.json();
             })
             .catch(this.handleError);
     }

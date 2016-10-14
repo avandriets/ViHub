@@ -1,5 +1,6 @@
 from django.contrib.auth.decorators import login_required
 from django.db import Error
+from django.db import models
 from django.shortcuts import render
 from django.urls import reverse
 from rest_framework import status
@@ -9,7 +10,7 @@ from rest_framework.response import Response
 from rest_framework import filters
 
 from Hub.models import Element, Members, Favorite
-from Hub.serializers import ElementSerializer, MembersSerializer, FavoriteSerializer
+from Hub.serializers import ElementSerializer, MembersSerializer, FavoriteSerializer, ElementsListSerializer
 from connect.auth_helper import get_signout_url
 
 
@@ -143,3 +144,35 @@ def set_favorite(request, id_obj):
                 return Response({"message": "successfully remove from favorite"})
         except Error:
             return Response({"message": "db error"}, status=status.HTTP_404_NOT_FOUND)
+
+
+def gel_elements_tree(elements_list, element):
+
+    if element.parent:
+        elements_list.insert(0, element.parent)
+        gel_elements_tree(elements_list, element.parent)
+    else:
+        return elements_list
+
+
+@login_required
+@api_view(['GET'])
+def get_breadcrumbs(request, id_obj):
+
+    if request.method == 'GET':
+        try:
+            element = Element.objects.get(id=id_obj)
+        except Element.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        if element.owner_id != request.user.id:
+            return ElementSerializer(element).data
+
+        list_os_elements = [element]
+        gel_elements_tree(list_os_elements, element)
+
+        json_list = []
+        for el in list_os_elements:
+            json_list.append(ElementSerializer(el).data)
+
+        return Response(json_list)
