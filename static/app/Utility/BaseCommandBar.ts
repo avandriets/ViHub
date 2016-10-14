@@ -1,4 +1,5 @@
 import { Output, EventEmitter} from '@angular/core';
+import {TransportObject} from "./base-classes";
 
 export abstract class BaseCommandBar {
 
@@ -6,7 +7,7 @@ export abstract class BaseCommandBar {
 
     abstract getEventEmitter() : any;
 
-    onLocalDataChange() :void{
-        this.getEventEmitter().emit();
+    onLocalDataChange(dataChanged: TransportObject) :void{
+        this.getEventEmitter().emit(dataChanged);
     }
 }

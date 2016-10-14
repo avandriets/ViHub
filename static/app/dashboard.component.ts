@@ -1,7 +1,7 @@
 import {Component, OnInit, AfterViewInit} from '@angular/core';
 import {Router} from '@angular/router';
 
-import {ElementVi, Favorite} from './Utility/element';
+import {ElementVi, Favorite, TransportObject} from './Utility/base-classes';
 import {ElementsService} from './Utility/elements.service';
 import {WindowRef} from './Utility/WindowRef';
 
@@ -59,7 +59,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
     }
 
-    onDataChange(): void {
+    onDataChange(changerData: TransportObject): void {
         console.log("DashboardComponent onDataChange");
         this.getData();
     }

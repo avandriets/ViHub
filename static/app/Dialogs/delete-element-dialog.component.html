@@ -1,10 +1,25 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+<div class="ms-Dialog" id="deleteDialogID">
+    <div class="ms-Dialog-title">Удалить элемент и все связанные объекты?</div>
+    <div class="ms-Dialog-content">
+        <div *ngIf="hasError" class="ms-MessageBar ms-MessageBar--error">
+            <div class="ms-MessageBar-content">
+                <div class="ms-MessageBar-icon">
+                    <i class="ms-Icon ms-Icon--xCircle"></i>
+                </div>
+                <div class="ms-MessageBar-text">
+                    {{ errorMessage }}
+                </div>
+            </div>
+        </div>
 
-</body>
-</html>
+    </div>
+
+    <div class="ms-Dialog-actions">
+        <button (click)="onDeleteElementClick()" class="ms-Button  ms-Button--primary">
+            <span class="ms-Button-label">Удалить</span>
+        </button>
+        <button class="ms-Button ms-Dialog-action">
+            <span class="ms-Button-label">Отмена</span>
+        </button>
+    </div>
+</div>

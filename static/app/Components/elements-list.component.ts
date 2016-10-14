@@ -1,7 +1,7 @@
 import {Component} from '@angular/core';
 import {OnInit, Input, Output, EventEmitter} from '@angular/core';
 import {ElementsService} from '../Utility/elements.service';
-import {ElementVi} from '../Utility/element';
+import {ElementVi, TransportObject} from '../Utility/base-classes';
 import {Router} from '@angular/router';
 
 @Component({
@@ -12,9 +12,9 @@ export class ElementsListComponent implements OnInit {
 
     error: any;
     @Input() localElements:ElementVi[] = [];
-    @Output() onSetFavorite = new EventEmitter();
+    @Output() onSetFavorite = new EventEmitter<TransportObject>();
 
-    constructor(private elementService: ElementsService, private router: Router,) {
+    constructor(private elementService: ElementsService, private router: Router) {
     }
 
     ngOnInit(): void {
@@ -27,9 +27,12 @@ export class ElementsListComponent implements OnInit {
 
     changeFavorite(element: ElementVi): void {
         this.elementService.setFavorite(element.element).then((ret)=> {
-            this.onSetFavorite.emit();
-            // this.elementService.getElements(this.parentCode);
-            // this.elementService.getFavorite();
+
+            let trsObj = new TransportObject();
+            trsObj.type = "ChangeFavorite";
+            trsObj.object = element;
+
+            this.onSetFavorite.emit(trsObj);
         }).catch((error) => {
             console.log(error);
             this.error = error;

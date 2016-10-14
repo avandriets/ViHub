@@ -3,6 +3,7 @@ import {AddElementDialogComponent} from '../Dialogs/add-element-dialog.component
 import { WindowRef } from '../Utility/WindowRef';
 import {ElementsService} from '../Utility/elements.service';
 import {BaseCommandBar} from '../Utility/BaseCommandBar';
+import {TransportObject} from "../Utility/base-classes";
 
 @Component({
     selector: 'command-bar',
@@ -15,7 +16,7 @@ export class CommandBarComponent extends BaseCommandBar {
         return this.onDataChange;
     }
 
-    @Output() onDataChange = new EventEmitter();
+    @Output() onDataChange = new EventEmitter<TransportObject>();
     @ViewChild(AddElementDialogComponent) addDialog: AddElementDialogComponent;
 
     constructor(private elementService: ElementsService, private winRef: WindowRef) {

@@ -56,9 +56,26 @@ class ElementViewSet(viewsets.ModelViewSet):
             else:
                 queryset = queryset.filter(parent__isnull=True)
 
-
         # return super(PollutionMarkViewSet, self).filter_queryset(queryset)
         return queryset
+
+    def update(self, request, *args, **kwargs):
+
+        # TODO insert condition is you are owner this element
+        if request.data["is_delete"] == 1:
+            upd_list = Element.objects.filter(parent=request.data["id"])
+            self.set_delete_mark(upd_list)
+
+        return super().update(request, *args, **kwargs)
+
+    def set_delete_mark(self, elements_list):
+        for curElement in elements_list:
+            upd_list = Element.objects.filter(parent=curElement.id)
+            if upd_list.count() > 0:
+                self.set_delete_mark(upd_list)
+            else:
+                curElement.is_delete = 1
+                curElement.save()
 
 
 class MembersViewSet(viewsets.ModelViewSet):

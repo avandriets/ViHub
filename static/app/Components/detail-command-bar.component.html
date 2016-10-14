@@ -29,10 +29,10 @@
                     <i class="ms-Icon ms-Icon--List"></i>
                 </li>
                 <li class="ms-ContextualMenu-item">
-                    <a class="ms-ContextualMenu-link " tabindex="1">Сообщение</a>
+                    <a (click)="onClickAddMessageDialog()" class="ms-ContextualMenu-link " tabindex="1">Сообщение</a>
                     <i class="ms-Icon ms-Icon--Tiles"></i>
                 </li>
-                <li class="ms-ContextualMenu-item">
+                <li (click)="onClickAddNoteDialog()" class="ms-ContextualMenu-item">
                     <a class="ms-ContextualMenu-link " tabindex="1">Заметка</a>
                     <i class="ms-Icon ms-Icon--Tiles"></i>
                 </li>
@@ -43,7 +43,7 @@
             <button (click)="onClickEditElement()" class="ms-CommandButton-button"><span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--Edit"></i></span><span class="ms-CommandButton-label">Изменить</span></button>
         </div>
         <div class="ms-CommandButton">
-            <button class="ms-CommandButton-button"><span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--Delete"></i></span><span class="ms-CommandButton-label">Удалить</span></button>
+            <button (click)="onClickDeleteElement()" class="ms-CommandButton-button"><span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--Delete"></i></span><span class="ms-CommandButton-label">Удалить</span></button>
         </div>
 
         <div class="ms-CommandButton">
@@ -83,5 +83,8 @@
     </div>
 </div>
 
-<add-element-dialog [parentElement]="currentElement" (onAddElement)="onLocalDataChange()"></add-element-dialog>
-<edit-element-dialog [editedElement]="currentElement" (onEditElement)="onLocalDataChange()"></edit-element-dialog>
+<add-element-dialog [parentElement]="currentElement" (onAddElement)="onLocalDataChange($event)"></add-element-dialog>
+<edit-element-dialog [editedElement]="currentElement" (onEditElement)="onLocalDataChange($event)"></edit-element-dialog>
+<delete-element-dialog [deletedElement]="currentElement" (onDeleteElement)="onLocalDataChange($event)"></delete-element-dialog>
+<add-message-dialog [parentElement]="currentElement" (onAddMessage)="onLocalDataChange($event)"></add-message-dialog>
+<add-note-dialog [parentElement]="currentElement" (onAddNote)="onLocalDataChange($event)"></add-note-dialog>

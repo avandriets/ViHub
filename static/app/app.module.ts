@@ -13,6 +13,11 @@ import {DashboardComponent} from './dashboard.component'
 import {AddElementDialogComponent} from './Dialogs/add-element-dialog.component';
 import { routing, routedComponents } from './app.routing';
 import {EditElementDialogComponent} from "./Dialogs/edit-element-dialog.component";
+import {DeleteElementDialogComponent} from "./Dialogs/delete-element-dialog.component";
+import {AddMessageDialogComponent} from "./Dialogs/add-message-dialog.component";
+import {AddNoteDialogComponent} from "./Dialogs/add-note-dialog.component";
+import {MessagesListComponent} from "./Components/messages-list.component";
+import {NotesListComponent} from "./Components/notes-list.component";
 
 @NgModule({
     imports: [
@@ -25,6 +30,11 @@ import {EditElementDialogComponent} from "./Dialogs/edit-element-dialog.componen
         DashboardComponent,
         AddElementDialogComponent,
         EditElementDialogComponent,
+        DeleteElementDialogComponent,
+        AddMessageDialogComponent,
+        MessagesListComponent,
+        NotesListComponent,
+        AddNoteDialogComponent,
         routedComponents
     ],
     providers: [

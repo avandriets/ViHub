@@ -4,6 +4,8 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from rest_framework.decorators import api_view
+
 from ViHub import settings
 from connect import config
 from connect.MsProvider import MyAuthProvider
@@ -12,6 +14,8 @@ from connect.auth_helper import get_signin_url, get_signout_url, get_token_from_
 from connect.form import MyRegistrationForm as RegistrationForm, MyAuthenticationForm, UserEditForm
 from connect.models import Account
 from rest_framework import viewsets
+from rest_framework import status
+from rest_framework.response import Response
 
 
 class AccountViewSet(viewsets.ModelViewSet):
@@ -146,3 +150,18 @@ def profile_edit(request):
     }
 
     return render(request, 'auth/profile.html', context)
+
+
+@login_required
+@api_view(['GET'])
+def get_current_user_info(request):
+
+    if request.method == 'GET':
+        try:
+            user = Account.objects.get(id=request.user.id)
+        except Account.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        return Response({"id": user.id, "email":user.email,
+                         "username": user.username, "first_name": user.first_name,
+                         "last_name":user.last_name})

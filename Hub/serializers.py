@@ -13,7 +13,7 @@ class ElementsListSerializer(serializers.ListSerializer):
         pass
 
     def to_representation(self, data):
-        data = data.filter(owner=self.context['request'].user)
+        data = data.filter(owner=self.context['request'].user, is_delete=0)
         return super(ElementsListSerializer, self).to_representation(data)
 
 
@@ -98,5 +98,4 @@ class FavoriteSerializer(serializers.ModelSerializer):
         hub = super(FavoriteSerializer, self).create(validated_data)
         hub.owner = self.context['request'].user
         hub.save()
-
         return hub

@@ -1,0 +1,41 @@
+<div *ngIf="false">
+    <div *ngFor="let message of localMessages">
+        <div class="ms-Card ">
+            <div class="ms-Card-header">
+                <div class="ms-Card-primaryText">{{ message.subject }}</div>
+                <div class="ms-Card-secondaryText">{{ message.first_name }} {{ message.last_name }}</div>
+                <div class="ms-Card-tertiaryText">{{ message.body }}</div>
+                <div class="ms-Card-optionalText ms-fontColor-themePrimary">{{ message.message_date|date:'dd.MM.yyyy hh:mm' }}</div>
+            </div>
+
+            <ul class="ms-PersonaCard-actions">
+                <li data-action-id="chat" class="ms-PersonaCard-action" tabindex="1" alt="Добавить заметку"
+                    title="Добавить заметку"><i class="ms-Icon ms-Icon--Chat"></i></li>
+                <li class="ms-PersonaCard-overflow" alt="Просмотерть полностью" title="Просмотерть полностью">
+                    Детально ...
+                </li>
+            </ul>
+        </div>
+        <br>
+    </div>
+</div>
+
+<div class="ms-Card">
+
+    <ul class="ms-List ">
+        <li *ngFor="let message of localMessages" class="ms-ListItem " tabindex="0">
+
+            <span class="ms-ListItem-primaryText">{{ message.subject }}</span>
+            <span class="ms-ListItem-secondaryText ms-fontColor-themePrimary">{{ message.first_name }} {{ message.last_name }}</span>
+            <span class="ms-ListItem-tertiaryText">{{ message.body }}</span>
+            <span class="ms-ListItem-metaText">{{ message.message_date|date:'dd.MM.yyyy hh:mm' }}</span>
+
+            <div class="ms-ListItem-actions">
+
+                <div class="ms-ListItem-action"><i class="ms-Icon ms-Icon--Chat"></i></div>
+            </div>
+        </li>
+
+    </ul>
+
+</div>

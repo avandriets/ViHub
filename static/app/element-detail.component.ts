@@ -4,7 +4,7 @@
 import {Component, Input, OnInit, AfterViewInit} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Location}               from '@angular/common';
-import {ElementVi} from './Utility/element'
+import {ElementVi, TransportObject, MessageVi, NoteVi} from './Utility/base-classes'
 import {ElementsService} from './Utility/elements.service'
 import {WindowRef} from './Utility/WindowRef';
 
@@ -19,6 +19,9 @@ export class ElementDetailComponent implements OnInit, AfterViewInit {
     element: ElementVi;
 
     elementsSet: ElementVi[] = [];
+    messagesSet: MessageVi[] = [];
+    notesSet: NoteVi[] = [];
+
     error: any;
 
     constructor(private elementService: ElementsService,
@@ -63,9 +66,23 @@ export class ElementDetailComponent implements OnInit, AfterViewInit {
             }).catch((error)=> {
             this.error = error;
         });
+
+        this.elementService.getMessages(this.element.element)
+            .then((retMessages) => {
+                this.messagesSet = retMessages;
+            }).catch((error)=> {
+            this.error = error;
+        });
+
+        this.elementService.getNotes(this.element.element)
+            .then((retNotes) => {
+                this.notesSet = retNotes;
+            }).catch((error)=> {
+            this.error = error;
+        });
     }
 
-    dataChange(): void {
+    dataChange(changerData: TransportObject): void {
         this.getData();
     }
 }

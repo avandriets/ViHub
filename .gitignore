@@ -73,3 +73,17 @@ static/app/Dialogs/delete-element-dialog.component.js
 static/app/Dialogs/delete-element-dialog.component.js.map
 static/app/Dialogs/edit-element-dialog.component.js
 static/app/Dialogs/edit-element-dialog.component.js.map
+static/app/Components/messages-list.component.js
+static/app/Components/messages-list.component.js.map
+static/app/Components/notes-list.component.js
+static/app/Components/notes-list.component.js.map
+static/app/Dialogs/add-message-dialog.component.js
+static/app/Dialogs/add-message-dialog.component.js.map
+static/app/Dialogs/add-note-dialog.component.js
+static/app/Dialogs/add-note-dialog.component.js.map
+static/app/Dialogs/edit-note-dialog.component.js
+static/app/Dialogs/edit-note-dialog.component.js.map
+static/app/Dialogs/view-message-dialog.component.js
+static/app/Dialogs/view-message-dialog.component.js.map
+static/app/Utility/base-classes.js
+static/app/Utility/base-classes.js.map

@@ -3,7 +3,7 @@ import {OnInit, AfterViewInit} from '@angular/core';
 import {ElementsService} from '../Utility/elements.service';
 import {WindowRef} from '../Utility/WindowRef';
 import {BaseDialog} from "../Utility/BaseDialog";
-import {ElementVi} from "../Utility/element";
+import {ElementVi, TransportObject} from "../Utility/base-classes";
 
 
 @Component({
@@ -14,7 +14,7 @@ import {ElementVi} from "../Utility/element";
 export class EditElementDialogComponent extends BaseDialog {
 
     @Input() editedElement: ElementVi;
-    @Output() onEditElement = new EventEmitter();
+    @Output() onEditElement = new EventEmitter<TransportObject>();
 
     getEventEmitter(): any {
         return this.onEditElement;
@@ -58,7 +58,11 @@ export class EditElementDialogComponent extends BaseDialog {
         this.elementService.editElement(this.editedElement)
             .then((data) => {
 
-                this.onEditElement.emit();
+                let trsObj = new TransportObject();
+                trsObj.type = "Element";
+                trsObj.object = (data as ElementVi);
+
+                this.onEditElement.emit(trsObj);
 
                 this.name = '';
                 this.description = '';
