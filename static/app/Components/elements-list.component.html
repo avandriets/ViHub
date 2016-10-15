@@ -3,7 +3,7 @@
     <div *ngFor="let element of localElements" class="ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-xl3 ms-u-xxl3  m-b-1">
         <div class="ms-Card ">
             <div class="ms-Card-header">
-                <div class="ms-Card-primaryText">{{ element.name | slice:0:25 }}</div>
+                <div class="ms-Card-primaryText">{{ element.name }}</div>
                 <div class="ms-Card-secondaryText">{{ element.first_name }} {{ element.last_name }}</div>
                 <div class="ms-Card-tertiaryText">{{ element.description }}</div>
                 <div class="ms-Card-optionalText ms-fontColor-themePrimary">{{ element.created_at|date:'dd.MM.yyyy hh:mm' }}</div>
