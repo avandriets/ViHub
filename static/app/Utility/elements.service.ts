@@ -80,7 +80,7 @@ export class ElementsService {
     }
 
     setFavorite(id: number): Promise<any> {
-        const url = `/vi-hub/set_favorite/${id}`;
+        const url = `${this.elementsUrl}${id}/set-favorite/`;
 
         return this.http
             .post(url, null, {headers: this.headers})

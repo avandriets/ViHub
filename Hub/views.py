@@ -140,6 +140,29 @@ class ElementViewSet(viewsets.ModelViewSet):
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
+    @detail_route(methods=['post'], url_path='set-favorite')
+    def set_favorite(self, request, pk=None):
+
+            if request.method == 'POST':
+                try:
+                    element = Element.objects.get(id=pk)
+                except Element.DoesNotExist:
+                    return Response(status=status.HTTP_404_NOT_FOUND)
+
+                try:
+                    favorite_data = Favorite.objects.filter(owner=request.user, element=pk)
+                    if favorite_data.count() == 0:
+                        favorite_obj = Favorite.objects.create(element=element, owner=request.user)
+                        favorite_obj.save()
+                        return Response({"message": "successfully add to favorite"})
+                    else:
+                        favorite_data = Favorite.objects.filter(owner=request.user, element=pk)
+                        favorite_data.delete()
+                        return Response({"message": "successfully remove from favorite"})
+                except Error:
+                    return Response({"message": "db error"}, status=status.HTTP_404_NOT_FOUND)
+
+
 
 class MembersViewSet(viewsets.ModelViewSet):
     """
