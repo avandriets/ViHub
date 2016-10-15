@@ -18,7 +18,7 @@
                 ...
             </li>
             <li data-action-id="favorite" class="ms-Card-action ms-Card-orgChart" tabindex="5"><i
-                    [ngClass]="{'ms-fontColor-red ms-Icon ms-Icon--Lock': note.private_note, 'ms-Icon ms-Icon--Unlock': !note.private_note}"></i></li>
+                    [ngClass]="{'ms-Icon':true,'ms-fontColor-red ms-Icon--Lock': note.private_note, ' ms-Icon--Unlock': !note.private_note}"></i></li>
         </ul>
 
         <div *ngIf="note.message" class="ms-Card-actionDetailBox">

@@ -136,22 +136,23 @@ export class ElementsService {
         return this.http
             .delete(url, {headers: this.headers})
             .toPromise()
-            .then(() => NoteVi)
+            .then(() => deleteNote)
             .catch(this.handleError);
     }
 
     getMessages(element: number): Promise<MessageVi[]> {
 
-        let element_owner: string = "-1";
-        if (element != null) {
-            element_owner = element.toString();
-        }
-
-        let params = new URLSearchParams();
-        params.set('element', element_owner); // the user's search value
+        // let element_owner: string = "-1";
+        // if (element != null) {
+        //     element_owner = element.toString();
+        // }
+        //
+        // let params = new URLSearchParams();
+        // params.set('element', element_owner); // the user's search value
+        const url = `${this.elementsUrl}${element}/get-messages/`;
 
         return this.http
-            .get(this.messageUrl, {search: params})
+            .get(url, {headers: this.headers})
             .toPromise()
             .then((response) => {
                 return response.json() as MessageVi[];
@@ -161,16 +162,17 @@ export class ElementsService {
 
     getNotes(element: number): Promise<NoteVi[]> {
 
-        let element_owner: string = "-1";
-        if (element != null) {
-            element_owner = element.toString();
-        }
-
-        let params = new URLSearchParams();
-        params.set('element', element_owner); // the user's search value
+        // let element_owner: string = "-1";
+        // if (element != null) {
+        //     element_owner = element.toString();
+        // }
+        //
+        // let params = new URLSearchParams();
+        // params.set('element', element_owner); // the user's search value
+        const url = `${this.elementsUrl}${element}/get-notes/`;
 
         return this.http
-            .get(this.noteUrl, {search: params})
+            .get(url, {headers: this.headers})
             .toPromise()
             .then((response) => {
                 return response.json() as NoteVi[];
@@ -179,7 +181,7 @@ export class ElementsService {
     }
 
     getBreadcrumbs(element: number): Promise<ElementVi[]> {
-        const url = `/vi-hub/breadcrumbs/${element}`;
+        const url = `${this.elementsUrl}${element}/get-breadcrumbs`;
 
         return this.http
             .get(url, {headers: this.headers})

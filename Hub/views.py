@@ -5,13 +5,18 @@ from django.shortcuts import render
 from django.urls import reverse
 from rest_framework import status
 from rest_framework import viewsets
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, detail_route
 from rest_framework.response import Response
 from rest_framework import filters
 
 from Hub.models import Element, Members, Favorite
 from Hub.serializers import ElementSerializer, MembersSerializer, FavoriteSerializer, ElementsListSerializer
+from Messages.models import Message
+from Messages.serializers import MessageSerializer
+from Notes.models import Note
+from Notes.serializers import NoteSerializer
 from connect.auth_helper import get_signout_url
+from django.db.models import Q
 
 
 @login_required
@@ -77,6 +82,63 @@ class ElementViewSet(viewsets.ModelViewSet):
             else:
                 curElement.is_delete = 1
                 curElement.save()
+
+    @detail_route(methods=['get'], url_path='get-messages')
+    def get_messages(self, request, pk=None):
+
+        members_set = Members.objects.filter(element=pk, user_involved=request.user)
+        if members_set.count() > 0:
+            messages_set = Message.objects.filter(element=pk)
+            serializer = MessageSerializer(messages_set, many=True)
+            return Response(serializer.data)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+    @detail_route(methods=['get'], url_path='get-notes')
+    def get_notes(self, request, pk=None):
+
+        members_set = Members.objects.filter(element=pk, user_involved=request.user)
+        if members_set.count() > 0:
+
+            notes_set = Note.objects.filter(Q(element=pk) & (Q(owner=request.user) | (~Q(owner=request.user) & Q(private_note=False))))
+
+            # notes_set = Note.objects.filter(element=pk, private_note=False)
+            serializer = NoteSerializer(notes_set, many=True)
+            return Response(serializer.data)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+    def get_elements_tree(self, elements_list, element):
+
+        if element.parent:
+            elements_list.insert(0, element.parent)
+            self.get_elements_tree(elements_list, element.parent)
+        else:
+            return elements_list
+
+    @detail_route(methods=['get'], url_path='get-breadcrumbs')
+    def get_breadcrumbs(self, request, pk=None):
+
+        try:
+            element = Element.objects.get(id=pk)
+        except Element.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        members_set = Members.objects.filter(element=pk, user_involved=request.user)
+        if members_set.count() > 0:
+            if element.owner_id != request.user.id:
+                return Response([ElementSerializer(element).data])
+
+            list_os_elements = [element]
+            self.get_elements_tree(list_os_elements, element)
+
+            json_list = []
+            for el in list_os_elements:
+                json_list.append(ElementSerializer(el).data)
+
+            return Response(json_list)
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
 
 
 class MembersViewSet(viewsets.ModelViewSet):
@@ -144,35 +206,3 @@ def set_favorite(request, id_obj):
                 return Response({"message": "successfully remove from favorite"})
         except Error:
             return Response({"message": "db error"}, status=status.HTTP_404_NOT_FOUND)
-
-
-def gel_elements_tree(elements_list, element):
-
-    if element.parent:
-        elements_list.insert(0, element.parent)
-        gel_elements_tree(elements_list, element.parent)
-    else:
-        return elements_list
-
-
-@login_required
-@api_view(['GET'])
-def get_breadcrumbs(request, id_obj):
-
-    if request.method == 'GET':
-        try:
-            element = Element.objects.get(id=id_obj)
-        except Element.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-
-        if element.owner_id != request.user.id:
-            return ElementSerializer(element).data
-
-        list_os_elements = [element]
-        gel_elements_tree(list_os_elements, element)
-
-        json_list = []
-        for el in list_os_elements:
-            json_list.append(ElementSerializer(el).data)
-
-        return Response(json_list)
