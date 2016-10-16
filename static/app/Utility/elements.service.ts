@@ -72,8 +72,13 @@ export class ElementsService {
     }
 
     createElement(name: string, description: string, element_type: string, parentElement: ElementVi): Promise<ElementVi> {
+        let parent_el:any = null;
+        if(parentElement!=null)
+        {
+            parent_el = parentElement.element;
+        }
         return this.http
-            .post(this.elementsUrl, JSON.stringify({name: name, description: description, element_type: element_type, parent: parentElement.element}), {headers: this.headers})
+            .post(this.elementsUrl, JSON.stringify({name: name, description: description, element_type: element_type, parent: parent_el}), {headers: this.headers})
             .toPromise()
             .then(res => res.json())
             .catch(this.handleError);

@@ -1,3 +1,5 @@
+<view-message-dialog></view-message-dialog>
+
 <detail-command-bar (onDataChange)="dataChange($event)" [currentElement]="element"></detail-command-bar>
 
 <breadcrumbs [parentElementsList]="breadcrumbs"></breadcrumbs>
@@ -6,17 +8,17 @@
     <div class="ms-Grid-row">
         <div class="ms-List-item ms-Grid-col ms-u-sm12 ms-u-xl5">
             <h2 class="ms-font-xl">Сообщения</h2>
-            <messages-list [localMessages]="messagesSet"></messages-list>
+            <messages-list [viewMessageDialog]="viewMessageDialog" [localMessages]="messagesSet">Загрузка ...</messages-list>
         </div>
         <div class="ms-List-item ms-Grid-col ms-u-sm12 ms-u-xl3">
             <h2 class="ms-font-xl">Заметки</h2>
-            <notes-list [localNotes]="notesSet"></notes-list>
+            <notes-list [localNotes]="notesSet">Загрузка ...</notes-list>
         </div>
     </div>
 </div>
 <div class="ms-Grid">
     <h2 class="ms-font-xl">Элементы</h2>
     <div class="ms-Grid-row">
-        <elements-list [localElements]="elementsSet" (onSetFavorite)="dataChange($event)"></elements-list>
+        <elements-list [localElements]="elementsSet" (onSetFavorite)="dataChange($event)">Загрузка ...</elements-list>
     </div>
 </div>

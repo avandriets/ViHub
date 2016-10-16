@@ -19,6 +19,7 @@ import {AddNoteDialogComponent} from "./Dialogs/add-note-dialog.component";
 import {MessagesListComponent} from "./Components/messages-list.component";
 import {NotesListComponent} from "./Components/notes-list.component";
 import {BreadCrumbsComponent} from "./Components/breadcrumbs.component";
+import {ViewMessageDialogComponent} from "./Dialogs/view-message-dialog.component";
 
 @NgModule({
     imports: [
@@ -37,6 +38,7 @@ import {BreadCrumbsComponent} from "./Components/breadcrumbs.component";
         NotesListComponent,
         AddNoteDialogComponent,
         BreadCrumbsComponent,
+        ViewMessageDialogComponent,
         routedComponents
     ],
     providers: [

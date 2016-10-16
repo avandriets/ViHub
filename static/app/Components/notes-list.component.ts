@@ -15,4 +15,16 @@ export class NotesListComponent {
 
     constructor(private elementService: ElementsService, private router: Router) {
     }
+
+    onViewNoteClick(currentNote:NoteVi) :void{
+        console.log('onViewNoteClick');
+    }
+
+    onEditNoteClick() :void{
+        console.log('onEditNoteClick');
+    }
+
+    onDeleteNoteClick() :void{
+        console.log('onDeleteNoteClick');
+    }
 }

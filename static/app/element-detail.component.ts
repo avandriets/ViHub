@@ -1,12 +1,10 @@
-/**
- * Created by AVAndriets on 08.10.16.
- */
-import {Component, Input, OnInit, AfterViewInit} from '@angular/core';
+import {Component, Input, OnInit, AfterViewInit, ViewChild} from '@angular/core';
 import {ActivatedRoute, Params} from '@angular/router';
 import {Location}               from '@angular/common';
 import {ElementVi, TransportObject, MessageVi, NoteVi} from './Utility/base-classes'
 import {ElementsService} from './Utility/elements.service'
 import {WindowRef} from './Utility/WindowRef';
+import {ViewMessageDialogComponent} from "./Dialogs/view-message-dialog.component";
 
 
 @Component({
@@ -22,6 +20,8 @@ export class ElementDetailComponent implements OnInit, AfterViewInit {
     messagesSet: MessageVi[] = [];
     notesSet: NoteVi[] = [];
     breadcrumbs: ElementVi[] = [];
+
+    @ViewChild(ViewMessageDialogComponent) viewMessageDialog: ViewMessageDialogComponent;
 
     error: any;
 
@@ -49,6 +49,9 @@ export class ElementDetailComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit(): void {
+
+        //this.viewMessageDialog.openDialog();
+
         this.route.params.forEach((params: Params) => {
             let id = +params['id'];
             this.elementService.getElementById(id).then(

@@ -11,7 +11,7 @@
             <ul class="ms-PersonaCard-actions">
                 <li data-action-id="chat" class="ms-PersonaCard-action" tabindex="1" alt="Добавить заметку"
                     title="Добавить заметку"><i class="ms-Icon ms-Icon--Chat"></i></li>
-                <li class="ms-PersonaCard-overflow" alt="Просмотерть полностью" title="Просмотерть полностью">
+                <li (click)="onViewMessageClick(message)" class="ms-PersonaCard-overflow" alt="Просмотерть полностью" title="Просмотерть полностью">
                     Детально ...
                 </li>
             </ul>
@@ -28,8 +28,10 @@
             <span class="ms-ListItem-tertiaryText">{{ message.body }}</span>
             <span class="ms-ListItem-metaText">{{ message.message_date|date:'dd.MM.yyyy hh:mm' }}</span>
 
+
             <div class="ms-ListItem-actions">
-                <div class="ms-ListItem-action"><i class="ms-Icon ms-Icon--Chat"></i></div>
+                <div (click)="onAddNoteClick()" class="ms-ListItem-action"><i class="ms-Icon ms-Icon--Chat"></i></div>
+                <div (click)="onViewMessageClick(message)" class="ms-ListItem-action"><i class="ms-Icon ms-Icon--More"></i></div>
             </div>
         </li>
     </ul>
