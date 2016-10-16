@@ -218,6 +218,18 @@ body {
 .ms-ListItem-metaText {
   color: #0078d7; }
 
+.ms-TextField-Button-icon .ms-TextField-field {
+  width: calc( 100% - 40px);
+  display: inline-block; }
+.ms-TextField-Button-icon .ms-Button {
+  min-width: 16px;
+  padding: 0 8px;
+  float: right;
+  box-sizing: border-box; }
+  .ms-TextField-Button-icon .ms-Button .ms-Button-icon {
+    display: inline-block;
+    color: white; }
+
 .m-b-1 {
   margin-bottom: 16px !important; }
 

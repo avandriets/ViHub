@@ -279,6 +279,23 @@ $CommandBar-navBar-height: 50px;
 // Spinner';
 // Table';
 // TextField';
+
+.ms-TextField-Button-icon{
+  .ms-TextField-field{
+    width: calc( 100% - 40px);
+    display: inline-block;
+  }
+  .ms-Button{
+    min-width: 16px;
+    padding: 0 8px;
+    float: right;
+    box-sizing: border-box;
+    .ms-Button-icon{
+      display: inline-block;
+      color: white;
+    }
+  }
+}
 // Toggle';
 
 .m-b-1{
