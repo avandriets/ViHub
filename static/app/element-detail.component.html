@@ -6,19 +6,19 @@
 
 <div class="ms-Grid">
     <div class="ms-Grid-row">
-        <div class="ms-List-item ms-Grid-col ms-u-sm12 ms-u-xl5">
+        <div class="ms-List-item ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg8 ms-u-xl5">
             <h2 class="ms-font-xl">Сообщения</h2>
             <messages-list [viewMessageDialog]="viewMessageDialog" [localMessages]="messagesSet">Загрузка ...</messages-list>
         </div>
-        <div class="ms-List-item ms-Grid-col ms-u-sm12 ms-u-xl3">
+        <div class="ms-List-item ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-lg4 ms-u-xl3">
             <h2 class="ms-font-xl">Заметки</h2>
             <notes-list [localNotes]="notesSet">Загрузка ...</notes-list>
         </div>
-    </div>
-</div>
-<div class="ms-Grid">
-    <h2 class="ms-font-xl">Элементы</h2>
-    <div class="ms-Grid-row">
-        <elements-list [localElements]="elementsSet" (onSetFavorite)="dataChange($event)">Загрузка ...</elements-list>
+        <div class="ms-List-item ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-lg12 ms-u-xl4">
+            <h2 class="ms-font-xl">Элементы</h2>
+            <div class="ms-Grid-row">
+                <elements-list-var [localElements]="elementsSet" (onSetFavorite)="dataChange($event)">Загрузка ...</elements-list-var>
+            </div>
+        </div>
     </div>
 </div>

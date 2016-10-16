@@ -4,6 +4,9 @@
 body {
   min-width: 320px; }
 
+.yyy * {
+  outline: 1px solid red; }
+
 .ms-Breadcrumb {
   margin: 5px 0 1px; }
 
@@ -32,11 +35,26 @@ body {
   color: #333333;
   font-size: 14px;
   font-weight: 400;
-  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4); }
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.4);
+  position: relative; }
 
 .ms-Card-header {
   background-color: #f4f4f4;
   padding: 12px 20px; }
+
+.ms-Card-header-actions {
+  max-width: 32px;
+  position: absolute;
+  right: 20px;
+  text-align: right;
+  top: 10px;
+  margin: 0;
+  padding: 0; }
+  .ms-Card-header-actions .ms-Card-action {
+    margin: 0;
+    padding: 0;
+    height: 20px;
+    line-height: 20px; }
 
 .ms-Card-primaryText,
 .ms-Card-secondaryText,
@@ -55,7 +73,9 @@ body {
   font-weight: 400;
   font-size: 17px;
   margin-top: -3px;
-  line-height: 1.4; }
+  line-height: 1.4;
+  padding-right: 40px;
+  box-sizing: border-box; }
 
 .ms-Card-secondaryText,
 .ms-Card-tertiaryText,
@@ -168,52 +188,6 @@ body {
   color: #666666;
   line-height: 30px; }
 
-/*
-
-
-// Icon to expand a collapsed actionDetails section.
-.ms-PersonaCard-detailExpander {
-  color: $ms-color-neutralPrimary;
-  cursor: pointer;
-  font-size: $ms-icon-size-m;
-  height: 30px;
-  line-height: 30px;
-  margin-top: 2px;
-  position: absolute;
-  right: 10px;
-  text-align: center;
-  width: 30px;
-
-  &::after {
-    @include ms-Icon;
-    @include ms-Icon--ChevronUp;
-  }
-}
-
-.ms-PersonaCard-detailLine {
-  color: $ms-color-neutralPrimary;
-  line-height: 30px;
-}
-
-.ms-PersonaCard-detailLabel {
-  color: $ms-color-neutralSecondary;
-}
-
-.ms-PersonaCard-action.ms-PersonaCard-orgChart {
-  &::after {
-    display: none; // Hide arrow for orgchart action
-  }
-}
-
-@media (min-width: $ms-screen-md-min) {
-  // Undock the persona card and give it a shadow.
-  .ms-ContextualHost {
-    .ms-PersonaCard {
-      box-shadow: none;
-    }
-  }
-}
-*/
 .ms-CommandBar.ms-CommandBar--navBar {
   background-color: #767676;
   height: 50px; }
@@ -234,6 +208,15 @@ body {
     border-left: 1px solid #ffffff; }
 .ms-CommandBar .ms-CommandButton + .ms-CommandButton {
   margin-left: 0; }
+
+.ms-ListItem + .ms-ListItem {
+  border-top: 1px solid #f4f4f4; }
+
+.ms-ListItem-secondaryText {
+  color: #0078d7; }
+
+.ms-ListItem-metaText {
+  color: #0078d7; }
 
 .m-b-1 {
   margin-bottom: 16px !important; }

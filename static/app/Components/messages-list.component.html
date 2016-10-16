@@ -22,7 +22,7 @@
 
 <div class="ms-Card">
     <ul class="ms-List ">
-        <li *ngFor="let message of localMessages" class="ms-ListItem " tabindex="0">
+        <li *ngFor="let message of localMessages" class="ms-ListItem th-ListItem ms-bgColor-neutralLighter--hover" tabindex="0">
             <span class="ms-ListItem-primaryText">{{ message.subject }}</span>
             <span class="ms-ListItem-secondaryText ms-fontColor-themePrimary">{{ message.first_name }} {{ message.last_name }}</span>
             <span class="ms-ListItem-tertiaryText">{{ message.body }}</span>

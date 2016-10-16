@@ -4,6 +4,10 @@
 body{
   min-width: 320px;
 }
+
+.yyy *{
+  outline: 1px solid red;
+}
 // Breadcrumb';
 .ms-Breadcrumb{
   margin: 5px 0 1px;
@@ -35,13 +39,27 @@ body{
   font-size: $ms-font-size-m;
   font-weight: $ms-font-weight-regular;
   @include drop-shadow;
-
+  position: relative;
 }
 .ms-Card-header {
   background-color: $ms-color-neutralLighter;
   padding: 12px 20px;
 }
-
+.ms-Card-header-actions{
+  max-width: 32px;
+  position: absolute;
+  right: 20px;
+  text-align: right;
+  top: 10px;
+  margin: 0;
+  padding: 0;
+  .ms-Card-action{
+    margin: 0;
+    padding: 0;
+    height: 20px;
+    line-height: 20px;
+  }
+}
 .ms-Card-primaryText,
 .ms-Card-secondaryText,
 .ms-Card-tertiaryText,
@@ -58,6 +76,8 @@ body{
   font-size: $ms-font-size-l;
   margin-top: -3px;
   line-height: 1.4;
+  padding-right: 40px;
+  box-sizing: border-box;
 }
 
 .ms-Card-secondaryText,
@@ -138,7 +158,6 @@ body{
   // Currently-selected action
   &.is-active {
     color: $ms-color-themePrimary;
-
     // Arrow
     &::after {
       @include ms-u-borderBox;
@@ -156,7 +175,6 @@ body{
     }
   }
 }
-
 .ms-Card-overflow {
   font-size: $ms-font-size-m;
   color: $ms-color-neutralPrimary;
@@ -180,7 +198,6 @@ body{
   color: $ms-color-neutralSecondary;
   padding: 9px 20px;
   box-sizing: border-box;
-
   &.is-active {
     display: block;
   }
@@ -189,53 +206,6 @@ body{
   color: $ms-color-neutralSecondary;
   line-height: 30px;
 }
-
-/*
-
-
-// Icon to expand a collapsed actionDetails section.
-.ms-PersonaCard-detailExpander {
-  color: $ms-color-neutralPrimary;
-  cursor: pointer;
-  font-size: $ms-icon-size-m;
-  height: 30px;
-  line-height: 30px;
-  margin-top: 2px;
-  position: absolute;
-  right: 10px;
-  text-align: center;
-  width: 30px;
-
-  &::after {
-    @include ms-Icon;
-    @include ms-Icon--ChevronUp;
-  }
-}
-
-.ms-PersonaCard-detailLine {
-  color: $ms-color-neutralPrimary;
-  line-height: 30px;
-}
-
-.ms-PersonaCard-detailLabel {
-  color: $ms-color-neutralSecondary;
-}
-
-.ms-PersonaCard-action.ms-PersonaCard-orgChart {
-  &::after {
-    display: none; // Hide arrow for orgchart action
-  }
-}
-
-@media (min-width: $ms-screen-md-min) {
-  // Undock the persona card and give it a shadow.
-  .ms-ContextualHost {
-    .ms-PersonaCard {
-      box-shadow: none;
-    }
-  }
-}
-*/
 // CommandBar
 $CommandBar-navBar-height: 50px;
 .ms-CommandBar{
@@ -281,6 +251,18 @@ $CommandBar-navBar-height: 50px;
 // Link';
 // List';
 // ListItem';
+
+.ms-ListItem{
+  & + &{
+    border-top: 1px solid $ms-color-neutralLighter;
+  }
+}
+.ms-ListItem-secondaryText{
+    color: $ms-color-themePrimary;
+}
+.ms-ListItem-metaText {
+  color: $ms-color-themePrimary;
+}
 // MessageBanner';
 // ContextualHost';
 // MessageBar';

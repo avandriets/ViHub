@@ -7,6 +7,7 @@ import {ElementsService} from './Utility/elements.service';
 import {WindowRef} from './Utility/WindowRef';
 import {AppComponent}  from './app.component';
 import {ElementsListComponent}  from './Components/elements-list.component';
+import {ElementsListVarComponent}  from './Components/elements-list-var.component';
 import {CommandBarComponent}  from './Components/command-bar.compotent';
 import {DetailCommandBarComponent}  from './Components/detail-command-bar.compotent';
 import {DashboardComponent} from './dashboard.component'
@@ -27,6 +28,7 @@ import {ViewMessageDialogComponent} from "./Dialogs/view-message-dialog.componen
     declarations: [
         AppComponent,
         ElementsListComponent,
+        ElementsListVarComponent,
         CommandBarComponent,
         DetailCommandBarComponent,
         DashboardComponent,
