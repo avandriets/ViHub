@@ -1,10 +1,11 @@
 import msgraph
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from rest_framework.decorators import api_view
+from rest_framework.decorators import api_view, detail_route
 
 from ViHub import settings
 from connect import config
@@ -165,3 +166,15 @@ def get_current_user_info(request):
         return Response({"id": user.id, "email":user.email,
                          "username": user.username, "first_name": user.first_name,
                          "last_name":user.last_name})
+
+
+@login_required
+@api_view(['GET'])
+def search_user(request):
+
+    search_param = request.query_params['search']
+
+    users = Account.objects.filter(Q(last_name__contains=search_param) |Q(first_name__contains=search_param) | Q(email__contains=search_param))[:20]
+    serializer = AccountSerializer(users, many=True)
+
+    return Response(serializer.data)

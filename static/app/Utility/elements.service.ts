@@ -3,7 +3,7 @@
  */
 
 import {Injectable} from '@angular/core';
-import {ElementVi, Favorite, MessageVi, NoteVi} from './base-classes';
+import {ElementVi, Favorite, MessageVi, NoteVi, UserVi} from './base-classes';
 import {Headers, Http, Response, URLSearchParams} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
 
@@ -14,6 +14,7 @@ export class ElementsService {
     private favoriteUrl = '/rest/element-favorite/';
     private messageUrl = '/rest/messages/';
     private noteUrl = '/rest/notes/';
+    private usersUrl = '/rest/users/';
 
     private headers = new Headers({'Content-Type': 'application/json'});
 
@@ -72,9 +73,8 @@ export class ElementsService {
     }
 
     createElement(name: string, description: string, element_type: string, parentElement: ElementVi): Promise<ElementVi> {
-        let parent_el:any = null;
-        if(parentElement!=null)
-        {
+        let parent_el: any = null;
+        if (parentElement != null) {
             parent_el = parentElement.element;
         }
         return this.http
@@ -194,6 +194,59 @@ export class ElementsService {
             .then((response) => {
                 return response.json();
             })
+            .catch(this.handleError);
+    }
+
+    getMembers(element: number): Promise<UserVi[]> {
+        const url = `${this.elementsUrl}${element}/get-members`;
+
+        return this.http
+            .get(url, {headers: this.headers})
+            .toPromise()
+            .then((response) => {
+                return response.json() as UserVi[];
+            })
+            .catch(this.handleError);
+    }
+
+    deleteMember(element: number, deletedUser: UserVi) : Promise<UserVi> {
+        const url = `${this.elementsUrl}${element}/delete-member/`;
+
+        let member: string = deletedUser.id.toString();
+        let params = new URLSearchParams();
+        params.set('member', member); // the user's search value
+
+        return this.http
+            .post(url, params)
+            .toPromise()
+            .then(res => res.json())
+            .catch(this.handleError);
+    }
+
+    searchMembers(searchString: string): Promise<UserVi[]> {
+        const url = `/vi-hub/search-user/`;
+
+        let params = new URLSearchParams();
+        params.set('search', searchString); // the user's search value
+
+        return this.http
+            .get(url, { search: params })
+            .toPromise()
+            .then(res => res.json())
+            .catch(this.handleError);
+    }
+
+    addMember(element: number, addUser: UserVi): Promise<UserVi> {
+        const url = `${this.elementsUrl}${element}/add-member/`;
+
+        let member: string = addUser.id.toString();
+        let params = new URLSearchParams();
+        params.set('member', member); // the user's search value
+
+        return this.http
+            .post(url, params)
+            .toPromise()
+            .then(res => res.json())
             .catch(this.handleError);
     }
 }

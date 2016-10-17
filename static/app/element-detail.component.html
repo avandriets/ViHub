@@ -1,6 +1,11 @@
+<add-note-dialog [parentElement]="element" (onAddNote)="dataChange($event)"></add-note-dialog>
 <view-message-dialog></view-message-dialog>
+<edit-note-dialog (onSaveNote)="dataChange($event)"></edit-note-dialog>
+<delete-note-dialog (onDeleteNote)="dataChange($event)"></delete-note-dialog>
+<view-members-dialog [currentElement]="element"></view-members-dialog>
+<add-members-dialog [currentElement]="element"></add-members-dialog>
 
-<detail-command-bar (onDataChange)="dataChange($event)" [currentElement]="element"></detail-command-bar>
+<detail-command-bar [addMemberDialog]="addMemberDialog" [memberViewDlg]="membersViewDialog" [addNoteDialogLocal]="addNoteDialog" (onDataChange)="dataChange($event)" [currentElement]="element"></detail-command-bar>
 
 <breadcrumbs [parentElementsList]="breadcrumbs"></breadcrumbs>
 
@@ -8,11 +13,11 @@
     <div class="ms-Grid-row">
         <div class="ms-List-item ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg8 ms-u-xl5">
             <h2 class="ms-font-xl">Сообщения</h2>
-            <messages-list [viewMessageDialog]="viewMessageDialog" [localMessages]="messagesSet">Загрузка ...</messages-list>
+            <messages-list [addNoteDialogLocal]="addNoteDialog" [viewMessageDialog]="viewMessageDialog" [localMessages]="messagesSet">Загрузка ...</messages-list>
         </div>
         <div class="ms-List-item ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-lg4 ms-u-xl4">
             <h2 class="ms-font-xl">Заметки</h2>
-            <notes-list [localNotes]="notesSet">Загрузка ...</notes-list>
+            <notes-list [deleteNoteDialog]="deleteNoteDialog" [editNoteDialog]="editNoteDialog" [localNotes]="notesSet">Загрузка ...</notes-list>
         </div>
         <div class="ms-List-item ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-lg12 ms-u-xl3">
             <h2 class="ms-font-xl">Элементы</h2>

@@ -18,7 +18,7 @@ from django.contrib import admin
 from Hub.views import ElementViewSet, MembersViewSet, FavoriteViewSet, set_favorite
 from Messages.views import MessageViewSet
 from Notes.views import NoteViewSet
-from connect.views import AccountViewSet, get_current_user_info
+from connect.views import AccountViewSet, get_current_user_info, search_user
 from rest_framework import routers
 
 router = routers.DefaultRouter()
@@ -38,4 +38,5 @@ urlpatterns = [
     url(r'^rest/', include(router.urls)),
     url(r'^vi-hub/set_favorite/(?P<id_obj>\d+)$', set_favorite),
     url(r'^vi-hub/me$', get_current_user_info),
+    url(r'^vi-hub/search-user', search_user),
 ]

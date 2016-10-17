@@ -1,5 +1,5 @@
-<div class="ms-Dialog" id="deleteDialogID">
-    <div class="ms-Dialog-title">Удалить элемент и все связанные объекты?</div>
+<div class="ms-Dialog" id="deleteNoteDialogID">
+    <div class="ms-Dialog-title">Удалить заметку?</div>
     <div class="ms-Dialog-content">
         <div *ngIf="hasError" class="ms-MessageBar ms-MessageBar--error">
             <div class="ms-MessageBar-content">
@@ -11,10 +11,11 @@
                 </div>
             </div>
         </div>
+
     </div>
 
     <div class="ms-Dialog-actions">
-        <button (click)="onDeleteElementClick()" class="ms-Button  ms-Button--primary">
+        <button (click)="onDeleteNoteDialog()" class="ms-Button  ms-Button--primary">
             <span class="ms-Button-label">Удалить</span>
         </button>
         <button class="ms-Button ms-Dialog-action">

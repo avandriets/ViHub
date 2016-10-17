@@ -38,7 +38,8 @@ export class MessageVi extends BaseObject {
     username: string;
     first_name: string;
     last_name: string;
-    getUserName(): string{
+
+    getUserName(): string {
         return this.first_name + " " + this.last_name;
     }
 }
@@ -53,4 +54,10 @@ export class NoteVi extends BaseObject {
     username: string;
     first_name: string;
     last_name: string;
+}
+
+export class UserVi extends BaseObject {
+    first_name: string;
+    last_name: string;
+    email: string;
 }

@@ -15,8 +15,11 @@ from Messages.models import Message
 from Messages.serializers import MessageSerializer
 from Notes.models import Note
 from Notes.serializers import NoteSerializer
+from connect.account_serializer import AccountSerializer
 from connect.auth_helper import get_signout_url
 from django.db.models import Q
+
+from connect.models import Account
 
 
 @login_required
@@ -162,6 +165,44 @@ class ElementViewSet(viewsets.ModelViewSet):
                 except Error:
                     return Response({"message": "db error"}, status=status.HTTP_404_NOT_FOUND)
 
+    @detail_route(methods=['get'], url_path='get-members')
+    def get_members(self, request, pk=None):
+        usr_ids = list(Members.objects.filter(element=pk).values_list('user_involved',flat=True))
+
+        data_set = Account.objects.filter(id__in=usr_ids)
+        serializer = AccountSerializer(data_set, many=True)
+        return Response(serializer.data)
+
+    @detail_route(methods=['post'], url_path='delete-member')
+    def delete_member(self, request, pk=None):
+        member_num = request.data["member"]
+        try:
+            member = Members.objects.get(element=pk, user_involved=member_num)
+        except Element.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        member.delete()
+
+        return Response({"result":True})
+
+    @detail_route(methods=['post'], url_path='add-member')
+    def add_member(self, request, pk=None):
+        member_num = request.data["member"]
+
+        try:
+            member_obj = Account.objects.get(id=member_num)
+        except Element.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        try:
+            hub_members = Members()
+            hub_members.user_involved = member_obj
+            hub_members.element = Element.objects.get(id=pk)
+            hub_members.save()
+        except Error:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        return Response({"result": True})
 
 
 class MembersViewSet(viewsets.ModelViewSet):

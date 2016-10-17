@@ -90,3 +90,11 @@ static/app/Utility/base-classes.js.map
 static/app/Components/breadcrumbs.component.js
 static/app/Components/breadcrumbs.component.js.map
 static/npm-debug.log
+static/app/Components/elements-list-var.component.js
+static/app/Components/elements-list-var.component.js.map
+static/app/Components/view-members-dialog.component.js
+static/app/Components/view-members-dialog.component.js.map
+static/app/Dialogs/delete-note-dialog.component.js
+static/app/Dialogs/delete-note-dialog.component.js.map
+static/app/Components/add-member-dialog.component.js
+static/app/Components/add-member-dialog.component.js.map

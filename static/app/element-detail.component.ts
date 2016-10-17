@@ -5,6 +5,11 @@ import {ElementVi, TransportObject, MessageVi, NoteVi} from './Utility/base-clas
 import {ElementsService} from './Utility/elements.service'
 import {WindowRef} from './Utility/WindowRef';
 import {ViewMessageDialogComponent} from "./Dialogs/view-message-dialog.component";
+import {EditNoteDialogComponent} from "./Dialogs/edit-note-dialog.component";
+import {DeleteNoteDialogComponent} from "./Dialogs/delete-note-dialog.component";
+import {AddNoteDialogComponent} from "./Dialogs/add-note-dialog.component";
+import {ViewMemberDialogComponent} from "./Components/view-members-dialog.component";
+import {AddMemberDialogComponent} from "./Components/add-member-dialog.component";
 
 
 @Component({
@@ -22,6 +27,11 @@ export class ElementDetailComponent implements OnInit, AfterViewInit {
     breadcrumbs: ElementVi[] = [];
 
     @ViewChild(ViewMessageDialogComponent) viewMessageDialog: ViewMessageDialogComponent;
+    @ViewChild(EditNoteDialogComponent) editNoteDialog: EditNoteDialogComponent;
+    @ViewChild(DeleteNoteDialogComponent) deleteNoteDialog: DeleteNoteDialogComponent;
+    @ViewChild(AddNoteDialogComponent) addNoteDialog: AddNoteDialogComponent;
+    @ViewChild(ViewMemberDialogComponent) membersViewDialog: ViewMemberDialogComponent;
+    @ViewChild(AddMemberDialogComponent) addMemberDialog:AddMemberDialogComponent;
 
     error: any;
 
@@ -49,8 +59,6 @@ export class ElementDetailComponent implements OnInit, AfterViewInit {
     }
 
     ngOnInit(): void {
-
-        //this.viewMessageDialog.openDialog();
 
         this.route.params.forEach((params: Params) => {
             let id = +params['id'];

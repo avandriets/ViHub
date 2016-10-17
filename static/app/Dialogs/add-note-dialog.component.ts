@@ -1,7 +1,7 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
-import { OnInit, AfterViewInit } from '@angular/core';
-import { ElementsService } from '../Utility/elements.service';
-import { WindowRef } from '../Utility/WindowRef';
+import {OnInit, AfterViewInit} from '@angular/core';
+import {ElementsService} from '../Utility/elements.service';
+import {WindowRef} from '../Utility/WindowRef';
 import {BaseDialog} from "../Utility/BaseDialog";
 import {ElementVi, MessageVi, BaseObject, TransportObject, NoteVi} from "../Utility/base-classes";
 
@@ -11,7 +11,7 @@ import {ElementVi, MessageVi, BaseObject, TransportObject, NoteVi} from "../Util
     templateUrl: '/static/app/Dialogs/add-note-dialog.component.html',
 })
 
-export class AddNoteDialogComponent extends BaseDialog implements AfterViewInit{
+export class AddNoteDialogComponent extends BaseDialog implements AfterViewInit {
 
     @Input() parentElement: ElementVi;
     @Input() parentMessage: MessageVi;
@@ -21,26 +21,25 @@ export class AddNoteDialogComponent extends BaseDialog implements AfterViewInit{
         return this.onAddNote;
     }
 
-    subject:string = '';
-    message:string = '';
-    private_note:boolean = false;
+    subject: string = '';
+    message: string = '';
+    private_note: boolean = false;
 
-    constructor( private elementService: ElementsService, public winRef: WindowRef) {
+    constructor(private elementService: ElementsService, public winRef: WindowRef) {
         super(winRef);
     }
 
-    onCreateMessage(): void
-    {
+    onCreateMessage(): void {
         this.subject = this.subject.trim();
         this.message = this.message.trim();
 
-        if(this.subject == null || this.subject == ' ' || this.subject.length == 0){
+        if (this.subject == null || this.subject == ' ' || this.subject.length == 0) {
             this.hasError = true;
             this.errorMessage = 'Заполните заголовок.';
             return;
         }
 
-        if(this.message == null || this.message == ' ' || this.message.length == 0){
+        if (this.message == null || this.message == ' ' || this.message.length == 0) {
             this.hasError = true;
             this.errorMessage = 'Заполните содерание.';
             return;
@@ -52,8 +51,8 @@ export class AddNoteDialogComponent extends BaseDialog implements AfterViewInit{
         note.element = this.parentElement.element;
         note.private_note = this.private_note;
 
-        if(this.parentMessage != null){
-        note.message = this.parentMessage.id;
+        if (this.parentMessage != null) {
+            note.message = this.parentMessage.id;
         }
 
         this.elementService.createNote(note)
@@ -64,8 +63,10 @@ export class AddNoteDialogComponent extends BaseDialog implements AfterViewInit{
 
                 this.onAddNote.emit(trsObj);
 
-                this.subject= '';
+                this.subject = '';
                 this.message = '';
+                this.parentMessage = null;
+
                 this.errorMessage = '';
                 this.hasError = false;
 
@@ -77,15 +78,19 @@ export class AddNoteDialogComponent extends BaseDialog implements AfterViewInit{
             });
     }
 
+    initDialog(pParentMessage: MessageVi): void {
+        this.parentMessage = pParentMessage;
+    }
+
     initComponent(): void {
-        let dialog =  document.querySelector("#addNoteDialogID");//.querySelector(".ms-Dialog");
+        let dialog = document.querySelector("#addNoteDialogID");//.querySelector(".ms-Dialog");
         this.dialogInstance = new this.winRef.nativeWindow.fabric['Dialog'](dialog);
     }
 
     ngAfterViewInit(): void {
         var ToggleElements = document.querySelectorAll(".ms-Toggle");
-        for(var i = 0; i < ToggleElements.length; i++) {
-                new this.winRef.nativeWindow.fabric['Toggle'](ToggleElements[i]);
+        for (var i = 0; i < ToggleElements.length; i++) {
+            new this.winRef.nativeWindow.fabric['Toggle'](ToggleElements[i]);
         }
     }
 }
