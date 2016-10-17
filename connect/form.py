@@ -103,7 +103,7 @@ class MyAuthenticationForm(forms.Form):
                 raise forms.ValidationError(
                     self.error_messages['invalid_login'],
                     code='invalid_login',
-                    params={'username': self.username_field.verbose_name},
+                    params={'email': self.email_field.verbose_name},
                 )
             else:
                 self.confirm_login_allowed(self.user_cache)
