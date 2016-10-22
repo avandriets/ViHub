@@ -29,4 +29,13 @@ export abstract class BaseDialog implements OnInit {
     }
 
     abstract initComponent() :void;
+
+    SetError(error:any) :void{
+        if(error != null) {
+            this.hasError = true;
+            this.errorMessage = error.json().detail;
+        }else{
+            this.hasError = false;
+        }
+    }
 }

@@ -11,19 +11,18 @@ import {ElementVi, MessageVi, BaseObject, TransportObject, NoteVi, UserVi} from 
     templateUrl: '/static/app/Components/add-member-dialog.component.html',
 })
 
-export class AddMemberDialogComponent extends BaseDialog implements AfterViewInit {
+export class AddMemberDialogComponent extends BaseDialog {
 
     @Input() currentElement: ElementVi;
     membersList: UserVi[] = [];
-    searchString:string = "";
+    searchString: string = "";
 
     searchMembers(): void {
         this.elementService.searchMembers(this.searchString)
             .then((retUsers) => {
                 this.membersList = retUsers;
             }).catch((error)=> {
-            this.hasError = true;
-            this.errorMessage = error;
+            this.SetError(error);
         });
     }
 
@@ -36,8 +35,7 @@ export class AddMemberDialogComponent extends BaseDialog implements AfterViewIni
                     this.membersList.splice(index, 1);
                 }
             }).catch((error)=> {
-            this.hasError = true;
-            this.errorMessage = error;
+            this.SetError(error);
         });
     }
 
@@ -59,6 +57,9 @@ export class AddMemberDialogComponent extends BaseDialog implements AfterViewIni
         this.dialogInstance = new this.winRef.nativeWindow.fabric['Dialog'](dialog);
     }
 
-    ngAfterViewInit(): void {
+
+    openDialog(): void {
+        super.openDialog();
+        this.SetError(null);
     }
 }

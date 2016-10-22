@@ -1,5 +1,8 @@
 from django.shortcuts import render
+from rest_framework import exceptions
 from rest_framework import viewsets
+
+from Hub.models import Element, Members
 from Notes.models import Note
 from Notes.serializers import NoteSerializer
 from rest_framework import filters
@@ -22,7 +25,18 @@ class NoteViewSet(viewsets.ModelViewSet):
 
         owner_val = self.request.query_params.get('element', None)
 
+        try:
+            element = Element.objects.get(id=owner_val)
+        except Element.DoesNotExist:
+            raise exceptions.NotFound()
+
         if owner_val is not None:
-            queryset = queryset.filter(element=owner_val)
+            members_list = Members.objects.filter(element=owner_val, user_involved=self.request.user)
+            if members_list.count() > 0:
+                queryset = queryset.filter(element=owner_val)
+            else:
+                raise exceptions.PermissionDenied()
+        else:
+            queryset = Note.objects.none()
 
         return queryset

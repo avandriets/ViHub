@@ -25,6 +25,7 @@ import {EditNoteDialogComponent} from "./Dialogs/edit-note-dialog.component";
 import {DeleteNoteDialogComponent} from "./Dialogs/delete-note-dialog.component";
 import {ViewMemberDialogComponent} from "./Components/view-members-dialog.component";
 import {AddMemberDialogComponent} from "./Components/add-member-dialog.component";
+import {SpinnerComponent} from "./Components/spinner.component";
 
 @NgModule({
     imports: [
@@ -49,6 +50,7 @@ import {AddMemberDialogComponent} from "./Components/add-member-dialog.component
         ViewMessageDialogComponent,
         ViewMemberDialogComponent,
         AddMemberDialogComponent,
+        SpinnerComponent,
         routedComponents
     ],
     providers: [

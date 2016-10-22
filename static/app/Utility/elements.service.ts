@@ -14,13 +14,23 @@ export class ElementsService {
     private favoriteUrl = '/rest/element-favorite/';
     private messageUrl = '/rest/messages/';
     private noteUrl = '/rest/notes/';
-    private usersUrl = '/rest/users/';
+    // private usersUrl = '/rest/users/';
 
     private headers = new Headers({'Content-Type': 'application/json'});
 
     cardView: boolean = true;
+    currentUser: UserVi;
 
     constructor(private http: Http) {
+
+        const url = `/vi-hub/me`;
+        this.http
+            .get(url)
+            .toPromise()
+            .then((response) => {
+                this.currentUser = response.json() as UserVi;
+            })
+            .catch(this.handleError);
     }
 
     private handleError(error: any): Promise<any> {

@@ -15,7 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
-from Hub.views import ElementViewSet, MembersViewSet, FavoriteViewSet, set_favorite
+from Hub.views import ElementViewSet, MembersViewSet, FavoriteViewSet
+from Invitations.views import accept_invitation, decline_invitation
 from Messages.views import MessageViewSet
 from Notes.views import NoteViewSet
 from connect.views import AccountViewSet, get_current_user_info, search_user
@@ -23,9 +24,9 @@ from rest_framework import routers
 
 router = routers.DefaultRouter()
 router.register(r'elements', ElementViewSet)
-router.register(r'element-members', MembersViewSet)
+# router.register(r'element-members', MembersViewSet)
 router.register(r'element-favorite', FavoriteViewSet)
-router.register(r'users', AccountViewSet)
+# router.register(r'users', AccountViewSet)
 router.register(r'messages', MessageViewSet)
 router.register(r'notes', NoteViewSet)
 
@@ -36,7 +37,9 @@ urlpatterns = [
     url(r'^connect/', include('connect.urls', namespace='connect')),
     # url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework')),
     url(r'^rest/', include(router.urls)),
-    url(r'^vi-hub/set_favorite/(?P<id_obj>\d+)$', set_favorite),
+    # url(r'^vi-hub/set_favorite/(?P<id_obj>\d+)$', set_favorite),
     url(r'^vi-hub/me$', get_current_user_info),
     url(r'^vi-hub/search-user', search_user),
+    url(r'^vi-hub/accept-invitation/(?P<uuid>[^/]+)/$', accept_invitation, name='accept-invitation'),
+    url(r'^vi-hub/decline-invitation/(?P<uuid>[^/]+)/$', decline_invitation, name='decline-invitation'),
 ]

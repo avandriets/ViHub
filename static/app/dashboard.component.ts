@@ -16,6 +16,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
 
     favoriteSet: Favorite[] = [];
     error: any;
+    loading: boolean = true;
+
     constructor(private router: Router,
                 private elementService: ElementsService, private winRef: WindowRef) {
     }
@@ -43,12 +45,13 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     }
 
     getData(): void {
-
         this.elementService.getElements(-1).then((elements) => {
             this.elementsSet = elements;
+            this.loading = false;
         }).catch((error)=> {
             console.log(error);
             this.error = error;
+            this.loading = false;
         });
         this.elementService.getFavorite().then((favorites) => {
             this.favoriteSet = favorites;

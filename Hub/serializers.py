@@ -30,7 +30,8 @@ class ElementSerializer(serializers.ModelSerializer):
         return element.id
 
     def get_favorite(self, element):
-        qs = Favorite.objects.filter(owner=element.owner, element=element)
+        # self.context['request'].user
+        qs = Favorite.objects.filter(owner=self.context['request'].user, element=element)
         if qs.count() > 0:
             return True
         else:

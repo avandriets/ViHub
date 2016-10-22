@@ -1,24 +1,24 @@
 from django.contrib.auth.decorators import login_required
 from django.db import Error
-from django.db import models
+from django.db.models import Q
 from django.shortcuts import render
 from django.urls import reverse
+from rest_framework import filters
 from rest_framework import status
 from rest_framework import viewsets
-from rest_framework.decorators import api_view, detail_route
+from rest_framework.decorators import detail_route
 from rest_framework.response import Response
-from rest_framework import filters
-
 from Hub.models import Element, Members, Favorite
-from Hub.serializers import ElementSerializer, MembersSerializer, FavoriteSerializer, ElementsListSerializer
+from Hub.serializers import ElementSerializer, MembersSerializer, FavoriteSerializer
+from Invitations.models import Invitation
+from Invitations.views import send_invitation
 from Messages.models import Message
 from Messages.serializers import MessageSerializer
 from Notes.models import Note
 from Notes.serializers import NoteSerializer
+from ViHub.permission import IsOwnerOrReadOnlyElements, IsOwnerOrReadOnly
 from connect.account_serializer import AccountSerializer
 from connect.auth_helper import get_signout_url
-from django.db.models import Q
-
 from connect.models import Account
 
 
@@ -53,6 +53,8 @@ class ElementViewSet(viewsets.ModelViewSet):
     filter_fields = ('parent',)
     ordering_fields = ('created_at', 'updated_at')
 
+    permission_classes = (IsOwnerOrReadOnlyElements,)
+
     def filter_queryset(self, queryset):
 
         queryset = Element.objects.all()
@@ -70,7 +72,6 @@ class ElementViewSet(viewsets.ModelViewSet):
 
     def update(self, request, *args, **kwargs):
 
-        # TODO insert condition is you are owner this element
         if request.data["is_delete"] == 1:
             upd_list = Element.objects.filter(parent=request.data["id"])
             self.set_delete_mark(upd_list)
@@ -130,14 +131,14 @@ class ElementViewSet(viewsets.ModelViewSet):
         members_set = Members.objects.filter(element=pk, user_involved=request.user)
         if members_set.count() > 0:
             if element.owner_id != request.user.id:
-                return Response([ElementSerializer(element).data])
+                return Response([ElementSerializer(element, context= {'request': request}).data])
 
             list_os_elements = [element]
             self.get_elements_tree(list_os_elements, element)
 
             json_list = []
             for el in list_os_elements:
-                json_list.append(ElementSerializer(el).data)
+                json_list.append(ElementSerializer(el, context= {'request': request} ).data)
 
             return Response(json_list)
         else:
@@ -146,28 +147,47 @@ class ElementViewSet(viewsets.ModelViewSet):
     @detail_route(methods=['post'], url_path='set-favorite')
     def set_favorite(self, request, pk=None):
 
-            if request.method == 'POST':
-                try:
-                    element = Element.objects.get(id=pk)
-                except Element.DoesNotExist:
-                    return Response(status=status.HTTP_404_NOT_FOUND)
+        if request.method == 'POST':
+            try:
+                element = Element.objects.get(id=pk)
+            except Element.DoesNotExist:
+                return Response(status=status.HTTP_404_NOT_FOUND)
 
-                try:
+            self.check_object_permissions(request, element)
+
+            # members = element.members.filter(user_involved=request.user)
+            # user_has_permission = False
+            # for member in members:
+            #     if member.user_involved == request.user:
+            #         user_has_permission = True
+            #
+            # if not user_has_permission:
+            #     return Response({"message": "don't have permission"}, status=status.HTTP_404_NOT_FOUND)
+
+            try:
+                favorite_data = Favorite.objects.filter(owner=request.user, element=pk)
+                if favorite_data.count() == 0:
+                    favorite_obj = Favorite.objects.create(element=element, owner=request.user)
+                    favorite_obj.save()
+                    return Response({"message": "successfully add to favorite"})
+                else:
                     favorite_data = Favorite.objects.filter(owner=request.user, element=pk)
-                    if favorite_data.count() == 0:
-                        favorite_obj = Favorite.objects.create(element=element, owner=request.user)
-                        favorite_obj.save()
-                        return Response({"message": "successfully add to favorite"})
-                    else:
-                        favorite_data = Favorite.objects.filter(owner=request.user, element=pk)
-                        favorite_data.delete()
-                        return Response({"message": "successfully remove from favorite"})
-                except Error:
-                    return Response({"message": "db error"}, status=status.HTTP_404_NOT_FOUND)
+                    favorite_data.delete()
+                    return Response({"message": "successfully remove from favorite"})
+            except Error:
+                return Response({"message": "db error"}, status=status.HTTP_404_NOT_FOUND)
 
     @detail_route(methods=['get'], url_path='get-members')
     def get_members(self, request, pk=None):
-        usr_ids = list(Members.objects.filter(element=pk).values_list('user_involved',flat=True))
+
+        try:
+            element = Element.objects.get(id=pk)
+        except Element.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        self.check_object_permissions(request, element)
+
+        usr_ids = list(Members.objects.filter(element=pk).values_list('user_involved', flat=True))
 
         data_set = Account.objects.filter(id__in=usr_ids)
         serializer = AccountSerializer(data_set, many=True)
@@ -175,6 +195,14 @@ class ElementViewSet(viewsets.ModelViewSet):
 
     @detail_route(methods=['post'], url_path='delete-member')
     def delete_member(self, request, pk=None):
+
+        try:
+            element = Element.objects.get(id=pk)
+        except Element.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        self.check_object_permissions(request, element)
+
         member_num = request.data["member"]
         try:
             member = Members.objects.get(element=pk, user_involved=member_num)
@@ -183,10 +211,18 @@ class ElementViewSet(viewsets.ModelViewSet):
 
         member.delete()
 
-        return Response({"result":True})
+        return Response({"result": True})
 
     @detail_route(methods=['post'], url_path='add-member')
     def add_member(self, request, pk=None):
+
+        try:
+            element = Element.objects.get(id=pk)
+        except Element.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        self.check_object_permissions(request, element)
+
         member_num = request.data["member"]
 
         try:
@@ -194,13 +230,11 @@ class ElementViewSet(viewsets.ModelViewSet):
         except Element.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        try:
-            hub_members = Members()
-            hub_members.user_involved = member_obj
-            hub_members.element = Element.objects.get(id=pk)
-            hub_members.save()
-        except Error:
-            return Response(status=status.HTTP_404_NOT_FOUND)
+        # send invitation
+        invitation = Invitation.objects.create(element=element, invited_user=member_obj)
+        invitation.save()
+
+        send_invitation(request, invitation)
 
         return Response({"result": True})
 
@@ -214,23 +248,13 @@ class MembersViewSet(viewsets.ModelViewSet):
     serializer_class = MembersSerializer
 
 
-class FavoriteViewSet(viewsets.ModelViewSet):
+class FavoriteViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
+    permission_classes = (IsOwnerOrReadOnly,)
     queryset = Favorite.objects.all()
     serializer_class = FavoriteSerializer
-
-
-@login_required
-def hub_detail_view(request, id):
-
-    redirect_uri = request.build_absolute_uri(reverse('connect:get_token'))
-    context = {
-        'logoutUrl': get_signout_url(redirect_uri)
-    }
-    return render(request, 'detail_page.html', context)
-
 
 def hub_test(request):
     context = {
@@ -240,33 +264,8 @@ def hub_test(request):
 
 @login_required
 def about(request):
-
     redirect_uri = request.build_absolute_uri(reverse('connect:get_token'))
     context = {
         'logoutUrl': get_signout_url(redirect_uri)
     }
     return render(request, 'about_page.html', context)
-
-
-@login_required
-@api_view(['POST'])
-def set_favorite(request, id_obj):
-
-    if request.method == 'POST':
-        try:
-            element = Element.objects.get(id=id_obj)
-        except Element.DoesNotExist:
-            return Response(status=status.HTTP_404_NOT_FOUND)
-
-        try:
-            favorite_data = Favorite.objects.filter(owner=request.user, element=id_obj)
-            if favorite_data.count() == 0:
-                favorite_obj = Favorite.objects.create(element=element, owner=request.user)
-                favorite_obj.save()
-                return Response({"message": "successfully add to favorite"})
-            else:
-                favorite_data = Favorite.objects.filter(owner=request.user, element=id_obj)
-                favorite_data.delete()
-                return Response({"message": "successfully remove from favorite"})
-        except Error:
-            return Response({"message": "db error"}, status=status.HTTP_404_NOT_FOUND)

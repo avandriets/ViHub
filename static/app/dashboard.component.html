@@ -1,11 +1,12 @@
 <command-bar (onDataChange)="onDataChange($event)"></command-bar>
+<spinner-component *ngIf="loading"></spinner-component>
 
-<div class="ms-Grid">
+<div *ngIf="!loading" class="ms-Grid">
     <div class="ms-Grid-row">
         <div class="ms-Grid-col ms-u-sm12">
             <h1 class="ms-font-xxl">Элементы</h1>
             <div class="ms-Grid-row">
-                    <elements-list [localElements]="elementsSet" (onSetFavorite)="onDataChange($event)"></elements-list>
+                <elements-list [localElements]="elementsSet" (onSetFavorite)="onDataChange($event)"></elements-list>
             </div>
         </div>
     </div>

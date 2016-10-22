@@ -16,7 +16,6 @@ import msgraph
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.10/howto/deployment/checklist/
 
@@ -27,7 +26,6 @@ SECRET_KEY = 'ijxz135d#8b2+t1&5#_g_zu&5jujj_-1d4v_(828-7cr6a&!0m'
 DEBUG = True
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -45,6 +43,7 @@ INSTALLED_APPS = [
     'Hub',
     'Messages',
     'Notes',
+    'Invitations',
 ]
 
 MIDDLEWARE = [
@@ -77,7 +76,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'ViHub.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/1.10/ref/settings/#databases
@@ -154,8 +152,8 @@ REST_FRAMEWORK = {
         # 'rest_framework.authentication.BasicAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ),
-    #'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
-    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated', ),
+    # 'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
+    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
     # 'PAGE_SIZE': 1000,
     # 'DEFAULT_AUTHENTICATION_CLASSES': (
     #     'oauth2_provider.ext.rest_framework.OAuth2Authentication',
@@ -167,3 +165,9 @@ AUTH_USER_MODEL = 'connect.Account'
 LOGIN_URL = '/connect/'
 
 SITE_NAME = 'Vi Hub'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = 'andryets@gmail.com'#'info@thekaraproject.com'
+EMAIL_HOST_PASSWORD = 'gjx2890-123'

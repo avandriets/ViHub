@@ -1,6 +1,16 @@
 <div id="addMemberDialogID" class="ms-Dialog">
     <div class="ms-Dialog-title">Добавление пользователя</div>
     <div class="ms-Dialog-content">
+        <div *ngIf="hasError" class="ms-MessageBar ms-MessageBar--error">
+            <div class="ms-MessageBar-content">
+                <div class="ms-MessageBar-icon">
+                    <i class="ms-Icon ms-Icon--xCircle"></i>
+                </div>
+                <div class="ms-MessageBar-text">
+                    {{ errorMessage }}
+                </div>
+            </div>
+        </div>
         <div class="ms-TextField ms-TextField-Button-icon">
             <input [(ngModel)]="searchString" class="ms-TextField-field" type="text">
             <button (click)="searchMembers()" class="ms-Button ms-Button--primary">
