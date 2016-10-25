@@ -130,13 +130,6 @@ USE_L10N = True
 
 USE_TZ = True
 
-scopes_msgraph = ['wl.openid', 'wl.offline_access', 'https://graph.microsoft.com/Files.ReadWrite',
-                  'https://graph.microsoft.com/User.ReadWrite.All', 'https://graph.microsoft.com/Directory.ReadWrite.All',
-                  'https://graph.microsoft.com/Group.ReadWrite.All', 'https://graph.microsoft.com/Contacts.ReadWrite',
-                  'https://graph.microsoft.com/Calendars.ReadWrite', 'https://graph.microsoft.com/Mail.ReadWrite',
-                  'https://graph.microsoft.com/Tasks.ReadWrite', 'https://graph.microsoft.com/People.ReadWrite',
-                  'https://graph.microsoft.com/Notes.ReadWrite.CreatedByApp']
-
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
@@ -169,5 +162,5 @@ SITE_NAME = 'Vi Hub'
 EMAIL_USE_TLS = True
 EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_PORT = 587
-EMAIL_HOST_USER = 'andryets@gmail.com'#'info@thekaraproject.com'
+EMAIL_HOST_USER = 'ditcomio@gmail.com'
 EMAIL_HOST_PASSWORD = 'gjx2890-123'

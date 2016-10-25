@@ -6,6 +6,7 @@ import {Injectable} from '@angular/core';
 import {ElementVi, Favorite, MessageVi, NoteVi, UserVi} from './base-classes';
 import {Headers, Http, Response, URLSearchParams} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
+import {bootstrap} from "@angular/upgrade/src/angular_js";
 
 @Injectable()
 export class ElementsService {
@@ -30,7 +31,9 @@ export class ElementsService {
             .then((response) => {
                 this.currentUser = response.json() as UserVi;
             })
-            .catch(this.handleError);
+            .catch((err)=> {
+                this.handleError = err;
+            });
     }
 
     private handleError(error: any): Promise<any> {
@@ -258,5 +261,20 @@ export class ElementsService {
             .toPromise()
             .then(res => res.json())
             .catch(this.handleError);
+    }
+
+    syncMailMessages(element: number): Promise<boolean>{
+        const url = `${this.elementsUrl}${element}/sync-messages/`;
+
+        if(this.currentUser.provider == 'M') {
+
+            return this.http
+                .get(url)
+                .toPromise()
+                .then(res => res.json())
+                .catch(this.handleError);
+        }
+        else
+            return new Promise<boolean>(() => { return false;   });
     }
 }

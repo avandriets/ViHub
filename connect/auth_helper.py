@@ -19,69 +19,73 @@ authorize_url = '{0}{1}'.format(authority, '/common/oauth2/authorize?{0}')
 # The token issuing endpoint.
 token_url = '{0}{1}'.format(authority, '/common/oauth2/token')
 
+
 # This function creates the signin URL that the app will
 # direct the user to in order to sign in to Office 365 and
 # give the app consent.
 def get_signin_url(redirect_uri):
-  # Build the query parameters for the signin URL.
-  params = { 'client_id': client_id,
-             'redirect_uri': redirect_uri,
-             'response_type': 'code'
-           }
+    # Build the query parameters for the signin URL.
+    params = {'client_id': client_id,
+              'redirect_uri': redirect_uri,
+              'response_type': 'code'
+              }
 
-  signin_url = authorize_url.format(urlencode(params))
-  return signin_url
-  
+    signin_url = authorize_url.format(urlencode(params))
+    return signin_url
+
+
 def get_signout_url(redirect_uri):
-  params = { 'post_logout_redirect_uri': disconnect_url #home_page_url
-           }
-           
-  signout_url = (authority + '/common/oauth2/logout?{0}').format(urlencode(params))
-  return signout_url
-  
+    params = {'post_logout_redirect_uri': disconnect_url  # home_page_url
+              }
+
+    signout_url = (authority + '/common/oauth2/logout?{0}').format(urlencode(params))
+    return signout_url
+
+
 # This function passes the authorization code to the token
 # issuing endpoint, gets the token, and then returns it.
 def get_token_from_code(auth_code, redirect_uri):
-  # Build the post form for the token request
-  post_data = { 'grant_type': 'authorization_code',
-                'code': auth_code,
-                'redirect_uri': redirect_uri,
-                'client_id': client_id,
-                'client_secret': client_secret,
-                'resource': 'https://graph.microsoft.com'
-              }
-              
-  r = requests.post(token_url, data = post_data)
-  
-  try:
-    return r.json()
-  except:
-    return 'Error retrieving token: {0} - {1}'.format(r.status_code, r.text)
+    # Build the post form for the token request
+    post_data = {'grant_type': 'authorization_code',
+                 'code': auth_code,
+                 'redirect_uri': redirect_uri,
+                 'client_id': client_id,
+                 'client_secret': client_secret,
+                 'resource': 'https://graph.microsoft.com'
+                 }
+
+    r = requests.post(token_url, data=post_data)
+
+    try:
+        return r.json()
+    except:
+        return 'Error retrieving token: {0} - {1}'.format(r.status_code, r.text)
+
 
 # This function takes the access token and breaks it
 # apart to get information about the user.
 def get_user_info_from_token(id_token):
-  # JWT is in three parts, header, token, and signature
-  # separated by '.'.
-  token_parts = id_token.split('.')
-  encoded_token = token_parts[1]
-  
-  # Base64 strings should have a length divisible by 4.
-  # If this one doesn't, add the '=' padding to fix it.
-  leftovers = len(encoded_token) % 4
-  if leftovers == 2:
-      encoded_token += '=='
-  elif leftovers == 3:
-      encoded_token += '='
-  
-  # URL-safe base64 decode the token parts.
-  decoded = base64.urlsafe_b64decode(encoded_token.encode('utf-8')).decode('utf-8')
-  
-  # Load decoded token into a JSON object.
-  jwt = json.loads(decoded)
-  
-  return jwt
-  
+    # JWT is in three parts, header, token, and signature
+    # separated by '.'.
+    token_parts = id_token.split('.')
+    encoded_token = token_parts[1]
+
+    # Base64 strings should have a length divisible by 4.
+    # If this one doesn't, add the '=' padding to fix it.
+    leftovers = len(encoded_token) % 4
+    if leftovers == 2:
+        encoded_token += '=='
+    elif leftovers == 3:
+        encoded_token += '='
+
+    # URL-safe base64 decode the token parts.
+    decoded = base64.urlsafe_b64decode(encoded_token.encode('utf-8')).decode('utf-8')
+
+    # Load decoded token into a JSON object.
+    jwt = json.loads(decoded)
+
+    return jwt
+
 #######################################################################
 #  
 # O365-Python-Microsoft-Graph-Connect, https://github.com/OfficeDev/O365-Python-Microsoft-Graph-Connect

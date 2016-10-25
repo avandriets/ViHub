@@ -9,6 +9,17 @@
 
 <breadcrumbs [parentElementsList]="breadcrumbs"></breadcrumbs>
 
+<div *ngIf="hasError" class="ms-MessageBar ms-MessageBar--error">
+    <div class="ms-MessageBar-content">
+        <div class="ms-MessageBar-icon">
+            <i class="ms-Icon ms-Icon--xCircle"></i>
+        </div>
+        <div class="ms-MessageBar-text">
+            {{ errorMessage }}
+        </div>
+    </div>
+</div>
+
 <div class="ms-Grid">
     <div class="ms-Grid-row">
         <div class="ms-List-item ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg8 ms-u-xl5">

@@ -6,7 +6,7 @@ register = template.Library()
 
 @register.inclusion_tag('nav_bar_tag.html', takes_context=True)
 def nav_bar(context):
-    return {'user': context['user']}
+    return {'user': context['user'], 'logoutUrl': context['logoutUrl']}
 
 
 @register.simple_tag

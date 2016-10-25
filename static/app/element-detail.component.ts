@@ -1,5 +1,5 @@
 import {Component, Input, OnInit, AfterViewInit, ViewChild} from '@angular/core';
-import {ActivatedRoute, Params} from '@angular/router';
+import {ActivatedRoute, Params, Router} from '@angular/router';
 import {Location}               from '@angular/common';
 import {ElementVi, TransportObject, MessageVi, NoteVi} from './Utility/base-classes'
 import {ElementsService} from './Utility/elements.service'
@@ -19,6 +19,9 @@ import {AddMemberDialogComponent} from "./Components/add-member-dialog.component
 
 export class ElementDetailComponent implements OnInit, AfterViewInit {
 
+    hasError: boolean = false;
+    errorMessage: string = "";
+
     element: ElementVi;
 
     elementsSet: ElementVi[] = [];
@@ -31,7 +34,7 @@ export class ElementDetailComponent implements OnInit, AfterViewInit {
     @ViewChild(DeleteNoteDialogComponent) deleteNoteDialog: DeleteNoteDialogComponent;
     @ViewChild(AddNoteDialogComponent) addNoteDialog: AddNoteDialogComponent;
     @ViewChild(ViewMemberDialogComponent) membersViewDialog: ViewMemberDialogComponent;
-    @ViewChild(AddMemberDialogComponent) addMemberDialog:AddMemberDialogComponent;
+    @ViewChild(AddMemberDialogComponent) addMemberDialog: AddMemberDialogComponent;
 
     error: any;
 
@@ -102,6 +105,24 @@ export class ElementDetailComponent implements OnInit, AfterViewInit {
             }).catch((error)=> {
             this.error = error;
         });
+
+        console.log("Sync messages");
+        this.elementService.syncMailMessages(this.element.element)
+            .then(()=> {
+                console.log("Ok sync");
+
+            })
+            .catch((error)=> {
+                this.error = error;
+                let error_desc = this.error.json().result;
+                if (error_desc == "InvalidAuthenticationToken") {
+                    this.hasError = true;
+                    this.errorMessage = "Время сеанса истекло.";
+                    this.winRef.nativeWindow.location.href = 'https://login.microsoftonline.com/common/oauth2/logout?post_logout_redirect_uri=http://127.0.0.1:8000/connect/disconnect/';
+                }
+
+                //console.log(this.error);
+            });
     }
 
     dataChange(changerData: TransportObject): void {

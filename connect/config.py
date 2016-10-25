@@ -7,6 +7,14 @@
 
 client_id = '7db284f1-a239-4c95-995b-410863758408'
 client_secret = 'oeUoMAlR2OZzcIH+QE0NRLKH87JaTPwJLf+DfYvvrb4='
+
+scopes_msgraph = ['wl.openid', 'wl.offline_access', 'https://graph.microsoft.com/Files.ReadWrite',
+                  'https://graph.microsoft.com/User.ReadWrite.All', 'https://graph.microsoft.com/Directory.ReadWrite.All',
+                  'https://graph.microsoft.com/Group.ReadWrite.All', 'https://graph.microsoft.com/Contacts.ReadWrite',
+                  'https://graph.microsoft.com/Calendars.ReadWrite', 'https://graph.microsoft.com/Mail.ReadWrite',
+                  'https://graph.microsoft.com/Tasks.ReadWrite', 'https://graph.microsoft.com/People.ReadWrite',
+                  'https://graph.microsoft.com/Notes.ReadWrite.CreatedByApp']
+
 #######################################################################
 #  
 # O365-Python-Microsoft-Graph-Connect, https://github.com/OfficeDev/O365-Python-Microsoft-Graph-Connect

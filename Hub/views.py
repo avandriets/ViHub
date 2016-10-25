@@ -1,8 +1,10 @@
+import msgraph
 from django.contrib.auth.decorators import login_required
 from django.db import Error
 from django.db.models import Q
 from django.shortcuts import render
 from django.urls import reverse
+from msgraph.error import GraphError
 from rest_framework import filters
 from rest_framework import status
 from rest_framework import viewsets
@@ -17,6 +19,8 @@ from Messages.serializers import MessageSerializer
 from Notes.models import Note
 from Notes.serializers import NoteSerializer
 from ViHub.permission import IsOwnerOrReadOnlyElements, IsOwnerOrReadOnly
+from connect import config
+from connect.MsProvider import MyAuthProvider
 from connect.account_serializer import AccountSerializer
 from connect.auth_helper import get_signout_url
 from connect.models import Account
@@ -30,7 +34,7 @@ def hub_home(request):
     #     request.session['showSuccess'] = 'false'
     #     request.session['showError'] = 'false'
 
-    redirect_uri = request.build_absolute_uri(reverse('connect:get_token'))
+    redirect_uri = request.build_absolute_uri(reverse('connect:disconnect'))
 
     context = {
         # 'alias': request.session['alias'],
@@ -131,14 +135,14 @@ class ElementViewSet(viewsets.ModelViewSet):
         members_set = Members.objects.filter(element=pk, user_involved=request.user)
         if members_set.count() > 0:
             if element.owner_id != request.user.id:
-                return Response([ElementSerializer(element, context= {'request': request}).data])
+                return Response([ElementSerializer(element, context={'request': request}).data])
 
             list_os_elements = [element]
             self.get_elements_tree(list_os_elements, element)
 
             json_list = []
             for el in list_os_elements:
-                json_list.append(ElementSerializer(el, context= {'request': request} ).data)
+                json_list.append(ElementSerializer(el, context={'request': request}).data)
 
             return Response(json_list)
         else:
@@ -238,6 +242,52 @@ class ElementViewSet(viewsets.ModelViewSet):
 
         return Response({"result": True})
 
+    @detail_route(methods=['get'], url_path='sync-messages')
+    def sync_messages(self, request, pk=None):
+
+        if request.user.provider == 'D':
+            return Response({"result": True})
+
+        access_token = request.session['access_token']
+        http_provider = msgraph.HttpProvider()
+        auth_provider = MyAuthProvider(http_provider, config.client_id, config.scopes_msgraph, access_token)
+        client = msgraph.GraphServiceClient('https://graph.microsoft.com/v1.0/', auth_provider, http_provider)
+
+        # users = client.users
+        # users.get()
+
+        # me = client.me.get()
+        # print('Мое мыло: ' + me.mail)
+
+        element = Element.objects.get(pk=pk)
+
+        create_date_filter_value = 'createdDateTime gt ' + element.created_at.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+        # members = Members.objects.filter(element=pk).values_list("created_at, element, element_id, id, updated_at, user_involved, user_involved_id", flat=True)
+        members = list(Members.objects.filter(element=pk))
+
+        from_filter_value = ''
+        i = 0
+        while i < len(members):
+            from_filter_value = from_filter_value + "from/emailAddress/address eq " + "'" + members[i].user_involved.email + "'"
+            if i != len(members) - 1:
+                from_filter_value += " OR "
+            i += 1
+
+        whole_filter = create_date_filter_value + " and " + "(" + from_filter_value + ")"
+
+        messages_request = client.me.messages.request(filter=whole_filter, top=100)
+        msg_list = []
+        try:
+            msg_list = messages_request.get()
+        except GraphError as exc:
+            if exc.code == 'InvalidAuthenticationToken':
+                return Response({"result": 'InvalidAuthenticationToken'}, status=status.HTTP_401_UNAUTHORIZED)
+
+        for msg in msg_list:
+            print(msg)
+
+        return Response({"result": True})
+
 
 class MembersViewSet(viewsets.ModelViewSet):
     """
@@ -255,6 +305,7 @@ class FavoriteViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = (IsOwnerOrReadOnly,)
     queryset = Favorite.objects.all()
     serializer_class = FavoriteSerializer
+
 
 def hub_test(request):
     context = {

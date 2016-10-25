@@ -1,12 +1,9 @@
-from django.shortcuts import render
 from rest_framework import exceptions
-from rest_framework import status
+from rest_framework import filters
 from rest_framework import viewsets
-from rest_framework.response import Response
 from Hub.models import Members, Element
 from Messages.models import Message
 from Messages.serializers import MessageSerializer
-from rest_framework import filters
 
 
 class MessageViewSet(viewsets.ModelViewSet):

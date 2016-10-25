@@ -49,22 +49,27 @@ def get_token(request):
     login(request, user)
 
     # Save the token and other information for the view in the session.
-    # request.session['access_token'] = access_token
+    request.session['access_token'] = access_token
     # request.session['alias'] = user_info['upn'].split('@')[0]
     # request.session['emailAddress'] = user_info['upn']
     # request.session['showSuccess'] = 'false'
     # request.session['showError'] = 'false'
     # request.session['pageRefresh'] = 'true'
 
-    http_provider = msgraph.HttpProvider()
-    auth_provider = MyAuthProvider(http_provider, config.client_id, settings.scopes_msgraph, access_token)
+    # ТЕСТ
+    # http_provider = msgraph.HttpProvider()
+    # auth_provider = MyAuthProvider(http_provider, config.client_id, settings.scopes_msgraph, access_token)
+    #
+    # client = msgraph.GraphServiceClient('https://graph.microsoft.com/v1.0/', auth_provider, http_provider)
+    # users = client.users
+    # users.get()
+    #
+    # me = client.me.get()
+    # print('Мое мыло: ' + me.mail)
+    #
+    # messages = client.me.messages
+    # msg_list = messages.get()
 
-    client = msgraph.GraphServiceClient('https://graph.microsoft.com/v1.0/', auth_provider, http_provider)
-    users = client.users
-    users.get()
-
-    me = client.me.get()
-    print('Мое мыло: ' + me.mail)
     # photo = client.me.photo.get()
     # print('Мое фото: ' + me.photo)
 
@@ -164,7 +169,7 @@ def get_current_user_info(request):
 
         return Response({"id": user.id, "email":user.email,
                          "username": user.username, "first_name": user.first_name,
-                         "last_name":user.last_name})
+                         "last_name":user.last_name, "provider":user.provider})
 
 
 @login_required
