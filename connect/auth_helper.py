@@ -34,8 +34,9 @@ def get_signin_url(redirect_uri):
     return signin_url
 
 
-def get_signout_url(redirect_uri):
-    params = {'post_logout_redirect_uri': disconnect_url  # home_page_url
+def get_signout_url(redirect_uri, request):
+    re_url = 'http://' + request.META['HTTP_HOST'] + '/connect/disconnect/'
+    params = {'post_logout_redirect_uri': re_url# disconnect_url  # home_page_url
               }
 
     signout_url = (authority + '/common/oauth2/logout?{0}').format(urlencode(params))

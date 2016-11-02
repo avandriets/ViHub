@@ -123,7 +123,7 @@ def my_login(request):
 
     redirect_uri = request.build_absolute_uri(reverse('connect:get_token'))
     sign_in_url = get_signin_url(redirect_uri)
-    request.session['logoutUrl'] = get_signout_url(redirect_uri)
+    request.session['logoutUrl'] = get_signout_url(redirect_uri, request)
 
     context = {
         'sign_in_url': sign_in_url,

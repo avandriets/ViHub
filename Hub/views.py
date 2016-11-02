@@ -43,7 +43,7 @@ def hub_home(request):
         # 'emailAddress': request.session['emailAddress'],
         # 'showSuccess': request.session['showSuccess'],
         # 'showError': request.session['showError'],
-        'logoutUrl': get_signout_url(redirect_uri)
+        'logoutUrl': get_signout_url(redirect_uri, request)
     }
     return render(request, 'main_page.html', context)
 
@@ -384,6 +384,6 @@ def hub_test(request):
 def about(request):
     redirect_uri = request.build_absolute_uri(reverse('connect:get_token'))
     context = {
-        'logoutUrl': get_signout_url(redirect_uri)
+        'logoutUrl': get_signout_url(redirect_uri, request)
     }
     return render(request, 'about_page.html', context)
