@@ -9,7 +9,7 @@ class MessageSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Message
-        fields = ('id', 'element', 'subject', 'body', 'message_date',
+        fields = ('id', 'element', 'subject', 'body', 'body_preview', 'message_date', 'message_type',
                   'owner', 'created_at', 'updated_at', 'username',
                   'first_name', 'last_name')
 

@@ -7,6 +7,7 @@ from django.template.loader import get_template
 from django.urls import reverse
 from Hub.models import Members
 from Invitations.models import Invitation
+from ViHub.exceptions import SendERROR
 
 
 def accept_invitation(request, uuid):
@@ -64,7 +65,10 @@ def send_invitation(request, invitation_obj):
         'decline_url': decline_url,
     }
 
-    message = get_template('invitation_email_html.html').render(Context(ctx))
-    msg = EmailMessage(subject, message, to=to, from_email=from_email)
-    msg.content_subtype = 'html'
-    msg.send()
+    try:
+        message = get_template('invitation_email_html.html').render(Context(ctx))
+        msg = EmailMessage(subject, message, to=to, from_email=from_email)
+        msg.content_subtype = 'html'
+        msg.send()
+    except Exception as exc:
+        raise SendERROR

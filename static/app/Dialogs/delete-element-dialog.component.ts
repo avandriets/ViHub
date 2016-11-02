@@ -3,7 +3,7 @@ import {OnInit, AfterViewInit} from '@angular/core';
 import {ElementsService} from '../Utility/elements.service';
 import {WindowRef} from '../Utility/WindowRef';
 import {BaseDialog} from "../Utility/BaseDialog";
-import {ElementVi, TransportObject} from "../Utility/base-classes";
+import {ElementVi, TransportObject, BaseObject} from "../Utility/base-classes";
 import {Router} from '@angular/router';
 
 
@@ -13,7 +13,6 @@ import {Router} from '@angular/router';
 })
 
 export class DeleteElementDialogComponent extends BaseDialog {
-
     @Input() deletedElement: ElementVi;
     @Output() onDeleteElement = new EventEmitter<TransportObject>();
 
@@ -21,8 +20,12 @@ export class DeleteElementDialogComponent extends BaseDialog {
         return this.onDeleteElement;
     }
 
-    constructor(private elementService: ElementsService, public winRef: WindowRef, private router: Router ) {
-        super(winRef);
+    getCurrentObject(): BaseObject {
+        return this.deletedElement;
+    }
+
+    constructor(public elementService: ElementsService, public winRef: WindowRef, private router: Router) {
+        super(winRef, elementService);
     }
 
     ngOnInit(): void {
@@ -31,6 +34,7 @@ export class DeleteElementDialogComponent extends BaseDialog {
 
     onDeleteElementClick(): void {
 
+        this.inProcess = true;
         this.deletedElement.is_delete = 1;
         this.elementService.editElement(this.deletedElement)
             .then((data) => {
@@ -44,22 +48,25 @@ export class DeleteElementDialogComponent extends BaseDialog {
                 this.errorMessage = '';
                 this.hasError = false;
 
+                this.inProcess = false;
+
                 this.closeDialog();
 
                 this.router.navigate(['/']);
             })
             .catch((error) => {
+
                 this.errorMessage = error;
+                if (error.json().detail)
+                    this.errorMessage = error.json().detail;
+
                 this.hasError = true;
+                this.inProcess = false;
             });
     }
 
     initComponent(): void {
         let dialog = document.querySelector("#deleteDialogID");
         this.dialogInstance = new this.winRef.nativeWindow.fabric['Dialog'](dialog);
-    }
-
-    openDialog(): void {
-        super.openDialog();
     }
 }

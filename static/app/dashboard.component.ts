@@ -17,6 +17,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     favoriteSet: Favorite[] = [];
     error: any;
     loading: boolean = true;
+    spinnerText:string = "Загрузка данных ...";
 
     constructor(private router: Router,
                 private elementService: ElementsService, private winRef: WindowRef) {

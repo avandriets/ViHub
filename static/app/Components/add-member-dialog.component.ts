@@ -17,24 +17,38 @@ export class AddMemberDialogComponent extends BaseDialog {
     membersList: UserVi[] = [];
     searchString: string = "";
 
+    getCurrentObject(): BaseObject {
+        return this.currentElement;
+    }
+
     searchMembers(): void {
-        this.elementService.searchMembers(this.searchString)
-            .then((retUsers) => {
-                this.membersList = retUsers;
-            }).catch((error)=> {
-            this.SetError(error);
-        });
+
+        if(!this.permission_denied && this.searchString.trim() != "") {
+            this.inProcess = true;
+
+            this.elementService.searchMembers(this.searchString)
+                .then((retUsers) => {
+                    this.membersList = retUsers;
+                    this.inProcess = false;
+                }).catch((error)=> {
+                this.SetError(error);
+                this.inProcess = false;
+            });
+        }
     }
 
     addUser(addUser: UserVi): void {
+        this.inProcess = true;
         this.elementService.addMember(this.currentElement.element, addUser)
             .then(() => {
+                this.inProcess = false;
 
                 var index = this.membersList.indexOf(addUser, 0);
                 if (index > -1) {
                     this.membersList.splice(index, 1);
                 }
             }).catch((error)=> {
+            this.inProcess = false;
             this.SetError(error);
         });
     }
@@ -48,18 +62,12 @@ export class AddMemberDialogComponent extends BaseDialog {
         return undefined;
     }
 
-    constructor(private elementService: ElementsService, public winRef: WindowRef) {
-        super(winRef);
+    constructor(public elementService: ElementsService, public winRef: WindowRef) {
+        super(winRef, elementService);
     }
 
     initComponent(): void {
         let dialog = document.querySelector("#addMemberDialogID");//.querySelector(".ms-Dialog");
         this.dialogInstance = new this.winRef.nativeWindow.fabric['Dialog'](dialog);
-    }
-
-
-    openDialog(): void {
-        super.openDialog();
-        this.SetError(null);
     }
 }

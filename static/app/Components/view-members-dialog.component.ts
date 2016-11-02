@@ -1,9 +1,8 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core';
-import {OnInit, AfterViewInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {ElementsService} from '../Utility/elements.service';
 import {WindowRef} from '../Utility/WindowRef';
 import {BaseDialog} from "../Utility/BaseDialog";
-import {ElementVi, MessageVi, BaseObject, TransportObject, NoteVi, UserVi} from "../Utility/base-classes";
+import {ElementVi, BaseObject, UserVi} from "../Utility/base-classes";
 
 
 @Component({
@@ -15,6 +14,10 @@ export class ViewMemberDialogComponent extends BaseDialog {
 
     @Input() currentElement: ElementVi;
     membersList: UserVi[] = [];
+
+    getCurrentObject(): BaseObject {
+        return this.currentElement;
+    }
 
     getMembers(): void {
         this.elementService.getMembers(this.currentElement.element)
@@ -42,8 +45,8 @@ export class ViewMemberDialogComponent extends BaseDialog {
         return undefined;
     }
 
-    constructor(private elementService: ElementsService, public winRef: WindowRef) {
-        super(winRef);
+    constructor(public elementService: ElementsService, public winRef: WindowRef) {
+        super(winRef, elementService);
     }
 
     initDialog(): void {
@@ -54,7 +57,6 @@ export class ViewMemberDialogComponent extends BaseDialog {
         let dialog = document.querySelector("#ViewMemberDialogID");//.querySelector(".ms-Dialog");
         this.dialogInstance = new this.winRef.nativeWindow.fabric['Dialog'](dialog);
     }
-
 
     openDialog(): void {
         super.openDialog();

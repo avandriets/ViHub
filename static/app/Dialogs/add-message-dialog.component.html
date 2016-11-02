@@ -1,31 +1,36 @@
 <div class="ms-Dialog" id="addMessageDialogID">
+    <spinner-component *ngIf="inProcess" [SupportText]="spinnerText"></spinner-component>
+    <br>
     <div class="ms-Dialog-title">Новое сообщение</div>
     <div class="ms-Dialog-content">
-        <p class="ms-Dialog-subText">Сообщение будет доступно для всех пользователей этого элемента.</p>
-        <div *ngIf="hasError" class="ms-MessageBar ms-MessageBar--error">
-            <div class="ms-MessageBar-content">
-                <div class="ms-MessageBar-icon">
-                    <i class="ms-Icon ms-Icon--xCircle"></i>
-                </div>
-                <div class="ms-MessageBar-text">
-                    {{ errorMessage }}
+
+        <div *ngIf="hasError">
+            <div class="ms-MessageBar ms-MessageBar--error">
+                <div class="ms-MessageBar-content">
+                    <div class="ms-MessageBar-icon">
+                        <i class="ms-Icon ms-Icon--xCircle"></i>
+                    </div>
+                    <div class="ms-MessageBar-text">
+                        {{ errorMessage }}
+                    </div>
                 </div>
             </div>
+            <br>
         </div>
 
-        <div class="ms-TextField is-required">
+        <div *ngIf="false" [ngClass]="{'ms-TextField':true, 'is-required':true, 'is-disabled': inProcess}">
             <label class="ms-Label">Тема</label>
             <input [(ngModel)]="subject" class="ms-TextField-field" type="text">
         </div>
 
-        <div class="ms-TextField ms-TextField--multiline is-required">
+        <div [ngClass]="{'ms-TextField':true, 'ms-TextField--multiline':true, 'is-required':false, 'is-disabled': inProcess}">
             <label class="ms-Label">Сообщение</label>
             <textarea [(ngModel)]="message" class="ms-TextField-field" type="text"></textarea>
         </div>
     </div>
 
     <div class="ms-Dialog-actions">
-        <button (click)="onCreateMessage()" class="ms-Button  ms-Button--primary">
+        <button *ngIf="!inProcess" (click)="onCreateMessage()" class="ms-Button  ms-Button--primary">
             <span class="ms-Button-label">Создать</span>
         </button>
         <button class="ms-Button ms-Dialog-action">

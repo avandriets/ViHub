@@ -1,25 +1,29 @@
 <div class="ms-Dialog" id="viewMessageDialogID">
     <div class="ms-Dialog-title">Сообщение</div>
     <div class="ms-Dialog-content">
-        <div *ngIf="hasError" class="ms-MessageBar ms-MessageBar--error">
-            <div class="ms-MessageBar-content">
-                <div class="ms-MessageBar-icon">
-                    <i class="ms-Icon ms-Icon--xCircle"></i>
-                </div>
-                <div class="ms-MessageBar-text">
-                    {{ errorMessage }}
+
+        <div *ngIf="hasError">
+            <div class="ms-MessageBar ms-MessageBar--error">
+                <div class="ms-MessageBar-content">
+                    <div class="ms-MessageBar-icon">
+                        <i class="ms-Icon ms-Icon--xCircle"></i>
+                    </div>
+                    <div class="ms-MessageBar-text">
+                        {{ errorMessage }}
+                    </div>
                 </div>
             </div>
+            <br>
         </div>
 
-        <div class="ms-TextField is-required">
+        <div *ngIf="message_type == 'E'" class="ms-TextField">
             <label class="ms-Label">Тема</label>
-            <input [(ngModel)]="subject" class="ms-TextField-field" type="text">
+            <div [innerHTML]="subject"></div>
         </div>
 
-        <div class="ms-TextField ms-TextField--multiline is-required">
+        <div class="ms-TextField ms-TextField--multiline">
             <label class="ms-Label">Сообщение</label>
-            <textarea [(ngModel)]="message" class="ms-TextField-field" type="text"></textarea>
+            <div [innerHTML]="message"></div>
         </div>
     </div>
 

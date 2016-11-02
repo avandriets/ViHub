@@ -9,6 +9,8 @@
 
 <breadcrumbs [parentElementsList]="breadcrumbs"></breadcrumbs>
 
+<spinner-component *ngIf="loading" [SupportText]="spinnerText"></spinner-component>
+
 <div *ngIf="hasError" class="ms-MessageBar ms-MessageBar--error">
     <div class="ms-MessageBar-content">
         <div class="ms-MessageBar-icon">
@@ -20,21 +22,24 @@
     </div>
 </div>
 
-<div class="ms-Grid">
+<div *ngIf="!loading" class="ms-Grid">
     <div class="ms-Grid-row">
         <div class="ms-List-item ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg8 ms-u-xl5">
             <h2 class="ms-font-xl">Сообщения</h2>
             <messages-list [addNoteDialogLocal]="addNoteDialog" [viewMessageDialog]="viewMessageDialog" [localMessages]="messagesSet">Загрузка ...</messages-list>
+            <h2 *ngIf="messagesSet.length == 0" class="ms-font-xl">Нет сообщений для отображения</h2>
         </div>
         <div class="ms-List-item ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-lg4 ms-u-xl4">
             <h2 class="ms-font-xl">Заметки</h2>
             <notes-list [deleteNoteDialog]="deleteNoteDialog" [editNoteDialog]="editNoteDialog" [localNotes]="notesSet">Загрузка ...</notes-list>
+            <h2 *ngIf="notesSet.length == 0" class="ms-font-xl">Нет заметок для отображения</h2>
         </div>
         <div class="ms-List-item ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-lg12 ms-u-xl3">
             <h2 class="ms-font-xl">Элементы</h2>
             <div class="ms-Grid-row">
                 <elements-list-var [localElements]="elementsSet" (onSetFavorite)="dataChange($event)">Загрузка ...</elements-list-var>
             </div>
+            <h2 *ngIf="elementsSet.length == 0" class="ms-font-xl">Нет элементов для отображения</h2>
         </div>
     </div>
 </div>

@@ -10,6 +10,8 @@ import {WindowRef} from '../Utility/WindowRef';
 
 export class SpinnerComponent implements OnInit {
 
+    @Input() SupportText:string = "Загрузка ...";
+
     constructor(private winRef: WindowRef) {
     }
 

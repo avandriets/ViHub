@@ -1,21 +1,26 @@
 <div class="ms-Dialog" id="deleteNoteDialogID">
+    <spinner-component *ngIf="inProcess" [SupportText]="spinnerText"></spinner-component>
+    <br>
     <div class="ms-Dialog-title">Удалить заметку?</div>
     <div class="ms-Dialog-content">
-        <div *ngIf="hasError" class="ms-MessageBar ms-MessageBar--error">
-            <div class="ms-MessageBar-content">
-                <div class="ms-MessageBar-icon">
-                    <i class="ms-Icon ms-Icon--xCircle"></i>
-                </div>
-                <div class="ms-MessageBar-text">
-                    {{ errorMessage }}
+        <div *ngIf="hasError">
+            <div class="ms-MessageBar ms-MessageBar--error">
+                <div class="ms-MessageBar-content">
+                    <div class="ms-MessageBar-icon">
+                        <i class="ms-Icon ms-Icon--xCircle"></i>
+                    </div>
+                    <div class="ms-MessageBar-text">
+                        {{ errorMessage }}
+                    </div>
                 </div>
             </div>
+            <br>
         </div>
 
     </div>
 
     <div class="ms-Dialog-actions">
-        <button (click)="onDeleteNoteDialog()" class="ms-Button  ms-Button--primary">
+        <button *ngIf="!inProcess && !permission_denied" (click)="onDeleteNoteDialog()" class="ms-Button  ms-Button--primary">
             <span class="ms-Button-label">Удалить</span>
         </button>
         <button class="ms-Button ms-Dialog-action">

@@ -3,7 +3,7 @@ import {OnInit, AfterViewInit} from '@angular/core';
 import {ElementsService} from '../Utility/elements.service';
 import {WindowRef} from '../Utility/WindowRef';
 import {BaseDialog} from "../Utility/BaseDialog";
-import {ElementVi, TransportObject} from "../Utility/base-classes";
+import {ElementVi, TransportObject, BaseObject} from "../Utility/base-classes";
 
 
 @Component({
@@ -23,14 +23,18 @@ export class EditElementDialogComponent extends BaseDialog {
     name: string;
     description: string;
 
-    constructor(private elementService: ElementsService, public winRef: WindowRef) {
-        super(winRef);
+    constructor(public elementService: ElementsService, public winRef: WindowRef) {
+        super(winRef, elementService);
+    }
+
+    getCurrentObject(): BaseObject {
+        return this.editedElement;
     }
 
     ngOnInit(): void {
         super.ngOnInit();
 
-        if(this.editedElement != null) {
+        if (this.editedElement != null) {
             this.name = this.editedElement.name;
             this.description = this.editedElement.description;
         }
@@ -46,14 +50,16 @@ export class EditElementDialogComponent extends BaseDialog {
             return;
         }
 
-        if (this.description == null || this.description == ' ' || this.description.length == 0) {
-            this.hasError = true;
-            this.errorMessage = 'Заполните описание.';
-            return;
-        }
+        // if (this.description == null || this.description == ' ' || this.description.length == 0) {
+        //     this.hasError = true;
+        //     this.errorMessage = 'Заполните описание.';
+        //     return;
+        // }
 
         this.editedElement.name = this.name;
         this.editedElement.description = this.description;
+
+        this.inProcess = true;
 
         this.elementService.editElement(this.editedElement)
             .then((data) => {
@@ -68,12 +74,17 @@ export class EditElementDialogComponent extends BaseDialog {
                 this.description = '';
                 this.errorMessage = '';
                 this.hasError = false;
+                this.inProcess = false;
 
                 this.closeDialog();
             })
             .catch((error) => {
                 this.errorMessage = error;
+                if (error.json().detail)
+                    this.errorMessage = error.json().detail;
+
                 this.hasError = true;
+                this.inProcess = false;
             });
     }
 
@@ -84,7 +95,7 @@ export class EditElementDialogComponent extends BaseDialog {
 
 
     openDialog(): void {
-        if(this.editedElement != null) {
+        if (this.editedElement != null) {
             this.name = this.editedElement.name;
             this.description = this.editedElement.description;
         }

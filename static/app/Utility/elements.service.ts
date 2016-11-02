@@ -4,9 +4,8 @@
 
 import {Injectable} from '@angular/core';
 import {ElementVi, Favorite, MessageVi, NoteVi, UserVi} from './base-classes';
-import {Headers, Http, Response, URLSearchParams} from '@angular/http';
+import {Headers, Http, URLSearchParams} from '@angular/http';
 import 'rxjs/add/operator/toPromise';
-import {bootstrap} from "@angular/upgrade/src/angular_js";
 
 @Injectable()
 export class ElementsService {
@@ -15,7 +14,6 @@ export class ElementsService {
     private favoriteUrl = '/rest/element-favorite/';
     private messageUrl = '/rest/messages/';
     private noteUrl = '/rest/notes/';
-    // private usersUrl = '/rest/users/';
 
     private headers = new Headers({'Content-Type': 'application/json'});
 
@@ -179,14 +177,6 @@ export class ElementsService {
     }
 
     getNotes(element: number): Promise<NoteVi[]> {
-
-        // let element_owner: string = "-1";
-        // if (element != null) {
-        //     element_owner = element.toString();
-        // }
-        //
-        // let params = new URLSearchParams();
-        // params.set('element', element_owner); // the user's search value
         const url = `${this.elementsUrl}${element}/get-notes/`;
 
         return this.http
@@ -222,7 +212,7 @@ export class ElementsService {
             .catch(this.handleError);
     }
 
-    deleteMember(element: number, deletedUser: UserVi) : Promise<UserVi> {
+    deleteMember(element: number, deletedUser: UserVi): Promise<UserVi> {
         const url = `${this.elementsUrl}${element}/delete-member/`;
 
         let member: string = deletedUser.id.toString();
@@ -243,7 +233,7 @@ export class ElementsService {
         params.set('search', searchString); // the user's search value
 
         return this.http
-            .get(url, { search: params })
+            .get(url, {search: params})
             .toPromise()
             .then(res => res.json())
             .catch(this.handleError);
@@ -263,10 +253,10 @@ export class ElementsService {
             .catch(this.handleError);
     }
 
-    syncMailMessages(element: number): Promise<boolean>{
+    syncMailMessages(element: number): Promise<boolean> {
         const url = `${this.elementsUrl}${element}/sync-messages/`;
 
-        if(this.currentUser.provider == 'M') {
+        if (this.currentUser.provider == 'M') {
 
             return this.http
                 .get(url)
@@ -275,6 +265,8 @@ export class ElementsService {
                 .catch(this.handleError);
         }
         else
-            return new Promise<boolean>(() => { return false;   });
+            return new Promise<boolean>(() => {
+                return false;
+            });
     }
 }

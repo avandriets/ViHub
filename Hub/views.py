@@ -1,3 +1,4 @@
+from datetime import datetime
 import msgraph
 from django.contrib.auth.decorators import login_required
 from django.db import Error
@@ -8,7 +9,8 @@ from msgraph.error import GraphError
 from rest_framework import filters
 from rest_framework import status
 from rest_framework import viewsets
-from rest_framework.decorators import detail_route
+from rest_framework.decorators import detail_route, list_route
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 from Hub.models import Element, Members, Favorite
 from Hub.serializers import ElementSerializer, MembersSerializer, FavoriteSerializer
@@ -58,10 +60,14 @@ class ElementViewSet(viewsets.ModelViewSet):
     ordering_fields = ('created_at', 'updated_at')
 
     permission_classes = (IsOwnerOrReadOnlyElements,)
+    pagination_class = None
 
     def filter_queryset(self, queryset):
 
-        queryset = Element.objects.all()
+        elements_ids = list(Members.objects.filter(user_involved=self.request.user).values_list("element_id", flat=True))
+        queryset = Element.objects.filter(is_delete=0, id__in=elements_ids)
+
+        # queryset = Element.objects.all()
 
         parent_val = self.request.query_params.get('parent', None)
 
@@ -91,14 +97,32 @@ class ElementViewSet(viewsets.ModelViewSet):
                 curElement.is_delete = 1
                 curElement.save()
 
+    def list(self, request, *args, **kwargs):
+        # return super().list(request, *args, **kwargs)
+        queryset = self.filter_queryset(self.get_queryset())
+
+        serializer = self.get_serializer(queryset, many=True)
+        return Response(serializer.data)
+
     @detail_route(methods=['get'], url_path='get-messages')
     def get_messages(self, request, pk=None):
 
         members_set = Members.objects.filter(element=pk, user_involved=request.user)
         if members_set.count() > 0:
+            # messages_set = Message.objects.filter(element=pk)
+            # serializer = MessageSerializer(messages_set, many=True)
+            # return Response(serializer.data)
+
             messages_set = Message.objects.filter(element=pk)
+
+            page = self.paginate_queryset(messages_set)
+            if page is not None:
+                serializer = MessageSerializer(page, many=True)
+                return self.get_paginated_response(serializer.data)
+
             serializer = MessageSerializer(messages_set, many=True)
             return Response(serializer.data)
+
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
@@ -253,21 +277,24 @@ class ElementViewSet(viewsets.ModelViewSet):
         auth_provider = MyAuthProvider(http_provider, config.client_id, config.scopes_msgraph, access_token)
         client = msgraph.GraphServiceClient('https://graph.microsoft.com/v1.0/', auth_provider, http_provider)
 
-        # users = client.users
-        # users.get()
-
-        # me = client.me.get()
-        # print('Мое мыло: ' + me.mail)
-
         element = Element.objects.get(pk=pk)
+        refresh_date = element.created_at
+        try:
+            refresh_date = Message.objects.filter(message_type=Message.MESSAGE_TYPE[1][0], element=element).latest('message_date').message_date
+        except Exception:
+            pass
 
-        create_date_filter_value = 'createdDateTime gt ' + element.created_at.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
-        # members = Members.objects.filter(element=pk).values_list("created_at, element, element_id, id, updated_at, user_involved, user_involved_id", flat=True)
+        create_date_filter_value = 'createdDateTime gt ' + refresh_date.strftime("%Y-%m-%dT%H:%M:%S.%fZ")
+        # members_email = Members.objects.filter(element=pk).values_list("created_at, element, element_id, id, updated_at, user_involved, user_involved_id", flat=True)
         members = list(Members.objects.filter(element=pk))
+        members_email_list = []
 
         from_filter_value = ''
         i = 0
         while i < len(members):
+            # fill members emails
+            members_email_list.append(members[i].user_involved.email)
+            # make a filter
             from_filter_value = from_filter_value + "from/emailAddress/address eq " + "'" + members[i].user_involved.email + "'"
             if i != len(members) - 1:
                 from_filter_value += " OR "
@@ -282,9 +309,32 @@ class ElementViewSet(viewsets.ModelViewSet):
         except GraphError as exc:
             if exc.code == 'InvalidAuthenticationToken':
                 return Response({"result": 'InvalidAuthenticationToken'}, status=status.HTTP_401_UNAUTHORIZED)
+            else:
+                return Response({"result": 'false'}, status=status.HTTP_401_UNAUTHORIZED)
 
         for msg in msg_list:
-            print(msg)
+
+            recipients_count = 0
+
+            for recipient in msg._prop_dict["toRecipients"]:
+                recipient_address = recipient['emailAddress']['address']
+                if recipient_address in members_email_list:
+                    recipients_count += 1
+
+            if recipients_count == len(members_email_list):
+                message_from_base = Message.objects.filter(email_id=msg.id_)
+                if message_from_base.count() == 0:
+                    new_message = Message()
+                    new_message.message_type = Message.MESSAGE_TYPE[1][0]
+                    new_message.element = element
+                    new_message.subject = msg.subject
+                    new_message.email_id = msg.id_
+                    new_message.body = msg._prop_dict["body"]["content"]
+                    new_message.owner = request.user
+                    new_message.body_preview = msg.body_preview
+                    new_message.message_date = msg._prop_dict['createdDateTime']
+                    new_message.message_date = datetime.strptime(msg._prop_dict['createdDateTime'], '%Y-%m-%dT%H:%M:%S%fZ')
+                    new_message.save()
 
         return Response({"result": True})
 
@@ -296,6 +346,7 @@ class MembersViewSet(viewsets.ModelViewSet):
 
     queryset = Members.objects.all()
     serializer_class = MembersSerializer
+    pagination_class = None
 
 
 class FavoriteViewSet(viewsets.ReadOnlyModelViewSet):
@@ -305,6 +356,22 @@ class FavoriteViewSet(viewsets.ReadOnlyModelViewSet):
     permission_classes = (IsOwnerOrReadOnly,)
     queryset = Favorite.objects.all()
     serializer_class = FavoriteSerializer
+    pagination_class = None
+
+    def filter_queryset(self, queryset):
+
+        queryset = Favorite.objects.filter(owner=self.request.user)
+
+        parent_val = self.request.query_params.get('parent', None)
+
+        if parent_val is not None:
+            if parent_val != '-1':
+                queryset = queryset.filter(parent=parent_val)
+            else:
+                queryset = queryset.filter(parent__isnull=True)
+
+        # return super(PollutionMarkViewSet, self).filter_queryset(queryset)
+        return queryset
 
 
 def hub_test(request):

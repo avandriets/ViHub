@@ -145,7 +145,7 @@ class UserEditForm(forms.ModelForm):
 
     # username is enforced to some particular rules
     u_error = _("User name needs to match domain convention.")
-    username = forms.RegexField(label=u'Имя входа в систему', regex=r'^\w', max_length=9,
+    username = forms.RegexField(label=u'Имя входа в систему', regex=r'^\w', max_length=15,
                                 widget=forms.TextInput({'class': 'ms-TextField-field', 'placeholder': 'Отображаемое имя пользователя'}),
                                 error_messages={'invalid': u_error})
     first_name = forms.CharField(required=False,label=u'Имя', max_length=30,

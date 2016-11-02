@@ -24,6 +24,7 @@ class AccountViewSet(viewsets.ModelViewSet):
     """
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
+    pagination_class = None
 
 
 def get_token(request):
@@ -151,7 +152,8 @@ def profile_edit(request):
         FORMUser = UserEditForm(instance=user)
 
     context = {
-        'form': FORMUser
+        'form': FORMUser,
+        'logoutUrl': request.session['logoutUrl']
     }
 
     return render(request, 'auth/profile.html', context)

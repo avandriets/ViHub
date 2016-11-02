@@ -16,6 +16,14 @@ export class AddMessageDialogComponent extends BaseDialog{
     @Input() parentElement: ElementVi;
     @Output() onAddMessage = new EventEmitter<TransportObject>();
 
+    check_permission(): void {
+        //return true;
+    }
+
+    getCurrentObject(): BaseObject {
+        return undefined;
+    }
+
     getEventEmitter(): any {
         return this.onAddMessage;
     }
@@ -23,8 +31,8 @@ export class AddMessageDialogComponent extends BaseDialog{
     subject:string = '';
     message:string = '';
 
-    constructor( private elementService: ElementsService, public winRef: WindowRef) {
-        super(winRef);
+    constructor( public elementService: ElementsService, public winRef: WindowRef) {
+        super(winRef, elementService);
     }
 
     onCreateMessage(): void
@@ -32,11 +40,11 @@ export class AddMessageDialogComponent extends BaseDialog{
         this.subject = this.subject.trim();
         this.message = this.message.trim();
 
-        if(this.subject == null || this.subject == ' ' || this.subject.length == 0){
-            this.hasError = true;
-            this.errorMessage = 'Заполните поле тема.';
-            return;
-        }
+        // if(this.subject == null || this.subject == ' ' || this.subject.length == 0){
+        //     this.hasError = true;
+        //     this.errorMessage = 'Заполните поле тема.';
+        //     return;
+        // }
 
         if(this.message == null || this.message == ' ' || this.message.length == 0){
             this.hasError = true;
@@ -48,6 +56,8 @@ export class AddMessageDialogComponent extends BaseDialog{
         message.subject = this.subject;
         message.body = this.message;
         message.element = this.parentElement.element;
+
+        this.inProcess = true;
 
         this.elementService.createMessage(message)
             .then((data) => {
@@ -62,11 +72,15 @@ export class AddMessageDialogComponent extends BaseDialog{
                 this.errorMessage = '';
                 this.hasError = false;
 
+                this.inProcess = false;
+
                 this.closeDialog();
             })
             .catch((error) => {
                 this.errorMessage = error;
                 this.hasError = true;
+
+                this.inProcess = false;
             });
     }
 

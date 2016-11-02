@@ -13,6 +13,14 @@ import {ElementVi, MessageVi, BaseObject, TransportObject, NoteVi} from "../Util
 
 export class AddNoteDialogComponent extends BaseDialog implements AfterViewInit {
 
+    getCurrentObject(): BaseObject {
+        return undefined;
+    }
+
+    check_permission(): void {
+        //super.check_permission();
+    }
+
     @Input() parentElement: ElementVi;
     @Input() parentMessage: MessageVi;
     @Output() onAddNote = new EventEmitter<TransportObject>();
@@ -25,19 +33,19 @@ export class AddNoteDialogComponent extends BaseDialog implements AfterViewInit 
     message: string = '';
     private_note: boolean = false;
 
-    constructor(private elementService: ElementsService, public winRef: WindowRef) {
-        super(winRef);
+    constructor(public elementService: ElementsService, public winRef: WindowRef) {
+        super(winRef, elementService);
     }
 
     onCreateMessage(): void {
         this.subject = this.subject.trim();
         this.message = this.message.trim();
 
-        if (this.subject == null || this.subject == ' ' || this.subject.length == 0) {
-            this.hasError = true;
-            this.errorMessage = 'Заполните заголовок.';
-            return;
-        }
+        // if (this.subject == null || this.subject == ' ' || this.subject.length == 0) {
+        //     this.hasError = true;
+        //     this.errorMessage = 'Заполните заголовок.';
+        //     return;
+        // }
 
         if (this.message == null || this.message == ' ' || this.message.length == 0) {
             this.hasError = true;
@@ -55,6 +63,8 @@ export class AddNoteDialogComponent extends BaseDialog implements AfterViewInit 
             note.message = this.parentMessage.id;
         }
 
+        this.inProcess = true;
+
         this.elementService.createNote(note)
             .then((data) => {
                 let trsObj = new TransportObject();
@@ -70,11 +80,16 @@ export class AddNoteDialogComponent extends BaseDialog implements AfterViewInit 
                 this.errorMessage = '';
                 this.hasError = false;
 
+                this.inProcess = false;
+
                 this.closeDialog();
             })
             .catch((error) => {
-                this.errorMessage = error;
-                this.hasError = true;
+                this.SetError(error);
+                // this.errorMessage = error;
+                // this.hasError = true;
+
+                this.inProcess = false;
             });
     }
 

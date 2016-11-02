@@ -147,7 +147,8 @@ REST_FRAMEWORK = {
     ),
     # 'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAdminUser',),
     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.IsAuthenticated',),
-    # 'PAGE_SIZE': 1000,
+    'PAGE_SIZE': 2,
+    'DEFAULT_PAGINATION_CLASSES':   'rest_framework.pagination.PageNumberPagination',
     # 'DEFAULT_AUTHENTICATION_CLASSES': (
     #     'oauth2_provider.ext.rest_framework.OAuth2Authentication',
     # ),

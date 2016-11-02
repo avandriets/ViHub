@@ -9,6 +9,21 @@ export class BaseObject {
     updated_at: string;
 }
 
+export abstract class BasePermissions {
+    abstract has_object_permission(obj: any, user: UserVi): boolean;
+}
+
+export class IsOwnerReadOnlyPermission extends BasePermissions {
+    has_object_permission(obj: any, user: UserVi): boolean {
+
+        if (obj.owner == user.id) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+}
+
 export class ElementVi extends BaseObject {
     element: number;
     parent: number;
@@ -38,10 +53,8 @@ export class MessageVi extends BaseObject {
     username: string;
     first_name: string;
     last_name: string;
-
-    getUserName(): string {
-        return this.first_name + " " + this.last_name;
-    }
+    message_type: string;
+    body_preview:string;
 }
 
 export class NoteVi extends BaseObject {

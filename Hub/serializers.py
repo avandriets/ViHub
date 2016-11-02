@@ -13,8 +13,8 @@ class ElementsListSerializer(serializers.ListSerializer):
         pass
 
     def to_representation(self, data):
-        elements_ids = list(Members.objects.filter(user_involved=self.context['request'].user).values_list("element_id", flat=True))
-        data = data.filter(is_delete=0, id__in=elements_ids)
+        # elements_ids = list(Members.objects.filter(user_involved=self.context['request'].user).values_list("element_id", flat=True))
+        # data = data.filter(is_delete=0, id__in=elements_ids)
         return super(ElementsListSerializer, self).to_representation(data)
 
 
@@ -65,7 +65,7 @@ class FavoriteListSerializer(serializers.ListSerializer):
     def to_representation(self, data):
         # elements_ids = list(Favorite.objects.filter(owner=self.context['request'].user).values_list("element_id",flat=True))
         # data = data.filter(id__in=elements_ids)
-        data = data.filter(owner=self.context['request'].user)
+        # data = data.filter(owner=self.context['request'].user)
         return super(FavoriteListSerializer, self).to_representation(data)
 
 

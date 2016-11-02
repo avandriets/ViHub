@@ -1,9 +1,8 @@
 <div *ngFor="let note of localNotes">
     <div class="ms-Card">
         <div class="ms-Card-header">
-            <div class="ms-Card-primaryText">{{ note.subject }}</div>
-            <div class="ms-Card-secondaryText">{{ note.first_name }} {{ note.last_name }}</div>
             <div class="ms-Card-tertiaryText">{{ note.body }}
+            <div class="ms-Card-secondaryText">{{ note.first_name }} {{ note.last_name }}</div>
             </div>
             <div class="ms-Card-optionalText ms-fontColor-themePrimary">{{ note.created_at|date:'dd.MM.yyyy hh:mm' }}</div>
             <ul class="ms-Card-header-actions">

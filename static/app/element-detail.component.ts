@@ -21,6 +21,7 @@ export class ElementDetailComponent implements OnInit, AfterViewInit {
 
     hasError: boolean = false;
     errorMessage: string = "";
+    error: any;
 
     element: ElementVi;
 
@@ -29,14 +30,15 @@ export class ElementDetailComponent implements OnInit, AfterViewInit {
     notesSet: NoteVi[] = [];
     breadcrumbs: ElementVi[] = [];
 
+    loading: boolean = true;
+    spinnerText:string = "Загрузка данных ...";
+
     @ViewChild(ViewMessageDialogComponent) viewMessageDialog: ViewMessageDialogComponent;
     @ViewChild(EditNoteDialogComponent) editNoteDialog: EditNoteDialogComponent;
     @ViewChild(DeleteNoteDialogComponent) deleteNoteDialog: DeleteNoteDialogComponent;
     @ViewChild(AddNoteDialogComponent) addNoteDialog: AddNoteDialogComponent;
     @ViewChild(ViewMemberDialogComponent) membersViewDialog: ViewMemberDialogComponent;
     @ViewChild(AddMemberDialogComponent) addMemberDialog: AddMemberDialogComponent;
-
-    error: any;
 
     constructor(private elementService: ElementsService,
                 private route: ActivatedRoute,
@@ -88,13 +90,16 @@ export class ElementDetailComponent implements OnInit, AfterViewInit {
         this.elementService.getElements(this.element.element)
             .then((retElements) => {
                 this.elementsSet = retElements;
+                this.loading = false;
             }).catch((error)=> {
             this.error = error;
+            this.loading = false;
         });
 
         this.elementService.getMessages(this.element.element)
             .then((retMessages) => {
                 this.messagesSet = retMessages;
+                this.loading = false;
             }).catch((error)=> {
             this.error = error;
         });
@@ -102,15 +107,17 @@ export class ElementDetailComponent implements OnInit, AfterViewInit {
         this.elementService.getNotes(this.element.element)
             .then((retNotes) => {
                 this.notesSet = retNotes;
+                this.loading = false;
             }).catch((error)=> {
             this.error = error;
         });
 
         console.log("Sync messages");
+
         this.elementService.syncMailMessages(this.element.element)
             .then(()=> {
                 console.log("Ok sync");
-
+                //TODO get messages from base
             })
             .catch((error)=> {
                 this.error = error;
@@ -118,10 +125,12 @@ export class ElementDetailComponent implements OnInit, AfterViewInit {
                 if (error_desc == "InvalidAuthenticationToken") {
                     this.hasError = true;
                     this.errorMessage = "Время сеанса истекло.";
-                    this.winRef.nativeWindow.location.href = 'https://login.microsoftonline.com/common/oauth2/logout?post_logout_redirect_uri=http://127.0.0.1:8000/connect/disconnect/';
-                }
 
-                //console.log(this.error);
+                    let return_host = this.winRef.nativeWindow.location.origin + '/connect/disconnect/';
+                    //http://127.0.0.1:8000/connect/disconnect/
+                    this.winRef.nativeWindow.location.href = 'https://login.microsoftonline.com/common/oauth2/logout?post_logout_redirect_uri=' +
+                    return_host;
+                }
             });
     }
 

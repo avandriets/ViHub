@@ -1,40 +1,48 @@
 <div class="ms-Dialog" id="editNoteDialogID">
+    <spinner-component *ngIf="inProcess" [SupportText]="spinnerText"></spinner-component>
+    <br>
     <div class="ms-Dialog-title">Заметка</div>
     <div class="ms-Dialog-content">
-        <div *ngIf="hasError" class="ms-MessageBar ms-MessageBar--error">
-            <div class="ms-MessageBar-content">
-                <div class="ms-MessageBar-icon">
-                    <i class="ms-Icon ms-Icon--xCircle"></i>
-                </div>
-                <div class="ms-MessageBar-text">
-                    {{ errorMessage }}
+
+        <div *ngIf="hasError && ( editMode && permission_denied)">
+            <div class="ms-MessageBar ms-MessageBar--error">
+                <div class="ms-MessageBar-content">
+                    <div class="ms-MessageBar-icon">
+                        <i class="ms-Icon ms-Icon--xCircle"></i>
+                    </div>
+                    <div class="ms-MessageBar-text">
+                        {{ errorMessage }}
+                    </div>
                 </div>
             </div>
+            <br>
         </div>
 
-        <div [ngClass]="{'ms-Toggle':true, 'is-disabled': !editMode}">
-          <input [(ngModel)]="currentNote.private_note" type="checkbox" id="demo-toggle-44" class="ms-Toggle-input">
-          <label for="demo-toggle-44" [ngClass]="{'ms-Toggle-field':true, 'is-selected':currentNote.private_note}" tabindex="0">
-            <span class="ms-Label ms-Label--off">Видна&nbsp;для&nbsp;всем&nbsp;пользователям</span>
-            <span class="ms-Label ms-Label--on">Личная&nbsp;заметка</span>
-          </label>
+        <div [ngClass]="{'ms-Toggle':true, 'is-disabled': !editMode || inProcess || permission_denied}">
+            <input [(ngModel)]="currentNote.private_note" type="checkbox" id="demo-toggle-44" class="ms-Toggle-input">
+            <label for="demo-toggle-44" [ngClass]="{'ms-Toggle-field':true, 'is-selected':currentNote.private_note}" tabindex="0">
+                <span class="ms-Label ms-Label--off">Видна&nbsp;для&nbsp;всем&nbsp;пользователям</span>
+                <span class="ms-Label ms-Label--on">Личная&nbsp;заметка</span>
+            </label>
         </div>
 
-        <div [ngClass]="{'ms-TextField':true, 'is-required':true, 'is-disabled': !editMode}">
+        <div *ngIf="false" [ngClass]="{'ms-TextField':true, 'is-required':true, 'is-disabled': !editMode || inProcess || permission_denied}">
             <label class="ms-Label">Тема</label>
             <input [(ngModel)]="currentNote.subject" class="ms-TextField-field" type="text">
         </div>
 
-        <div [ngClass]="{'ms-TextField':true, 'is-required':true, 'is-disabled': !editMode, 'ms-TextField--multiline':true}">
+        <div [ngClass]="{'ms-TextField':true, 'is-required':true, 'is-disabled': !editMode || inProcess || permission_denied, 'ms-TextField--multiline':true}">
             <label class="ms-Label">Заметка</label>
             <textarea [(ngModel)]="currentNote.body" class="ms-TextField-field" type="text"></textarea>
         </div>
     </div>
 
     <div class="ms-Dialog-actions">
-        <button *ngIf="editMode" (click)="onSaveNoteDialog()" class="ms-Button  ms-Button--primary">
+        <button *ngIf="(editMode==true && inProcess == false && permission_denied == false)" (click)="onSaveNoteDialog()"
+                [ngClass]="{'ms-Button':true, 'is-disabled': inProcess, 'ms-Button--primary':true}">
             <span class="ms-Button-label">Сохранить</span>
         </button>
+
         <button class="ms-Button ms-Dialog-action">
             <span class="ms-Button-label">Отмена</span>
         </button>

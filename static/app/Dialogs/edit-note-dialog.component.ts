@@ -4,6 +4,7 @@ import {ElementsService} from '../Utility/elements.service';
 import {WindowRef} from '../Utility/WindowRef';
 import {BaseDialog} from "../Utility/BaseDialog";
 import {ElementVi, MessageVi, BaseObject, TransportObject, NoteVi} from "../Utility/base-classes";
+import {tryCatch} from "rxjs/util/tryCatch";
 
 
 @Component({
@@ -21,13 +22,17 @@ export class EditNoteDialogComponent extends BaseDialog {
         return this.onSaveNote;
     }
 
-    constructor(private elementService: ElementsService, public winRef: WindowRef) {
-        super(winRef);
+    constructor(public winRef: WindowRef, public elementService: ElementsService) {
+        super(winRef, elementService);
         this.currentNote = new NoteVi();
     }
 
+    getCurrentObject(): BaseObject {
+        return this.currentNote;
+    }
+
     initDialog(note: NoteVi, edit: boolean): void {
-        this.currentNote = Object.assign({},note);
+        this.currentNote = Object.assign({}, note);
         this.editMode = edit;
     }
 
@@ -41,17 +46,19 @@ export class EditNoteDialogComponent extends BaseDialog {
         this.currentNote.subject = this.currentNote.subject.trim();
         this.currentNote.body = this.currentNote.body.trim();
 
-        if (this.currentNote.subject == null || this.currentNote.subject == ' ' || this.currentNote.subject.length == 0) {
-            this.hasError = true;
-            this.errorMessage = 'Заполните заголовок.';
-            return;
-        }
+        // if (this.currentNote.subject == null || this.currentNote.subject == ' ' || this.currentNote.subject.length == 0) {
+        //     this.hasError = true;
+        //     this.errorMessage = 'Заполните заголовок.';
+        //     return;
+        // }
 
         if (this.currentNote.body == null || this.currentNote.body == ' ' || this.currentNote.body.length == 0) {
             this.hasError = true;
             this.errorMessage = 'Заполните содерание.';
             return;
         }
+
+        this.inProcess = true;
 
         this.elementService.editNote(this.currentNote)
             .then((data) => {
@@ -65,13 +72,18 @@ export class EditNoteDialogComponent extends BaseDialog {
                 this.currentNote.body = '';
                 this.errorMessage = '';
                 this.hasError = false;
+                this.inProcess = false;
 
                 this.closeDialog();
             })
             .catch((error) => {
                 this.errorMessage = error;
-                this.hasError = true;
-            });
+                if (error.json().detail)
+                    this.errorMessage = error.json().detail;
 
+                this.hasError = true;
+                this.inProcess = false;
+            });
     }
+
 }

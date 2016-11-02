@@ -1,17 +1,22 @@
 <div id="addMemberDialogID" class="ms-Dialog">
+    <spinner-component *ngIf="inProcess" [SupportText]="spinnerText"></spinner-component>
+    <br>
     <div class="ms-Dialog-title">Добавление пользователя</div>
     <div class="ms-Dialog-content">
-        <div *ngIf="hasError" class="ms-MessageBar ms-MessageBar--error">
-            <div class="ms-MessageBar-content">
-                <div class="ms-MessageBar-icon">
-                    <i class="ms-Icon ms-Icon--xCircle"></i>
-                </div>
-                <div class="ms-MessageBar-text">
-                    {{ errorMessage }}
+        <div *ngIf="hasError">
+            <div class="ms-MessageBar ms-MessageBar--error">
+                <div class="ms-MessageBar-content">
+                    <div class="ms-MessageBar-icon">
+                        <i class="ms-Icon ms-Icon--xCircle"></i>
+                    </div>
+                    <div class="ms-MessageBar-text">
+                        {{ errorMessage }}
+                    </div>
                 </div>
             </div>
+            <br>
         </div>
-        <div class="ms-TextField ms-TextField-Button-icon">
+        <div [ngClass]="{'ms-TextField':true, 'ms-TextField-Button-icon': true, 'is-disabled':inProcess || permission_denied}">
             <input [(ngModel)]="searchString" class="ms-TextField-field" type="text">
             <button (click)="searchMembers()" class="ms-Button ms-Button--primary">
                 <span class="ms-Button-icon"><i class="ms-Icon ms-Icon--Search"></i></span>
@@ -33,7 +38,7 @@
                                 <div class="ms-Persona-secondaryText">{{ user.email }}</div>
                             </div>
                         </div>
-                        <button (click)="addUser(user)" class="ms-PeoplePicker-resultAction"><i class="ms-Icon ms-Icon--CalculatorAddition"></i>
+                        <button *ngIf="!inProcess" (click)="addUser(user)" class="ms-PeoplePicker-resultAction"><i class="ms-Icon ms-Icon--CalculatorAddition"></i>
                         </button>
                     </li>
 

@@ -3,7 +3,7 @@ import {OnInit, AfterViewInit} from '@angular/core';
 import {ElementsService} from '../Utility/elements.service';
 import {WindowRef} from '../Utility/WindowRef';
 import {BaseDialog} from "../Utility/BaseDialog";
-import {ElementVi, MessageVi, BaseObject, TransportObject, NoteVi} from "../Utility/base-classes";
+import {ElementVi, MessageVi, BaseObject, TransportObject, NoteVi, IsOwnerReadOnlyPermission} from "../Utility/base-classes";
 
 
 @Component({
@@ -20,13 +20,17 @@ export class DeleteNoteDialogComponent extends BaseDialog {
         return this.onDeleteNote;
     }
 
-    constructor(private elementService: ElementsService, public winRef: WindowRef) {
-        super(winRef);
+    constructor(public elementService: ElementsService, public winRef: WindowRef) {
+        super(winRef, elementService);
         this.currentNote = new NoteVi();
     }
 
+    getCurrentObject(): BaseObject {
+        return this.currentNote;
+    }
+
     initDialog(note: NoteVi): void {
-        this.currentNote = Object.assign({},note);
+        this.currentNote = Object.assign({}, note);
     }
 
     initComponent(): void {
@@ -35,6 +39,7 @@ export class DeleteNoteDialogComponent extends BaseDialog {
     }
 
     onDeleteNoteDialog(): void {
+        this.inProcess = true;
 
         this.elementService.deleteNote(this.currentNote)
             .then((data) => {
@@ -47,12 +52,18 @@ export class DeleteNoteDialogComponent extends BaseDialog {
                 this.errorMessage = '';
                 this.hasError = false;
 
+                this.inProcess = false;
+
                 this.closeDialog();
             })
             .catch((error) => {
                 this.errorMessage = error;
-                this.hasError = true;
-            });
+                if (error.json().detail)
+                    this.errorMessage = error.json().detail;
 
+                this.hasError = true;
+
+                this.inProcess = false;
+            });
     }
 }

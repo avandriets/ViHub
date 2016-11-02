@@ -1,16 +1,21 @@
 <div id="ViewMemberDialogID" class="ms-Dialog">
+    <spinner-component *ngIf="inProcess" [SupportText]="spinnerText"></spinner-component>
+    <br>
     <div class="ms-Dialog-title">Список пользователей</div>
     <div class="ms-Dialog-content">
 
-        <div *ngIf="hasError" class="ms-MessageBar ms-MessageBar--error">
-            <div class="ms-MessageBar-content">
-                <div class="ms-MessageBar-icon">
-                    <i class="ms-Icon ms-Icon--xCircle"></i>
-                </div>
-                <div class="ms-MessageBar-text">
-                    {{ errorMessage }}
+        <div *ngIf="hasError">
+            <div class="ms-MessageBar ms-MessageBar--error">
+                <div class="ms-MessageBar-content">
+                    <div class="ms-MessageBar-icon">
+                        <i class="ms-Icon ms-Icon--xCircle"></i>
+                    </div>
+                    <div class="ms-MessageBar-text">
+                        {{ errorMessage }}
+                    </div>
                 </div>
             </div>
+            <br>
         </div>
 
         <div class="ms-PeoplePicker ms-PeoplePicker--facePile">
@@ -29,7 +34,7 @@
                                 <div class="ms-Persona-secondaryText">{{ user.email }}</div>
                             </div>
                         </div>
-                        <button *ngIf="currentElement.owner!=user.id" (click)="deleteUser(user)" class="ms-PeoplePicker-resultAction"><i class="ms-Icon ms-Icon--Clear"></i>
+                        <button *ngIf="currentElement.owner!=user.id && !inProcess && !permission_denied" (click)="deleteUser(user)" class="ms-PeoplePicker-resultAction"><i class="ms-Icon ms-Icon--Clear"></i>
                         </button>
                     </li>
 

@@ -1,9 +1,11 @@
 from rest_framework import exceptions
 from rest_framework import filters
 from rest_framework import viewsets
+from rest_framework.pagination import PageNumberPagination
 from Hub.models import Members, Element
 from Messages.models import Message
 from Messages.serializers import MessageSerializer
+from ViHub.permission import IsOwnerOrReadOnlyElements
 
 
 class MessageViewSet(viewsets.ModelViewSet):
@@ -16,6 +18,9 @@ class MessageViewSet(viewsets.ModelViewSet):
     filter_backends = (filters.DjangoFilterBackend, filters.OrderingFilter,)
     filter_fields = ('element',)
     ordering_fields = ('created_at', 'updated_at')
+
+    permission_classes = (IsOwnerOrReadOnlyElements,)
+    pagination_class = None
 
     def filter_queryset(self, queryset):
 
@@ -34,7 +39,7 @@ class MessageViewSet(viewsets.ModelViewSet):
                 queryset = queryset.filter(element=owner_val)
             else:
                 raise exceptions.PermissionDenied()
-        else:
+        elif self.action == 'list' and owner_val is None:
             queryset = Message.objects.none()
 
         return queryset

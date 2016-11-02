@@ -1,5 +1,5 @@
 <command-bar (onDataChange)="onDataChange($event)"></command-bar>
-<spinner-component *ngIf="loading"></spinner-component>
+<spinner-component *ngIf="loading" [SupportText]="spinnerText"></spinner-component>
 
 <div *ngIf="!loading" class="ms-Grid">
     <div class="ms-Grid-row">
@@ -8,6 +8,7 @@
             <div class="ms-Grid-row">
                 <elements-list [localElements]="elementsSet" (onSetFavorite)="onDataChange($event)"></elements-list>
             </div>
+            <h1 *ngIf="elementsSet.length == 0" class="ms-font-xxl">Нет элементов для отображения</h1>
         </div>
     </div>
 
@@ -17,6 +18,7 @@
             <div class="ms-Grid-row">
                 <elements-list [localElements]="favoriteSet" (onSetFavorite)="onDataChange($event)"></elements-list>
             </div>
+            <h1 *ngIf="favoriteSet.length == 0" class="ms-font-xxl">Список избранного пуст</h1>
         </div>
     </div>
 

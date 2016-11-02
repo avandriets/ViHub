@@ -7,6 +7,8 @@ from Notes.models import Note
 from Notes.serializers import NoteSerializer
 from rest_framework import filters
 
+from ViHub.permission import IsOwnerOrReadOnlyElements
+
 
 class NoteViewSet(viewsets.ModelViewSet):
     """
@@ -19,24 +21,29 @@ class NoteViewSet(viewsets.ModelViewSet):
     filter_fields = ('element',)
     ordering_fields = ('created_at', 'updated_at')
 
+    permission_classes = (IsOwnerOrReadOnlyElements,)
+    pagination_class = None
+
     def filter_queryset(self, queryset):
 
         queryset = Note.objects.all()
 
         owner_val = self.request.query_params.get('element', None)
 
-        try:
-            element = Element.objects.get(id=owner_val)
-        except Element.DoesNotExist:
-            raise exceptions.NotFound()
-
         if owner_val is not None:
-            members_list = Members.objects.filter(element=owner_val, user_involved=self.request.user)
+            try:
+                element = Element.objects.get(id=owner_val)
+            except Element.DoesNotExist:
+                raise exceptions.NotFound()
+
+            members_list = Members.objects.filter(element_id=owner_val, user_involved=self.request.user)
             if members_list.count() > 0:
-                queryset = queryset.filter(element=owner_val)
+                queryset = queryset.filter(element_id=owner_val)
             else:
                 raise exceptions.PermissionDenied()
-        else:
+
+            queryset = queryset.filter(element_id=owner_val)
+        elif self.action == 'list' and owner_val is None:
             queryset = Note.objects.none()
 
         return queryset
