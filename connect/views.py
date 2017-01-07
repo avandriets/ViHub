@@ -138,7 +138,6 @@ def profile_edit(request):
 
     user = request.user
 
-
     if request.method == 'POST':
         postdata = request.POST.copy()
         FORMUser = UserEditForm(data=postdata, instance=user)
