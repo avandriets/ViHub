@@ -1,18 +1,95 @@
 @import '../node_modules/office-ui-fabric-core/src/sass/_Fabric.Common';
+// variable
 
+$text-color-primary: unquote("rgba(0, 0, 0, 0.87)") !default;
+$text-color-secondary: unquote("rgba(0, 0, 0, 0.54)") !default;
+$color-primary: $ms-color-red;
+$color-primary-dark: $ms-color-redDark;
+$border: rgba(0,0,0,0.4);
+//$color-accent: '$color-accent';
 
 body{
   min-width: 320px;
+  font-size: 14px;
+  line-height: 1.2;
+  font-weight: 300;
+      font-family: Segoe UI WestEuropean,Segoe UI,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif;
+    -webkit-font-smoothing: antialiased;
 }
 
 .yyy *{
   outline: 1px solid red;
+}
+// Grid
+.ms-Grid {
+  padding: 0 32px;
+}
+.ms-Grid-row {
+    margin: 0 -16px;
+}
+.ms-Grid-col {
+    padding-left: 16px;
+    padding-right: 16px;
+}
+//
+.b-t-1{
+  border-top: 1px solid $border;
+}
+.b-t-2{
+  border-top: 2px solid $border;
+}
+//page-heading
+.page-heading-xxl{
+  padding: 8px 0 32px;
+  border-top: 2px solid $border;
+  position: relative;
+  .ms-CommandButton{
+    position: absolute;
+    right: 0;
+    .ms-CommandButton-button{
+      border-color: transparent;
+      background-color: transparent;
+      color: $color-primary;
+
+      .ms-CommandButton-label{
+        color: $color-primary;
+        text-transform: uppercase;
+      }
+    }
+    &:hover{
+      .ms-CommandButton-button{
+        border-color: transparent;
+        background-color: transparent;
+        color: $color-primary-dark;
+        .ms-CommandButton-label{
+          color: $color-primary-dark;
+        }
+      }
+    }
+  }
+  h1{
+    line-height: 40px;
+  }
 }
 // Breadcrumb';
 .ms-Breadcrumb{
   margin: 5px 0 1px;
 }
 // Button';
+
+.ms-Button{
+  &.ms-Button--primary {
+    background-color: $color-primary;
+    border-color: $color-primary;
+  }
+  &.ms-Button--primary:hover {
+    background-color: $color-primary-dark;
+    border-color: $color-primary-dark;
+  }
+}
+
+
+
 // Callout';
 // CheckBox';
 // RadioButton';
@@ -33,17 +110,23 @@ body{
 
 
 .ms-Card {
-  @include ms-baseFont;
+  //@include ms-baseFont;
   @include ms-u-slideUpIn10;
-  color: $ms-color-neutralPrimary;
+  color: $text-color-primary;
   font-size: $ms-font-size-m;
   font-weight: $ms-font-weight-regular;
-  @include drop-shadow;
+  border-top: $border;
+  //@include drop-shadow;
   position: relative;
+  &:hover{
+    .ms-Card-overflow {
+      display: block;
+    }
+  }
 }
 .ms-Card-header {
-  background-color: $ms-color-neutralLighter;
-  padding: 12px 20px;
+  //background-color: $ms-color-neutralLighter;
+  padding: 12px 0;
 }
 .ms-Card-header-actions{
   max-width: 32px;
@@ -64,43 +147,33 @@ body{
 .ms-Card-secondaryText,
 .ms-Card-tertiaryText,
 .ms-Card-optionalText {
-  @include noWrap;
+  //@include noWrap;
   width: 100%;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 
 .ms-Card-primaryText {
-  color: $ms-color-neutralPrimary;
-  font-weight: $ms-font-weight-regular;
-  font-size: $ms-font-size-l;
-  margin-top: -3px;
-  line-height: 1.4;
+  font-weight: $ms-font-weight-semibold;
   padding-right: 40px;
   box-sizing: border-box;
+    padding-bottom: 10px;
+  //outline: 1px solid red;
 }
 
 .ms-Card-secondaryText,
 .ms-Card-tertiaryText,
 .ms-Card-optionalText {
-  color: $ms-color-neutralSecondary;
-  font-weight: $ms-font-weight-regular;
-  font-size: $ms-font-size-s;
+  font-weight: $ms-font-weight-light;
   white-space: nowrap;
-  line-height: 1.3;
+  padding-bottom: 10px;
 }
 
-.ms-Card-secondaryText {
-  padding-top: 3px;
-}
 
-.ms-Card-tertiaryText,
-.ms-Card-optionalText {
-  padding-top: 5px;
-}
 .ms-Card-optionalText {
   text-align: right;
-  color: $ms-color-themePrimary;
+  color: $text-color-secondary;
+  padding-bottom: 0;
 }
 
 
@@ -119,7 +192,7 @@ body{
     top: 47px;
     left: 0;
     width: 100%;
-    border-top: 1px solid $ms-color-neutralTertiaryAlt;
+    //border-top: 1px solid $ms-color-neutralTertiaryAlt;
   }
 }
 
@@ -176,12 +249,13 @@ body{
   }
 }
 .ms-Card-overflow {
+  display: none;
   font-size: $ms-font-size-m;
-  color: $ms-color-neutralPrimary;
+  color: $color-primary;
   float: right;
   margin-top: -1px;
   &:hover {
-    color: $ms-color-themePrimary;
+    color: $color-primary;
   }
 }
 .ms-Card-orgChart {
@@ -209,20 +283,32 @@ body{
 // CommandBar
 $CommandBar-navBar-height: 50px;
 .ms-CommandBar{
+  display: none;
+  header &{
+    display: block;
+  }
   &.ms-CommandBar--navBar{
-    background-color: $ms-color-neutralSecondaryAlt;
+    background-color: $ms-color-white;
     height: $CommandBar-navBar-height;
+    z-index: 1;
+    border-bottom: 1px solid rgba(0,0,0,.14);
+//    -webkit-box-shadow: 0 2px 4px -1px rgba(0,0,0,0.06), 0 4px 5px 0 rgba(0,0,0,0.06), 0 1px 10px 0 rgba(0,0,0,0.08);
+ //   box-shadow: 0 2px 4px -1px rgba(0,0,0,0.06), 0 4px 5px 0 rgba(0,0,0,0.06), 0 1px 10px 0 rgba(0,0,0,0.08);
+
     .ms-CommandButton-button{
       height: $CommandBar-navBar-height;
-        line-height: $CommandBar-navBar-height;
+      line-height: $CommandBar-navBar-height;
       min-width: $CommandBar-navBar-height;
-      color: $ms-color-white;
-      &:hover {
-        color: $ms-color-white;
-        background: $ms-color-neutralTertiaryAlt;
-      }
+      color: $text-color-secondary;
       .ms-Persona-primaryText{
-        color: $ms-color-white;
+        color: $text-color-secondary;
+      }
+      &:hover{
+        color: $text-color-primary;
+        background: $ms-color-white;
+        .ms-Persona-primaryText{
+          color: $text-color-primary;
+        }
       }
       .ms-Persona-imageArea{
         top: 1px;
@@ -249,20 +335,56 @@ $CommandBar-navBar-height: 50px;
 // FacePile;
 // Label';
 // Link';
+.ms-Link {
+  color: $color-primary;
+  font-weight: 600;
+  &:hover, &:focus{
+      color: $color-primary-dark;
+  }
+}
 // List';
-// ListItem';
 
+
+// ListItem';
+.ms-List, .ms-ListItem{
+  font-size: 14px;
+  font-weight: 300;
+  line-height: 20px;
+  margin-bottom: 32px;
+
+  &.ms-ListItem--document{
+    padding-top: 10px;
+    .ms-ListItem-actions{
+      right: 0;
+      top: 8px;
+    }
+    .ms-ListItem-metaText{
+      right: 0;
+      top: 30px;
+    }
+    .ms-Link{
+      margin-top: 16px;
+      opacity: 0;
+    }
+  }
+  &:hover{
+    .ms-Link{
+      opacity: 1;
+    }
+  }
+}
 .ms-ListItem{
   & + &{
-    border-top: 1px solid $ms-color-neutralLighter;
+    //border-top: 1px solid $ms-color-neutralLighter;
   }
 }
 .ms-ListItem-secondaryText{
-    color: $ms-color-themePrimary;
+//    color: $ms-color-themePrimary;
 }
 .ms-ListItem-metaText {
-  color: $ms-color-themePrimary;
+//  color: $ms-color-themePrimary;
 }
+
 // MessageBanner';
 // ContextualHost';
 // MessageBar';
