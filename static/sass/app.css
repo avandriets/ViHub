@@ -13,7 +13,7 @@ body {
   outline: 1px solid red; }
 
 .ms-Grid {
-  padding: 32px 32px; }
+  padding: 0 32px; }
 
 .ms-Grid-row {
   margin: 0 -16px; }
@@ -27,6 +27,43 @@ body {
 
 .b-t-2 {
   border-top: 2px solid rgba(0, 0, 0, 0.4); }
+
+header {
+  background-color: #ffffff;
+  height: 50px;
+  z-index: 1;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.14); }
+  header .th-Header-banner {
+    padding: 0 32px; }
+  header .th-Logo-link {
+    height: 50px;
+    line-height: 50px;
+    min-width: 50px;
+    color: rgba(0, 0, 0, 0.54);
+    text-decoration: none;
+    display: inline-block; }
+    header .th-Logo-link:hover {
+      color: rgba(0, 0, 0, 0.87);
+      background: #ffffff; }
+  header .ms-CommandBar-sideCommands {
+    padding-right: 0; }
+    header .ms-CommandBar-sideCommands .ms-CommandButton {
+      float: left; }
+  header .ms-CommandButton-button {
+    height: 50px;
+    line-height: 50px;
+    min-width: 50px;
+    color: rgba(0, 0, 0, 0.54); }
+    header .ms-CommandButton-button .ms-Persona-primaryText {
+      color: rgba(0, 0, 0, 0.54); }
+    header .ms-CommandButton-button:hover {
+      color: rgba(0, 0, 0, 0.87);
+      background: #ffffff; }
+      header .ms-CommandButton-button:hover .ms-Persona-primaryText {
+        color: rgba(0, 0, 0, 0.87); }
+    header .ms-CommandButton-button .ms-Persona-imageArea {
+      top: 1px;
+      left: 1px; }
 
 .page-heading-xxl {
   padding: 8px 0 32px;
@@ -222,35 +259,6 @@ body {
 .ms-Card-detailLabel {
   color: #666666;
   line-height: 30px; }
-
-.ms-CommandBar {
-  display: none; }
-  header .ms-CommandBar {
-    display: block; }
-  .ms-CommandBar.ms-CommandBar--navBar {
-    background-color: #ffffff;
-    height: 50px;
-    z-index: 1;
-    border-bottom: 1px solid rgba(0, 0, 0, 0.14); }
-    .ms-CommandBar.ms-CommandBar--navBar .ms-CommandButton-button {
-      height: 50px;
-      line-height: 50px;
-      min-width: 50px;
-      color: rgba(0, 0, 0, 0.54); }
-      .ms-CommandBar.ms-CommandBar--navBar .ms-CommandButton-button .ms-Persona-primaryText {
-        color: rgba(0, 0, 0, 0.54); }
-      .ms-CommandBar.ms-CommandBar--navBar .ms-CommandButton-button:hover {
-        color: rgba(0, 0, 0, 0.87);
-        background: #ffffff; }
-        .ms-CommandBar.ms-CommandBar--navBar .ms-CommandButton-button:hover .ms-Persona-primaryText {
-          color: rgba(0, 0, 0, 0.87); }
-      .ms-CommandBar.ms-CommandBar--navBar .ms-CommandButton-button .ms-Persona-imageArea {
-        top: 1px;
-        left: 1px; }
-    .ms-CommandBar.ms-CommandBar--navBar .ms-CommandBar-sideCommands .ms-CommandButton {
-      border-left: 1px solid #ffffff; }
-  .ms-CommandBar .ms-CommandButton + .ms-CommandButton {
-    margin-left: 0; }
 
 .ms-Link {
   color: #e81123;
