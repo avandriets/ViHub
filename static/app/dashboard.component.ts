@@ -17,7 +17,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     favoriteSet: Favorite[] = [];
     error: any;
     loading: boolean = true;
-    spinnerText:string = "Загрузка данных ...";
+    spinnerText: string = "Загрузка данных ...";
 
     constructor(private router: Router,
                 private elementService: ElementsService, private winRef: WindowRef) {
@@ -49,14 +49,14 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         this.elementService.getElements(-1).then((elements) => {
             this.elementsSet = elements;
             this.loading = false;
-        }).catch((error)=> {
+        }).catch((error) => {
             console.log(error);
             this.error = error;
             this.loading = false;
         });
         this.elementService.getFavorite().then((favorites) => {
             this.favoriteSet = favorites;
-        }).catch((error)=> {
+        }).catch((error) => {
             console.log(error);
             this.error = error;
         });
@@ -71,6 +71,20 @@ export class DashboardComponent implements OnInit, AfterViewInit {
     gotoDetail(element: ElementVi): void {
         let link = ['/element', element.id];
         this.router.navigate(link);
+    }
+
+    openPanel(): void {
+
+        var PanelExamples = document.getElementsByClassName("ms-PanelExample");
+        for (var i = 0; i < PanelExamples.length; i++) {
+            (function () {
+                var PanelExampleButton = PanelExamples[i].querySelector(".ms-Button");
+                var PanelExamplePanel = PanelExamples[i].querySelector(".ms-Panel");
+                PanelExampleButton.addEventListener("click", function (i) {
+                    new window.fabric['Panel'](PanelExamplePanel);
+                });
+            }());
+        }
     }
 }
 
