@@ -5,6 +5,7 @@ body {
   min-width: 320px;
   font-size: 14px;
   line-height: 1.2;
+  color: rgba(0, 0, 0, 0.87);
   font-weight: 300;
   font-family: Segoe UI WestEuropean,Segoe UI,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif;
   -webkit-font-smoothing: antialiased; }
@@ -12,8 +13,11 @@ body {
 .yyy * {
   outline: 1px solid red; }
 
+main {
+  padding: 32px 16px 0 16px; }
+
 .ms-Grid {
-  padding: 0 32px; }
+  padding: 0 16px; }
 
 .ms-Grid-row {
   margin: 0 -16px; }
@@ -27,6 +31,12 @@ body {
 
 .b-t-2 {
   border-top: 2px solid rgba(0, 0, 0, 0.4); }
+
+.color-primary {
+  color: #e81123; }
+
+.m-b-05 {
+  margin-bottom: 8px; }
 
 header {
   background-color: #ffffff;
@@ -64,6 +74,8 @@ header {
     header .ms-CommandButton-button .ms-Persona-imageArea {
       top: 1px;
       left: 1px; }
+  header .ms-CommandButton + .ms-CommandButton {
+    margin-left: 0; }
 
 .page-heading-xxl {
   padding: 8px 0 32px;
@@ -87,9 +99,44 @@ header {
         color: #a80000; }
   .page-heading-xxl h1 {
     line-height: 40px; }
+  .page-heading-xxl div {
+    line-height: 20px; }
+  .page-heading-xxl .ms-fontSize-xl {
+    line-height: 1.2; }
+
+.page-heading {
+  padding: 8px 0 32px;
+  border-top: 1px solid rgba(0, 0, 0, 0.4);
+  position: relative; }
+  .page-heading .th-CommandButton {
+    position: absolute;
+    right: -4px;
+    top: 0; }
+    .page-heading .th-CommandButton .th-Button-Icon {
+      border-color: transparent;
+      background-color: transparent;
+      color: #e81123;
+      min-width: 32px;
+      padding: 4px 4px 6px; }
+    .page-heading .th-CommandButton:hover {
+      border-color: transparent;
+      background-color: transparent;
+      color: #a80000; }
 
 .ms-Breadcrumb {
-  margin: 5px 0 1px; }
+  margin: 0 0 8px 0; }
+
+.ms-Breadcrumb-itemLink {
+  font-size: 16px;
+  color: rgba(0, 0, 0, 0.54);
+  padding: 0; }
+  .ms-Breadcrumb-itemLink:hover {
+    background-color: transparent;
+    color: rgba(0, 0, 0, 0.87); }
+
+.ms-Breadcrumb-chevron {
+  margin: 4px 8px;
+  color: #e81123; }
 
 .ms-Button.ms-Button--primary {
   background-color: #e81123;
@@ -260,6 +307,9 @@ header {
   color: #666666;
   line-height: 30px; }
 
+.ms-CommandBar {
+  display: none; }
+
 .ms-Link {
   color: #e81123;
   font-weight: 600; }
@@ -306,6 +356,7 @@ header {
   background-size: auto 100%; }
 
 .login-page-block {
+  padding: 32px 0;
   min-height: 100vh; }
   .login-page-block > div {
     max-width: 400px;

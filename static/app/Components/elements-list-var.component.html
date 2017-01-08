@@ -1,21 +1,25 @@
 <div *ngIf="elementService.cardView == true">
 
-    <div *ngFor="let element of localElements" class="ms-Grid-col ms-u-sm12 ms-u-lg4 ms-u-xl12 m-b-1">
-        <div class="ms-Card ">
-            <div class="ms-Card-header">
-                <div class="ms-Card-primaryText">{{ element.name }}</div>
-                <div class="ms-Card-secondaryText">{{ element.first_name }} {{ element.last_name }}</div>
-                <div class="ms-Card-tertiaryText">{{ element.description }}</div>
-                <div class="ms-Card-optionalText ms-fontColor-themePrimary">{{ element.created_at|date:'dd.MM.yyyy hh:mm' }}</div>
-                <ul class="ms-Card-header-actions">
-                    <li (click)="changeFavorite(element)" data-action-id="favorite" class="ms-Card-action" alt="Добавить в избранное" title="Добавить в избранное" tabindex="5"><i [ngClass]="{'ms-Icon ms-Icon--Flag': true, 'ms-fontColor-yellow': element.is_favorite}"></i></li>
-                </ul>
+    <ul *ngFor="let element of localElements" class="ms-Grid-col ms-u-sm12 ms-u-lg4 ms-u-xl12 m-b-1">
+        <li class="ms-ListItem b-t-1 ms-ListItem--document">
+
+            <div class="ms-fontWeight-semibold">{{ element.name }}</div>
+            <div>
+                {{ element.created_at|date:'dd.MM.yyyy hh:mm' }}
+                {{ element.first_name }} {{ element.last_name }}
             </div>
+            <div>&nbsp;</div>
+            <div class="ms-fontSize-l">{{ element.description }}</div>
+
+            <ul class="ms-Card-header-actions">
+                <li (click)="changeFavorite(element)" data-action-id="favorite" class="ms-Card-action" alt="Добавить в избранное" title="Добавить в избранное" tabindex="5"><i [ngClass]="{'ms-Icon ms-Icon--Flag': true, 'ms-fontColor-yellow': element.is_favorite}"></i></li>
+            </ul>
+
             <ul class="ms-Card-actions">
                 <li (click)="gotoDetail(element)" class="ms-Card-overflow" alt="Перейти к элементу" title="Перейти к элементу">Перейти ...</li>
             </ul>
-        </div>
-    </div>
+        </li>
+    </ul>
 </div>
 
 <table *ngIf="elementService.cardView == false" class="ms-Table ">

@@ -1,15 +1,17 @@
-<div *ngFor="let note of localNotes">
-    <div class="ms-Card">
-        <div class="ms-Card-header">
-            <div class="ms-Card-tertiaryText">{{ note.body }}
-            <div class="ms-Card-secondaryText">{{ note.first_name }} {{ note.last_name }}</div>
-            </div>
-            <div class="ms-Card-optionalText ms-fontColor-themePrimary">{{ note.created_at|date:'dd.MM.yyyy hh:mm' }}</div>
-            <ul class="ms-Card-header-actions">
-                <li data-action-id="favorite" class="ms-Card-action" tabindex="5"><i
-                        [ngClass]="{'ms-Icon':true,'ms-fontColor-red ms-Icon--Lock': note.private_note, ' ms-Icon--Unlock': !note.private_note}"></i></li>
-            </ul>
+<ul *ngFor="let note of localNotes">
+    <li class="ms-ListItem b-t-1 ms-ListItem--document">
+        <div class="ms-fontWeight-semibold">{{ note.body }}</div>
+        <div class="">
+            {{ note.created_at|date:'dd.MM.yyyy hh:mm' }}
+            {{ note.first_name }} {{ note.last_name }}
         </div>
+        <ul class="ms-Card-header-actions">
+            <li data-action-id="favorite" class="ms-Card-action" tabindex="5"><i
+                    [ngClass]="{'ms-Icon':true,'ms-fontColor-red ms-Icon--Lock': note.private_note, ' ms-Icon--Unlock': !note.private_note}"></i></li>
+        </ul>
+
+
+
         <ul class="ms-Card-actions">
             <li *ngIf="note.message" data-action-id="chat" class="ms-Card-action is-active" tabindex="1"><i
                     class="ms-Icon ms-Icon--Mail"></i></li>
@@ -28,6 +30,5 @@
                         class="ms-Link">Ссылка на сообщение</a></div>
             </div>
         </div>
-    </div>
-    <br>
-</div>
+    </li>
+</ul>

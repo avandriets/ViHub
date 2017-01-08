@@ -20,20 +20,22 @@
     </div>
 </div>
 
-<div class="ms-Card">
-    <ul class="ms-List ">
-        <li *ngFor="let message of localMessages" class="ms-ListItem th-ListItem ms-bgColor-neutralLighter--hover" tabindex="0">
-            <span *ngIf="message.message_type == 'E'" class="ms-ListItem-primaryText">{{ message.subject }}</span>
-            <span class="ms-ListItem-secondaryText ms-fontColor-themePrimary">{{ message.first_name }} {{ message.last_name }}</span>
-            <span *ngIf="message.message_type == 'E'" class="ms-ListItem-tertiaryText"> {{ message.body_preview }}</span>
-            <span *ngIf="message.message_type == 'S'" class="ms-ListItem-tertiaryText"> {{ message.body }}</span>
-            <span class="ms-ListItem-metaText">{{ message.message_date|date:'dd.MM.yyyy hh:mm' }}</span>
-            <br>
 
-            <div class="ms-ListItem-actions">
-                <div (click)="onAddNoteClick(message)" class="ms-ListItem-action"><i class="ms-Icon ms-Icon--Chat"></i></div>
-                <div (click)="onViewMessageClick(message)" class="ms-ListItem-action"><i class="ms-Icon ms-Icon--More"></i></div>
-            </div>
-        </li>
-    </ul>
-</div>
+
+<ul *ngFor="let message of localMessages" tabindex="0">
+    <li class="ms-ListItem b-t-1 ms-ListItem--document">
+        <div *ngIf="message.message_type == 'E'" class="ms-fontWeight-semibold">{{ message.subject }}</div>
+        <div>
+            {{ message.message_date|date:'dd.MM.yyyy hh:mm' }}
+            {{ message.first_name }} {{ message.last_name }}
+        </div>
+        <div *ngIf="message.message_type == 'E'" class="ms-fontSize-l"> {{ message.body_preview }}</div>
+        <div *ngIf="message.message_type == 'S'" class="ms-fontSize-l"> {{ message.body }}</div>
+
+        <div class="ms-ListItem-actions">
+            <div (click)="onAddNoteClick(message)" class="ms-ListItem-action"><i class="ms-Icon ms-Icon--Chat"></i></div>
+            <div (click)="onViewMessageClick(message)" class="ms-ListItem-action"><i class="ms-Icon ms-Icon--More"></i></div>
+        </div>
+    </li>
+</ul>
+

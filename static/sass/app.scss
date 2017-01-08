@@ -1,7 +1,7 @@
 @import '../node_modules/office-ui-fabric-core/src/sass/_Fabric.Common';
 // variable
 
-$text-color-primary: unquote("rgba(0, 0, 0, 0.87)") !default;
+$text-color-primary:  unquote("rgba(0, 0, 0, 0.87)") !default;//green; //
 $text-color-secondary: unquote("rgba(0, 0, 0, 0.54)") !default;
 $color-primary: $ms-color-red;
 $color-primary-dark: $ms-color-redDark;
@@ -12,17 +12,21 @@ body{
   min-width: 320px;
   font-size: 14px;
   line-height: 1.2;
+  color: $text-color-primary;
   font-weight: 300;
-      font-family: Segoe UI WestEuropean,Segoe UI,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif;
-    -webkit-font-smoothing: antialiased;
+  font-family: Segoe UI WestEuropean,Segoe UI,-apple-system,BlinkMacSystemFont,Roboto,Helvetica Neue,sans-serif;
+  -webkit-font-smoothing: antialiased;
 }
 
 .yyy *{
   outline: 1px solid red;
 }
 // Grid
+main{
+  padding: 32px 16px 0 16px;
+}
 .ms-Grid {
-  padding: 0 32px;
+  padding: 0 16px;
 }
 .ms-Grid-row {
     margin: 0 -16px;
@@ -31,6 +35,7 @@ body{
     padding-left: 16px;
     padding-right: 16px;
 }
+
 //
 .b-t-1{
   border-top: 1px solid $border;
@@ -38,11 +43,14 @@ body{
 .b-t-2{
   border-top: 2px solid $border;
 }
-//
-header{
 
+.color-primary{
+  color: $color-primary;
 }
-
+.m-b-05{
+  margin-bottom: 8px;
+}
+//
 $header-height: 50px;
 header{
   background-color: $ms-color-white;
@@ -92,6 +100,9 @@ header{
         left: 1px;
       }
     }
+  .ms-CommandButton+.ms-CommandButton {
+    margin-left: 0;
+  }
 }
 
 //page-heading
@@ -126,10 +137,51 @@ header{
   h1{
     line-height: 40px;
   }
+  div{
+    line-height: 20px;
+  }
+  .ms-fontSize-xl{
+    line-height: 1.2;
+  }
+}
+.page-heading{
+  padding: 8px 0 32px;
+  border-top: 1px solid $border;
+  position: relative;
+  .th-CommandButton {
+    position: absolute;
+    right: -4px;
+    top: 0;
+    .th-Button-Icon {
+      border-color: transparent;
+      background-color: transparent;
+      color: $color-primary;
+      min-width: 32px;
+      padding: 4px 4px 6px;
+    }
+    &:hover {
+      border-color: transparent;
+      background-color: transparent;
+      color: $color-primary-dark;
+    }
+  }
 }
 // Breadcrumb';
 .ms-Breadcrumb{
-  margin: 5px 0 1px;
+  margin: 0 0 8px 0;
+}
+.ms-Breadcrumb-itemLink {
+  font-size: 16px;
+  color: $text-color-secondary;
+  padding: 0;
+  &:hover{
+    background-color: transparent;
+    color: $text-color-primary;
+  }
+}
+.ms-Breadcrumb-chevron{
+ margin: 4px 8px;
+  color: $color-primary;
 }
 // Button';
 
@@ -144,7 +196,9 @@ header{
   }
 }
 
+.th-Button-Icon{
 
+}
 
 // Callout';
 // CheckBox';
@@ -337,7 +391,9 @@ header{
   line-height: 30px;
 }
 // CommandBar
-
+.ms-CommandBar{
+  display: none;
+}
 // CommandButton
 
 // ContextualMenu;
@@ -445,6 +501,7 @@ header{
   background-size: auto 100%;
 }
 .login-page-block{
+  padding: 32px 0;
   min-height: 100vh;
   &>div {
     max-width: 400px;
