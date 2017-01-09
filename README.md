@@ -50,7 +50,8 @@
 
             > Устанавливаем из исходников mod_wsgi версия 4.5.7 т/к/ та что посталяется с менеджером пакетов корявая
 
-            ```$ cd /usr
+            ```
+            $ cd /usr
             $ sudo wget https://pypi.python.org/packages/28/a7/de0dd1f4fae5b2ace921042071ae8563ce47dac475b332e288bc1d773e8d/mod_wsgi-4.5.7.tar.gz
             $ sudo tar xzf mod_wsgi-4.5.7.tar.gz
             $ cd mod_wsgi-4.5.7/
