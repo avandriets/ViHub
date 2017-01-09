@@ -81,7 +81,7 @@ export class DashboardComponent implements OnInit, AfterViewInit {
                 var PanelExampleButton = PanelExamples[i].querySelector(".ms-Button");
                 var PanelExamplePanel = PanelExamples[i].querySelector(".ms-Panel");
                 PanelExampleButton.addEventListener("click", function (i) {
-                    // new window.fabric['Panel'](PanelExamplePanel);
+                    new window.fabric['Panel'](PanelExamplePanel);
                 });
             }());
         }
