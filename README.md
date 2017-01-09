@@ -68,7 +68,6 @@
     - Натроить config файл для Apache
         >Расположение файла с конфигурацией /etc/apache2/sites-available/000-default.conf
 
-        редактируем
         `$ sudo nano /etc/apache2/sites-available/000-default.conf`
 
 
@@ -113,27 +112,27 @@
         ```
 
     - Перезагрузка сервера
-    `$ sudo service apache2 restart`
+        `$ sudo service apache2 restart`
 4. Настройки Django проекта под MySQL сервер
     - Библиотека для работы python3 и MySQL
-    '$ sudo apt install libmysqlclient-dev'
+        `$ sudo apt install libmysqlclient-dev`
     - Создаем базу данных для проекта через консольную улилиту **mysql**
-    > запускаем утилиту
+        > запускаем утилиту
 
-    `$ mysql -u root -p`
+        `$ mysql -u root -p`
 
-    > исполняем в утилите команды
-    ```
-    CREATE DATABASE [имя базы данных] CHARACTER SET utf8;
-    CREATE USER '[имя пользователя]'@'localhost' IDENTIFIED BY '[пароль]';
-    GRANT ALL ON [имя пользователя].* TO '[имя базы данных]'@'localhost';
-    ```
+        > исполняем в утилите команды
+        ```
+        CREATE DATABASE [имя базы данных] CHARACTER SET utf8;
+        CREATE USER '[имя пользователя]'@'localhost' IDENTIFIED BY '[пароль]';
+        GRANT ALL ON [имя пользователя].* TO '[имя базы данных]'@'localhost';
+        ```
 
-    > для достпа пользователя с любого ip адреса создайте пользователя вида '[имя пользователя]'@'%'
+        > для достпа пользователя с любого ip адреса создайте пользователя вида '[имя пользователя]'@'%'
 
     - Мигрируйте данные ORM из Django в базу данных
-    `$ ../env/bin/python3 manage.py makemigrations [имя пакета] [имя пакета]`
-    `$ ../env/bin/python3 manage.py migrate`
+        `$ ../env/bin/python3 manage.py makemigrations [имя пакета] [имя пакета]`
+        `$ ../env/bin/python3 manage.py migrate`
 
 5. Соберите статические файлы проекта
 `$ ../env/bin/python3 manage.py collectstatic`
