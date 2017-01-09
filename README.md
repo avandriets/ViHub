@@ -12,6 +12,7 @@
     - Установка MySQL
         `sudo apt install mysql-server-5.7`
         > Варианты перезапуска сервера MySQL
+
         ```
         ps ax | grep mysql
         sudo service mysql start
