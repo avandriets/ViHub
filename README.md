@@ -35,7 +35,7 @@
 
 
 2. Скопируйте проект в локальную папку
-    `$ git clone https://github.com/digitallifelab/ViHub.git [project-folder]`
+    ```$ git clone https://github.com/digitallifelab/ViHub.git [project-folder]```
 
 3. Настройка web сервера Apache
 
