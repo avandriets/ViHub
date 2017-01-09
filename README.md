@@ -69,7 +69,7 @@
         >Расположение файла с конфигурацией /etc/apache2/sites-available/000-default.conf
 
         редактируем
-        '$ sudo nano /etc/apache2/sites-available/000-default.conf'
+        `$ sudo nano /etc/apache2/sites-available/000-default.conf`
 
 
         ```
