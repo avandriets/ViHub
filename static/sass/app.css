@@ -32,11 +32,17 @@ main {
 .b-t-2 {
   border-top: 2px solid rgba(0, 0, 0, 0.4); }
 
-.color-primary {
-  color: #e81123; }
-
 .m-b-05 {
   margin-bottom: 8px; }
+
+.m-b-1 {
+  margin-bottom: 16px !important; }
+
+.m-b-2 {
+  margin-bottom: 32px !important; }
+
+.color-primary {
+  color: #e81123; }
 
 header {
   background-color: #ffffff;
@@ -179,9 +185,9 @@ header {
 .ms-Card-header-actions {
   max-width: 32px;
   position: absolute;
-  right: 20px;
+  right: 4px;
   text-align: right;
-  top: 10px;
+  top: 0;
   margin: 0;
   padding: 0; }
   .ms-Card-header-actions .ms-Card-action {
@@ -312,28 +318,34 @@ header {
 
 .ms-Link {
   color: #e81123;
-  font-weight: 600; }
+  font-weight: 400; }
   .ms-Link:hover, .ms-Link:focus {
     color: #a80000; }
 
 .ms-List, .ms-ListItem {
   font-size: 14px;
-  font-weight: 300;
+  font-weight: 100;
   line-height: 20px;
   margin-bottom: 32px; }
-  .ms-List.ms-ListItem--document, .ms-ListItem.ms-ListItem--document {
+  .ms-List.ms-ListItem--document.b-b-1, .ms-ListItem.ms-ListItem--document.b-b-1 {
     padding-top: 10px; }
-    .ms-List.ms-ListItem--document .ms-ListItem-actions, .ms-ListItem.ms-ListItem--document .ms-ListItem-actions {
-      right: 0;
-      top: 8px; }
-    .ms-List.ms-ListItem--document .ms-ListItem-metaText, .ms-ListItem.ms-ListItem--document .ms-ListItem-metaText {
-      right: 0;
-      top: 30px; }
-    .ms-List.ms-ListItem--document .ms-Link, .ms-ListItem.ms-ListItem--document .ms-Link {
-      margin-top: 16px;
-      opacity: 0; }
+  .ms-List.ms-ListItem--document .ms-ListItem-actions, .ms-ListItem.ms-ListItem--document .ms-ListItem-actions {
+    right: 0;
+    top: 8px; }
+  .ms-List.ms-ListItem--document .ms-ListItem-metaText, .ms-ListItem.ms-ListItem--document .ms-ListItem-metaText {
+    right: 0;
+    top: 30px; }
+  .ms-List.ms-ListItem--document .ms-Link, .ms-ListItem.ms-ListItem--document .ms-Link {
+    margin-top: 16px;
+    opacity: 0; }
   .ms-List:hover .ms-Link, .ms-ListItem:hover .ms-Link {
     opacity: 1; }
+
+.ms-Persona {
+  font-weight: 100; }
+
+.ms-Persona-initials--primary {
+  background-color: #e81123; }
 
 .ms-TextField-Button-icon .ms-TextField-field {
   width: calc( 100% - 40px);
@@ -346,9 +358,6 @@ header {
   .ms-TextField-Button-icon .ms-Button .ms-Button-icon {
     display: inline-block;
     color: white; }
-
-.m-b-1 {
-  margin-bottom: 16px !important; }
 
 .login-page {
   background-image: url("https://secure.aadcdn.microsoftonline-p.com/ests/2.1.4856.17/content/images/default_signin_illustration.png");
@@ -363,5 +372,35 @@ header {
     padding: 0 20px 0;
     margin: 0 auto;
     box-sizing: border-box; }
+
+/**/
+.th-active-bar {
+  position: relative; }
+  .th-active-bar:hover .th-Card-action {
+    opacity: 1; }
+
+.th-Card-action {
+  opacity: 0;
+  display: inline-block;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 400;
+  height: 36px;
+  line-height: 36px;
+  padding-right: 10px;
+  color: #e81123;
+  outline: transparent;
+  position: relative;
+  box-sizing: border-box; }
+  .th-Card-action .ms-Icon {
+    margin-right: 10px;
+    top: 2px;
+    position: relative;
+    font-size: 16px;
+    line-height: 34px; }
+  .th-Card-action:hover {
+    color: #a80000; }
+  .th-Card-action:active {
+    color: #a80000; }
 
 /*# sourceMappingURL=app.css.map */

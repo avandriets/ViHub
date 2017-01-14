@@ -1,29 +1,42 @@
 <ul *ngFor="let note of localNotes">
-    <li class="ms-ListItem b-t-1 ms-ListItem--document">
-        <div class="ms-fontWeight-semibold">{{ note.body }}</div>
-        <div class="">
+    <li class="th-active-bar m-b-2">
+        <div class="m-b-1">
+            <span class="ms-fontWeight-semibold">{{ note.first_name }} {{ note.last_name }}</span>
             {{ note.created_at|date:'dd.MM.yyyy hh:mm' }}
-            {{ note.first_name }} {{ note.last_name }}
         </div>
+        <div class="ms-fontSize-l m-b-1">{{ note.body }}</div>
         <ul class="ms-Card-header-actions">
             <li data-action-id="favorite" class="ms-Card-action" tabindex="5"><i
-                    [ngClass]="{'ms-Icon':true,'ms-fontColor-red ms-Icon--Lock': note.private_note, ' ms-Icon--Unlock': !note.private_note}"></i></li>
-        </ul>
-
-
-
-        <ul class="ms-Card-actions">
-            <li *ngIf="note.message" data-action-id="chat" class="ms-Card-action is-active" tabindex="1"><i
-                    class="ms-Icon ms-Icon--Mail"></i></li>
-            <li (click)="onEditNoteClick(note)" data-action-id="phone" class="ms-Card-action " tabindex="2"><i
-                    class="ms-Icon ms-Icon--Edit"></i></li>
-            <li (click)="onDeleteNoteClick(note)" data-action-id="video" class="ms-Card-action" tabindex="3"><i
-                    class="ms-Icon ms-Icon--Delete"></i></li>
-            <li (click)="onViewNoteClick(note)" class="ms-Card-overflow" alt="Просмотерть полностью" title="Просмотерть полностью">Детально
-                ...
+                    [ngClass]="{'ms-Icon':true,'ms-fontColor-red ms-Icon--Lock': note.private_note, ' ms-Icon--Unlock': !note.private_note}"></i>
             </li>
         </ul>
 
+        <div class="th-hover-active-bar">
+            <div (click)="onEditNoteClick(note)" data-action-id="phone" class="th-Card-action"><i
+                    class="ms-Icon ms-Icon--Edit "></i> Редактировать
+            </div>
+            <div (click)="onDeleteNoteClick(note)" data-action-id="video" class="th-Card-action"><i
+                    class="ms-Icon ms-Icon--Delete "></i> Удалить
+            </div>
+            <div class="th-Card-action"><i
+                    class="ms-Icon ms-Icon--Lock"></i>Приватная
+            </div>
+        </div>
+
+
+        <!--
+                <ul class="ms-Card-actions">
+                    <li *ngIf="note.message" data-action-id="chat" class="ms-Card-action is-active" tabindex="1"><i
+                            class="ms-Icon ms-Icon--Mail"></i></li>
+                    <li (click)="onEditNoteClick(note)" data-action-id="phone" class="ms-Card-action " tabindex="2"><i
+                            class="ms-Icon ms-Icon--Edit"></i></li>
+                    <li (click)="onDeleteNoteClick(note)" data-action-id="video" class="ms-Card-action" tabindex="3"><i
+                            class="ms-Icon ms-Icon--Delete"></i></li>
+                    <li (click)="onViewNoteClick(note)" class="ms-Card-overflow" alt="Просмотерть полностью" title="Просмотерть полностью">Детально
+                        ...
+                    </li>
+                </ul>
+        -->
         <div *ngIf="note.message" class="ms-Card-actionDetailBox">
             <div class="ms-Card-details is-active">
                 <div class="ms-Card-detailLine"><span class="ms-Card-detailLabel">Сообщение:</span> <a

@@ -10,7 +10,7 @@
 <div class="ms-Grid">
     <breadcrumbs [parentElementsList]="breadcrumbs"></breadcrumbs>
 
-
+    <!-- TODO YTTT -->
     <spinner-component *ngIf="loading" [SupportText]="spinnerText"></spinner-component>
 
     <div *ngIf="hasError" class="ms-MessageBar ms-MessageBar--error">
@@ -26,14 +26,30 @@
 
     <div *ngIf="!loading">
 
-        <div class="page-heading-xxl">
-            <div class="ms-fontSize-xl">{{ element.name }}</div>
-            <div>{{ element.created_at|date:'dd.MM.yyyy hh:mm' }}
-                {{ element.first_name }} {{ element.last_name }}
+        <div class="page-heading-xxl th-active-bar">
+            <div class="m-b-1 ms-Grid-row">
+                <div class="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg8 ms-u-xl8">
+                    <div class="ms-fontSize-xl">{{ element.name }}</div>
+                    <div>{{ element.created_at|date:'dd.MM.yyyy hh:mm' }}
+                        {{ element.first_name }} {{ element.last_name }}
+                    </div>
+                </div>
+                <div class="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg4 ms-u-xl4 ms-u-textAlignRight">
+                    <div class="th-hover-active-bar">
+                        <div (click)="onAddNoteClick(message)" class="th-Card-action"><i
+                                class="ms-Icon ms-Icon--QuickNote "></i>Заметка
+                        </div>
+                        <div (click)="onAddNoteClick(message)" class="th-Card-action"><i
+                                class="ms-Icon ms-Icon--Edit "></i> Редактировать
+                        </div>
+                        <div (click)="onAddNoteClick(message)" class="th-Card-action"><i
+                                class="ms-Icon ms-Icon--Delete "></i> Удалить
+                        </div>
+                    </div>
+                </div>
+                <div class="ms-u-clearfix"></div>
             </div>
-            <div>&nbsp;</div>
             <div class="ms-fontSize-l">{{ element.description }}</div>
-            <div>&nbsp;</div>
         </div>
 
 

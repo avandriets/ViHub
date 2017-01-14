@@ -11,7 +11,8 @@
             <ul class="ms-PersonaCard-actions">
                 <li data-action-id="chat" class="ms-PersonaCard-action" tabindex="1" alt="Добавить заметку"
                     title="Добавить заметку"><i class="ms-Icon ms-Icon--Chat"></i></li>
-                <li (click)="onViewMessageClick(message)" class="ms-PersonaCard-overflow" alt="Просмотерть полностью" title="Просмотерть полностью">
+                <li (click)="onViewMessageClick(message)" class="ms-PersonaCard-overflow" alt="Просмотерть полностью"
+                    title="Просмотерть полностью">
                     Детально ...
                 </li>
             </ul>
@@ -21,21 +22,31 @@
 </div>
 
 
-
-<ul *ngFor="let message of localMessages" tabindex="0">
-    <li class="ms-ListItem b-t-1 ms-ListItem--document">
-        <div *ngIf="message.message_type == 'E'" class="ms-fontWeight-semibold">{{ message.subject }}</div>
-        <div>
-            {{ message.message_date|date:'dd.MM.yyyy hh:mm' }}
-            {{ message.first_name }} {{ message.last_name }}
+<div class="m-b-2 th-active-bar" *ngFor="let message of localMessages" tabindex="0">
+    <div class="ms-Persona">
+        <div class="ms-Persona-imageArea">
+            <div class="ms-Persona-initials ms-Persona-initials--primary">RM</div>
+            <!--<img class="ms-Persona-image" src="../persona/Persona.Person2.png">-->
         </div>
-        <div *ngIf="message.message_type == 'E'" class="ms-fontSize-l"> {{ message.body_preview }}</div>
-        <div *ngIf="message.message_type == 'S'" class="ms-fontSize-l"> {{ message.body }}</div>
-
-        <div class="ms-ListItem-actions">
-            <div (click)="onAddNoteClick(message)" class="ms-ListItem-action"><i class="ms-Icon ms-Icon--Chat"></i></div>
-            <div (click)="onViewMessageClick(message)" class="ms-ListItem-action"><i class="ms-Icon ms-Icon--More"></i></div>
+        <div class="ms-Persona-details">
+            <div class="m-b-1">
+                <span class="ms-fontWeight-semibold">{{ message.first_name }} {{ message.last_name }}</span>
+                {{ message.message_date|date:'dd.MM.yyyy hh:mm' }}
+            </div>
+            <div *ngIf="message.message_type == 'E'" class="ms-fontSize-l m-b-1"> {{ message.body_preview }}</div>
+            <div *ngIf="message.message_type == 'S'" class="ms-fontSize-l m-b-1"> {{ message.body }}</div>
         </div>
-    </li>
-</ul>
+    </div>
+    <div class="th-hover-active-bar">
+        <div (click)="onAddNoteClick(message)" class="th-Card-action"><i
+                class="ms-Icon ms-Icon--QuickNote "></i>Заметка
+        </div>
+        <div (click)="onAddNoteClick(message)" class="th-Card-action"><i
+                class="ms-Icon ms-Icon--Edit "></i> Редактировать
+        </div>
+        <div (click)="onAddNoteClick(message)" class="th-Card-action"><i
+                class="ms-Icon ms-Icon--Delete "></i> Удалить
+        </div>
+    </div>
+</div>
 
