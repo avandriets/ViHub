@@ -1,0 +1,60 @@
+<div class="ms-Panel" id="addElementPanelID">
+    <button class="ms-Panel-closeButton ms-PanelAction-close">
+        <i class="ms-Panel-closeIcon ms-Icon ms-Icon--Cancel"></i>
+    </button>
+    <spinner-component *ngIf="inProcess" [SupportText]="spinnerText"></spinner-component>
+    <br>
+    <div class="ms-Panel-contentInner">
+        <p class="ms-Panel-headerText">Новый элемент</p>
+        <div class="ms-Panel-content">
+
+            <div *ngIf="hasError">
+                <div class="ms-MessageBar ms-MessageBar--error">
+                    <div class="ms-MessageBar-content">
+                        <div class="ms-MessageBar-icon">
+                            <i class="ms-Icon ms-Icon--xCircle"></i>
+                        </div>
+                        <div class="ms-MessageBar-text">
+                            {{ errorMessage }}
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </div>
+
+            <div [ngClass]="{'ms-TextField':true, 'is-required':true, 'is-disabled': inProcess}">
+                <label class="ms-Label">Название</label>
+                <input [(ngModel)]="name" class="ms-TextField-field"
+                       type="text" maxlength="100">
+            </div>
+
+            <div [ngClass]="{'ms-TextField':true, 'ms-Dropdown':true, 'is-required':true, 'is-disabled': inProcess}"
+                 tabindex="0">
+                <label class="ms-Label">Тип</label>
+                <i class="ms-Dropdown-caretDown ms-Icon ms-Icon--ChevronDown"></i>
+                <select [(ngModel)]="element_type" class="ms-Dropdown-select">
+                    <option *ngFor="let elType of modelTypes"
+                            [value]="elType.id"
+                            [selected]="elType.id == 'W'">
+                        {{ elType.name }}
+                    </option>
+                </select>
+            </div>
+
+            <div [ngClass]="{'ms-TextField':true, 'ms-TextField--multiline':true, 'is-required':false, 'is-disabled': inProcess}">
+                <label class="ms-Label">Описание</label>
+                <textarea [(ngModel)]="description" class="ms-TextField-field"
+                          type="text" maxlength="300"></textarea>
+            </div>
+
+        </div>
+
+        <div>
+            <button *ngIf="!inProcess" (click)="onCreateElement()"
+                    class="ms-Button  ms-Button--primary">
+                <span class="ms-Button-label">Сохранить</span>
+            </button>
+        </div>
+
+    </div>
+</div>

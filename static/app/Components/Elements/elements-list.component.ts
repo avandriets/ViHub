@@ -1,12 +1,12 @@
 import {Component} from '@angular/core';
 import {OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {ElementsService} from '../Utility/elements.service';
-import {ElementVi, TransportObject} from '../Utility/base-classes';
+import {ElementsService} from '../../Utility/elements.service';
+import {ElementVi, TransportObject} from '../../Utility/base-classes';
 import {Router} from '@angular/router';
 
 @Component({
     selector: 'elements-list',
-    templateUrl: '/static/app/Components/elements-list.component.html',
+    templateUrl: '/static/app/Components/Elements/elements-list.component.html',
 })
 export class ElementsListComponent implements OnInit {
 

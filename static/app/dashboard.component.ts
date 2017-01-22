@@ -1,9 +1,9 @@
-import {Component, OnInit, AfterViewInit} from '@angular/core';
+import {Component, OnInit, AfterViewInit, ViewChild} from '@angular/core';
 import {Router} from '@angular/router';
-
 import {ElementVi, Favorite, TransportObject} from './Utility/base-classes';
 import {ElementsService} from './Utility/elements.service';
 import {WindowRef} from './Utility/WindowRef';
+import {AddElementPanelComponent} from "./Components/Elements/add-element-panel.component";
 
 @Component({
     moduleId: module.id,
@@ -12,6 +12,7 @@ import {WindowRef} from './Utility/WindowRef';
 })
 export class DashboardComponent implements OnInit, AfterViewInit {
 
+    @ViewChild(AddElementPanelComponent) addPanelObject: AddElementPanelComponent;
     elementsSet: ElementVi[] = [];
 
     favoriteSet: Favorite[] = [];
@@ -73,18 +74,8 @@ export class DashboardComponent implements OnInit, AfterViewInit {
         this.router.navigate(link);
     }
 
-    openPanel(): void {
-
-        var PanelExamples = document.getElementsByClassName("ms-PanelExample");
-        for (var i = 0; i < PanelExamples.length; i++) {
-            (function () {
-                var PanelExampleButton = PanelExamples[i].querySelector(".ms-Button");
-                var PanelExamplePanel = PanelExamples[i].querySelector(".ms-Panel");
-                PanelExampleButton.addEventListener("click", function (i) {
-                    new window.fabric['Panel'](PanelExamplePanel);
-                });
-            }());
-        }
+    openAddElement(): void {
+        this.addPanelObject.openPanel();
     }
 }
 

@@ -1,0 +1,42 @@
+<div class="ms-Panel" id="editElementPanelID">
+    <button class="ms-Panel-closeButton ms-PanelAction-close">
+        <i class="ms-Panel-closeIcon ms-Icon ms-Icon--Cancel"></i>
+    </button>
+    <spinner-component *ngIf="inProcess" [SupportText]="spinnerText"></spinner-component>
+    <br>
+    <div class="ms-Panel-contentInner">
+        <p class="ms-Panel-headerText">Редактировать элемент</p>
+        <div class="ms-Panel-content">
+
+            <div *ngIf="hasError">
+                <div class="ms-MessageBar ms-MessageBar--error">
+                    <div class="ms-MessageBar-content">
+                        <div class="ms-MessageBar-icon">
+                            <i class="ms-Icon ms-Icon--xCircle"></i>
+                        </div>
+                        <div class="ms-MessageBar-text">
+                            {{ errorMessage }}
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </div>
+
+            <div [ngClass]="{'ms-TextField':true, 'is-required':true, 'is-disabled': inProcess || permission_denied}">
+                <label class="ms-Label">Название</label>
+                <input [(ngModel)]="name" class="ms-TextField-field" type="text" maxlength="100">
+            </div>
+
+            <div [ngClass]="{'ms-TextField':true, 'ms-TextField--multiline':true, 'is-required':false, 'is-disabled': inProcess || permission_denied}">
+                <label class="ms-Label">Описание</label>
+                <textarea [(ngModel)]="description" class="ms-TextField-field" type="text" maxlength="300" rows="10"></textarea>
+            </div>
+        </div>
+
+        <div class="ms-Dialog-actions">
+            <button *ngIf="!inProcess && !permission_denied" (click)="onSaveElement()" class="ms-Button  ms-Button--primary">
+                <span class="ms-Button-label">Сохранить</span>
+            </button>
+        </div>
+    </div>
+</div>

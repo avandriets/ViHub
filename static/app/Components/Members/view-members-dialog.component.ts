@@ -1,13 +1,13 @@
 import {Component, Input} from '@angular/core';
-import {ElementsService} from '../Utility/elements.service';
-import {WindowRef} from '../Utility/WindowRef';
-import {BaseDialog} from "../Utility/BaseDialog";
-import {ElementVi, BaseObject, UserVi} from "../Utility/base-classes";
+import {ElementsService} from '../../Utility/elements.service';
+import {WindowRef} from '../../Utility/WindowRef';
+import {BaseDialog} from "../../Utility/BaseDialog";
+import {ElementVi, BaseObject, UserVi} from "../../Utility/base-classes";
 
 
 @Component({
     selector: 'view-members-dialog',
-    templateUrl: '/static/app/Components/view-members-dialog.component.html',
+    templateUrl: '/static/app/Components/Members/view-members-dialog.component.html',
 })
 
 export class ViewMemberDialogComponent extends BaseDialog {

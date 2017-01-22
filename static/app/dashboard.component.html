@@ -7,22 +7,12 @@
     <div class="ms-Grid-row">
         <div class="ms-Grid-col ms-u-sm12">
             <div class="page-heading-xxl">
-                <div class="ms-PanelExample ms-CommandButton">
-                    <button (click)="openPanel()" class="ms-Button ms-CommandButton-button">
+                <div class="ms-CommandButton">
+                    <button (click)="openAddElement()" class="ms-Button ms-CommandButton-button">
                          <span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--AddTo"></i></span>
                         <span class="ms-CommandButton-label">Создать</span>
                     </button>
-                    <div class="ms-Panel ms-Panel--md">
-                        <button class="ms-Panel-closeButton ms-PanelAction-close">
-                            <i class="ms-Panel-closeIcon ms-Icon ms-Icon--Cancel"></i>
-                        </button>
-                        <div class="ms-Panel-contentInner">
-                            <p class="ms-Panel-headerText">Medium Panel</p>
-                            <div class="ms-Panel-content">
-                                <span class="ms-font-m">Content goes here</span>
-                            </div>
-                        </div>
-                    </div>
+
                 </div>
 
                 <h1 class="ms-font-xxl">Элементы</h1>
@@ -47,3 +37,5 @@
     </div>
 
 </div>
+
+<add-element-panel (onAddElement)="onDataChange($event)"></add-element-panel>

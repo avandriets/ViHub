@@ -1,14 +1,14 @@
 import {Component} from '@angular/core';
 import {OnInit, Input, Output, EventEmitter} from '@angular/core';
-import {ElementsService} from '../Utility/elements.service';
-import {ElementVi, TransportObject, MessageVi} from '../Utility/base-classes';
+import {ElementsService} from '../../Utility/elements.service';
+import {ElementVi, TransportObject, MessageVi} from '../../Utility/base-classes';
 import {Router} from '@angular/router';
-import {ViewMessageDialogComponent} from "../Dialogs/view-message-dialog.component";
-import {AddNoteDialogComponent} from "../Dialogs/add-note-dialog.component";
+import {ViewMessageDialogComponent} from "../../Dialogs/view-message-dialog.component";
+import {AddNoteDialogComponent} from "../../Dialogs/add-note-dialog.component";
 
 @Component({
     selector: 'messages-list',
-    templateUrl: '/static/app/Components/messages-list.component.html',
+    templateUrl: '/static/app/Components/Messages/messages-list.component.html',
 })
 export class MessagesListComponent {
 

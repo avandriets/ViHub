@@ -1,14 +1,14 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {OnInit, AfterViewInit} from '@angular/core';
-import {ElementsService} from '../Utility/elements.service';
-import {WindowRef} from '../Utility/WindowRef';
-import {BaseDialog} from "../Utility/BaseDialog";
-import {ElementVi, MessageVi, BaseObject, TransportObject, NoteVi, IsOwnerReadOnlyPermission} from "../Utility/base-classes";
+import {ElementsService} from '../../Utility/elements.service';
+import {WindowRef} from '../../Utility/WindowRef';
+import {BaseDialog} from "../../Utility/BaseDialog";
+import {ElementVi, MessageVi, BaseObject, TransportObject, NoteVi, IsOwnerReadOnlyPermission} from "../../Utility/base-classes";
 
 
 @Component({
     selector: 'delete-note-dialog',
-    templateUrl: '/static/app/Dialogs/delete-note-dialog.component.html',
+    templateUrl: '/static/app/Components/Notes/delete-note-dialog.component.html',
 })
 
 export class DeleteNoteDialogComponent extends BaseDialog {

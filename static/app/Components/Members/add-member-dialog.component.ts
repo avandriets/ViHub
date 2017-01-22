@@ -1,14 +1,14 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {OnInit, AfterViewInit} from '@angular/core';
-import {ElementsService} from '../Utility/elements.service';
-import {WindowRef} from '../Utility/WindowRef';
-import {BaseDialog} from "../Utility/BaseDialog";
-import {ElementVi, MessageVi, BaseObject, TransportObject, NoteVi, UserVi} from "../Utility/base-classes";
+import {ElementsService} from '../../Utility/elements.service';
+import {WindowRef} from '../../Utility/WindowRef';
+import {BaseDialog} from "../../Utility/BaseDialog";
+import {ElementVi, MessageVi, BaseObject, TransportObject, NoteVi, UserVi} from "../../Utility/base-classes";
 
 
 @Component({
     selector: 'add-members-dialog',
-    templateUrl: '/static/app/Components/add-member-dialog.component.html',
+    templateUrl: '/static/app/Components/Members/add-member-dialog.component.html',
 })
 
 export class AddMemberDialogComponent extends BaseDialog {

@@ -16,17 +16,7 @@
                 </li>
             </ul>
 
-            <div class="th-hover-active-bar">
-                <div (click)="onEditNoteClick(note)" data-action-id="phone" class="th-Card-action"><i
-                        class="ms-Icon ms-Icon--Edit "></i> Редактировать
-                </div>
-                <div (click)="onDeleteNoteClick(note)" data-action-id="video" class="th-Card-action"><i
-                        class="ms-Icon ms-Icon--Delete "></i> Удалить
-                </div>
-                <div class="th-Card-action"><i
-                        class="ms-Icon ms-Icon--FavoriteStar"></i>В избранное
-                </div>
-            </div>
+            <div (click)="gotoDetail(element)" class="ms-Link ms-u-textAlignRight" alt="Перейти к элементу" title="Перейти к элементу">Перейти ...</div>
 
             <ul class="ms-Card-actions">
                 <li (click)="gotoDetail(element)" class="ms-Card-overflow" alt="Перейти к элементу"

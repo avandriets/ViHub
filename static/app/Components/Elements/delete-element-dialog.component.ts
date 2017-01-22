@@ -1,15 +1,15 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {OnInit, AfterViewInit} from '@angular/core';
-import {ElementsService} from '../Utility/elements.service';
-import {WindowRef} from '../Utility/WindowRef';
-import {BaseDialog} from "../Utility/BaseDialog";
-import {ElementVi, TransportObject, BaseObject} from "../Utility/base-classes";
+import {ElementsService} from '../../Utility/elements.service';
+import {WindowRef} from '../../Utility/WindowRef';
+import {BaseDialog} from "../../Utility/BaseDialog";
+import {ElementVi, TransportObject, BaseObject} from "../../Utility/base-classes";
 import {Router} from '@angular/router';
 
 
 @Component({
     selector: 'delete-element-dialog',
-    templateUrl: '/static/app/Dialogs/delete-element-dialog.component.html',
+    templateUrl: '/static/app/Components/Elements/delete-element-dialog.component.html',
 })
 
 export class DeleteElementDialogComponent extends BaseDialog {

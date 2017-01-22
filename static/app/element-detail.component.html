@@ -1,16 +1,25 @@
+<!--
 <add-note-dialog [parentElement]="element" (onAddNote)="dataChange($event)"></add-note-dialog>
+-->
 <view-message-dialog></view-message-dialog>
 <edit-note-dialog (onSaveNote)="dataChange($event)"></edit-note-dialog>
 <delete-note-dialog (onDeleteNote)="dataChange($event)"></delete-note-dialog>
 <view-members-dialog [currentElement]="element"></view-members-dialog>
 <add-members-dialog [currentElement]="element"></add-members-dialog>
+
+<delete-element-dialog [deletedElement]="element" (onDeleteElement)="dataChange($event)"></delete-element-dialog>
+<add-element-panel [parentElement]="element" (onAddElement)="dataChange($event)"></add-element-panel>
+<edit-element-panel [editedElement]="element" (onEditElement)="dataChange($event)"></edit-element-panel>
+<add-message-panel [parentElement]="element" (onAddMessage)="dataChange($event)"></add-message-panel>
+<add-note-panel [parentElement]="element" (onAddNote)="dataChange($event)"></add-note-panel>
+
+
 <!--
 <detail-command-bar [addMemberDialog]="addMemberDialog" [memberViewDlg]="membersViewDialog" [addNoteDialogLocal]="addNoteDialog" (onDataChange)="dataChange($event)" [currentElement]="element"></detail-command-bar>
 -->
 <div class="ms-Grid">
     <breadcrumbs [parentElementsList]="breadcrumbs"></breadcrumbs>
 
-    <!-- TODO YTTT -->
     <spinner-component *ngIf="loading" [SupportText]="spinnerText"></spinner-component>
 
     <div *ngIf="hasError" class="ms-MessageBar ms-MessageBar--error">
@@ -36,13 +45,13 @@
                 </div>
                 <div class="ms-Grid-col ms-u-sm12 ms-u-md12 ms-u-lg4 ms-u-xl4 ms-u-textAlignRight">
                     <div class="th-hover-active-bar">
-                        <div (click)="onAddNoteClick(message)" class="th-Card-action"><i
-                                class="ms-Icon ms-Icon--QuickNote "></i>Заметка
+                        <div (click)="openEditElementPanel()"
+                             class="th-Card-action"><i
+                                class="ms-Icon ms-Icon--Edit "></i>
+                            Редактировать
                         </div>
-                        <div (click)="onAddNoteClick(message)" class="th-Card-action"><i
-                                class="ms-Icon ms-Icon--Edit "></i> Редактировать
-                        </div>
-                        <div (click)="onAddNoteClick(message)" class="th-Card-action"><i
+                        <div (click)="onClickDeleteElement(element)"
+                             class="th-Card-action"><i
                                 class="ms-Icon ms-Icon--Delete "></i> Удалить
                         </div>
                     </div>
@@ -58,7 +67,7 @@
                 <p class="m-b-05 ms-u-textAlignRight"><span class="color-primary">145</span> (200)</p>
                 <div class="page-heading">
                     <div class="ms-PanelExample th-CommandButton">
-                        <button (click)="openPanel()" class="ms-Button th-Button-Icon">
+                        <button (click)="onCreateMessage()" class="ms-Button th-Button-Icon">
                             <i class="ms-Icon ms-Icon--AddTo"></i>
                         </button>
                         <div class="ms-Panel ms-Panel--md">
@@ -75,16 +84,19 @@
                     </div>
                     <h4>Сообщения</h4>
                 </div>
-                <messages-list [addNoteDialogLocal]="addNoteDialog" [viewMessageDialog]="viewMessageDialog"
+                <messages-list [addNoteDialogLocal]="addNoteDialog"
+                               [viewMessageDialog]="viewMessageDialog"
                                [localMessages]="messagesSet">Загрузка ...
                 </messages-list>
                 <h2 *ngIf="messagesSet.length == 0" class="ms-font-xl">Нет сообщений для отображения</h2>
             </div>
             <div class="ms-List-item ms-Grid-col ms-u-sm12 ms-u-md6 ms-u-lg4 ms-u-xl4">
-                <p class="m-b-05 ms-u-textAlignRight"><span class="color-primary">145</span> (200)</p>
+                <p class="m-b-05 ms-u-textAlignRight"><span
+                        class="color-primary">145</span> (200)</p>
                 <div class="page-heading">
                     <div class="ms-PanelExample th-CommandButton">
-                        <button (click)="openPanel()" class="ms-Button th-Button-Icon">
+                        <button (click)="onAddNote()"
+                                class="ms-Button th-Button-Icon">
                             <i class="ms-Icon ms-Icon--AddTo"></i>
                         </button>
                         <div class="ms-Panel ms-Panel--md">
@@ -101,7 +113,8 @@
                     </div>
                     <h4>Заметки</h4>
                 </div>
-                <notes-list [deleteNoteDialog]="deleteNoteDialog" [editNoteDialog]="editNoteDialog"
+                <notes-list [deleteNoteDialog]="deleteNoteDialog"
+                            [editNoteDialog]="editNoteDialog"
                             [localNotes]="notesSet">Загрузка ...
                 </notes-list>
                 <h2 *ngIf="notesSet.length == 0" class="ms-font-xl">Нет заметок для отображения</h2>
@@ -111,46 +124,24 @@
 
             <div class="ms-List-item ms-Grid-col ms-u-sm12">
                 <p class="m-b-05 ms-u-textAlignRight"><span class="color-primary">145</span> (200)</p>
+
                 <div class="page-heading-xxl">
-                   <!-- <div class="ms-PanelExample th-CommandButton">
-                        <button (click)="openPanel()" class="ms-Button th-Button-Icon">
-                            <i class="ms-Icon ms-Icon--AddTo"></i>
-                        </button>
-                        <div class="ms-Panel ms-Panel--md">
-                            <button class="ms-Panel-closeButton ms-PanelAction-close">
-                                <i class="ms-Panel-closeIcon ms-Icon ms-Icon--Cancel"></i>
-                            </button>
-                            <div class="ms-Panel-contentInner">
-                                <p class="ms-Panel-headerText">Medium Panel</p>
-                                <div class="ms-Panel-content">
-                                    <span class="ms-font-m">Content goes here</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    -->
-                    <div class="ms-PanelExample ms-CommandButton">
-                        <button (click)="openPanel()" class="ms-Button ms-CommandButton-button">
-                            <span class="ms-CommandButton-icon"><i class="ms-Icon ms-Icon--AddTo"></i></span>
+
+                    <div class="ms-CommandButton">
+                        <button (click)="openAddElement()"
+                                class="ms-Button ms-CommandButton-button">
+                            <span class="ms-CommandButton-icon"><i
+                                    class="ms-Icon ms-Icon--AddTo"></i></span>
                             <span class="ms-CommandButton-label">Создать</span>
                         </button>
-                        <div class="ms-Panel ms-Panel--md">
-                            <button class="ms-Panel-closeButton ms-PanelAction-close">
-                                <i class="ms-Panel-closeIcon ms-Icon ms-Icon--Cancel"></i>
-                            </button>
-                            <div class="ms-Panel-contentInner">
-                                <p class="ms-Panel-headerText">Medium Panel</p>
-                                <div class="ms-Panel-content">
-                                    <span class="ms-font-m">Content goes here</span>
-                                </div>
-                            </div>
-                        </div>
                     </div>
+
                     <h1 class="ms-font-xxl">Элементы</h1>
                 </div>
 
                 <div class="ms-Grid-row">
-                    <elements-list-var [localElements]="elementsSet" (onSetFavorite)="dataChange($event)">Загрузка ...
+                    <elements-list-var [localElements]="elementsSet" (onSetFavorite)="dataChange($event)">
+                        Загрузка ...
                     </elements-list-var>
                 </div>
                 <h2 *ngIf="elementsSet.length == 0" class="ms-font-xl">Нет элементов для отображения</h2>

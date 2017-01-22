@@ -1,13 +1,13 @@
 import {Component, ViewChild, Output, EventEmitter} from '@angular/core';
-import {AddElementDialogComponent} from '../Dialogs/add-element-dialog.component'
-import { WindowRef } from '../Utility/WindowRef';
-import {ElementsService} from '../Utility/elements.service';
-import {BaseCommandBar} from '../Utility/BaseCommandBar';
-import {TransportObject} from "../Utility/base-classes";
+import {AddElementDialogComponent} from '../../Dialogs/add-element-dialog.component'
+import { WindowRef } from '../../Utility/WindowRef';
+import {ElementsService} from '../../Utility/elements.service';
+import {BaseCommandBar} from '../../Utility/BaseCommandBar';
+import {TransportObject} from "../../Utility/base-classes";
 
 @Component({
     selector: 'command-bar',
-    templateUrl: '/static/app/Components/command-bar.component.html',
+    templateUrl: '/static/app/Components/CommandBars/command-bar.component.html',
 })
 
 export class CommandBarComponent extends BaseCommandBar {

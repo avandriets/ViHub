@@ -1,0 +1,53 @@
+<div class="ms-Panel" id="addNotePanelID">
+    <button class="ms-Panel-closeButton ms-PanelAction-close">
+        <i class="ms-Panel-closeIcon ms-Icon ms-Icon--Cancel"></i>
+    </button>
+    <spinner-component *ngIf="inProcess" [SupportText]="spinnerText"></spinner-component>
+    <br>
+    <div class="ms-Panel-contentInner">
+        <p class="ms-Panel-headerText">Новая заметка</p>
+        <div class="ms-Panel-content">
+
+            <div *ngIf="hasError">
+                <div class="ms-MessageBar ms-MessageBar--error">
+                    <div class="ms-MessageBar-content">
+                        <div class="ms-MessageBar-icon">
+                            <i class="ms-Icon ms-Icon--xCircle"></i>
+                        </div>
+                        <div class="ms-MessageBar-text">
+                            {{ errorMessage }}
+                        </div>
+                    </div>
+                </div>
+                <br>
+            </div>
+
+            <div [ngClass]="{'ms-Toggle':true, 'is-disabled': inProcess}">
+                <input [(ngModel)]="private_note" type="checkbox" id="demo-toggle-3" class="ms-Toggle-input">
+                <label for="demo-toggle-3" class="ms-Toggle-field" tabindex="0">
+                    <span class="ms-Label ms-Label--off">Видна&nbsp;для&nbsp;всем&nbsp;пользователям</span>
+                    <span class="ms-Label ms-Label--on">Личная&nbsp;заметка</span>
+                </label>
+            </div>
+
+            <div *ngIf="false" [ngClass]="{'ms-TextField':true, 'is-required':true, 'is-disabled': inProcess}">
+                <label class="ms-Label">Тема</label>
+                <input [(ngModel)]="subject" class="ms-TextField-field" type="text">
+            </div>
+
+            <div [ngClass]="{'ms-TextField':true, 'ms-TextField--multiline':true, 'is-required':true, 'is-disabled': inProcess}">
+                <label class="ms-Label">Заметка</label>
+                <textarea [(ngModel)]="message" class="ms-TextField-field" type="text"></textarea>
+            </div>
+
+        </div>
+
+        <div>
+            <button *ngIf="!inProcess" (click)="onCreateNote()"
+                    class="ms-Button  ms-Button--primary">
+                <span class="ms-Button-label">Создать</span>
+            </button>
+        </div>
+
+    </div>
+</div>

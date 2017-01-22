@@ -6,10 +6,15 @@ import {ElementsService} from './Utility/elements.service'
 import {WindowRef} from './Utility/WindowRef';
 import {ViewMessageDialogComponent} from "./Dialogs/view-message-dialog.component";
 import {EditNoteDialogComponent} from "./Dialogs/edit-note-dialog.component";
-import {DeleteNoteDialogComponent} from "./Dialogs/delete-note-dialog.component";
+import {DeleteNoteDialogComponent} from "./Components/Notes/delete-note-dialog.component";
 import {AddNoteDialogComponent} from "./Dialogs/add-note-dialog.component";
-import {ViewMemberDialogComponent} from "./Components/view-members-dialog.component";
-import {AddMemberDialogComponent} from "./Components/add-member-dialog.component";
+import {ViewMemberDialogComponent} from "./Components/Members/view-members-dialog.component";
+import {AddMemberDialogComponent} from "./Components/Members/add-member-dialog.component";
+import {DeleteElementDialogComponent} from "./Components/Elements/delete-element-dialog.component";
+import {AddElementPanelComponent} from "./Components/Elements/add-element-panel.component";
+import {EditElementPanelComponent} from "./Components/Elements/edit-element-panel.component";
+import {AddMessagePanelComponent} from "./Components/Messages/add-message-panel.component";
+import {AddNotePanelComponent} from "./Components/Notes/add-note-panel.component";
 
 
 @Component({
@@ -36,7 +41,19 @@ export class ElementDetailComponent implements OnInit, AfterViewInit {
     @ViewChild(ViewMessageDialogComponent) viewMessageDialog: ViewMessageDialogComponent;
     @ViewChild(EditNoteDialogComponent) editNoteDialog: EditNoteDialogComponent;
     @ViewChild(DeleteNoteDialogComponent) deleteNoteDialog: DeleteNoteDialogComponent;
-    @ViewChild(AddNoteDialogComponent) addNoteDialog: AddNoteDialogComponent;
+
+    //Element action
+    @ViewChild(DeleteElementDialogComponent) deleteElementDialog: DeleteElementDialogComponent;
+    @ViewChild(AddElementPanelComponent) addPanelObject: AddElementPanelComponent;
+    @ViewChild(EditElementPanelComponent) editPanelObject: EditElementPanelComponent;
+
+    //Message action
+    @ViewChild(AddMessagePanelComponent) addMessageObjectPanel: AddMessagePanelComponent;
+
+    //Note action
+    @ViewChild(AddNotePanelComponent) addNotePanel: AddNotePanelComponent;
+
+    //USer action
     @ViewChild(ViewMemberDialogComponent) membersViewDialog: ViewMemberDialogComponent;
     @ViewChild(AddMemberDialogComponent) addMemberDialog: AddMemberDialogComponent;
 
@@ -44,6 +61,26 @@ export class ElementDetailComponent implements OnInit, AfterViewInit {
                 private route: ActivatedRoute,
                 private location: Location,
                 private winRef: WindowRef) {
+    }
+
+    onCreateMessage(): void {
+        this.addMessageObjectPanel.openPanel();
+    }
+
+    onAddNote(): void {
+        this.addNotePanel.openPanel();
+    }
+
+    openAddElement(): void {
+        this.addPanelObject.openPanel();
+    }
+
+    openEditElementPanel(): void {
+        this.editPanelObject.openPanel();
+    }
+
+    onClickDeleteElement(): void {
+        this.deleteElementDialog.openDialog();
     }
 
     ngAfterViewInit(): void {
