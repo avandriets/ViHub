@@ -4,7 +4,7 @@ import {ElementsService} from '../../Utility/elements.service';
 import {ElementVi, TransportObject, MessageVi, NoteVi} from '../../Utility/base-classes';
 import {Router} from '@angular/router';
 import {ViewMessageDialogComponent} from "../../Dialogs/view-message-dialog.component";
-import {EditNoteDialogComponent} from "../../Dialogs/edit-note-dialog.component";
+import {EditNoteDialogComponent} from "./edit-note-dialog.component";
 import {DeleteNoteDialogComponent} from "./delete-note-dialog.component";
 
 @Component({
@@ -24,12 +24,12 @@ export class NotesListComponent {
 
     onViewNoteClick(currentNote: NoteVi): void {
         this.editNoteDialog.initDialog(currentNote, false);
-        this.editNoteDialog.openDialog();
+        this.editNoteDialog.openPanel();
     }
 
     onEditNoteClick(currentNote: NoteVi): void {
         this.editNoteDialog.initDialog(currentNote, true);
-        this.editNoteDialog.openDialog();
+        this.editNoteDialog.openPanel();
     }
 
     onDeleteNoteClick(currentNote: NoteVi): void {

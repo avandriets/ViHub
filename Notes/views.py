@@ -7,7 +7,7 @@ from Notes.models import Note
 from Notes.serializers import NoteSerializer
 from rest_framework import filters
 
-from ViHub.permission import IsOwnerOrReadOnlyElements
+from ViHub.permission import IsOwnerOrReadOnlyElements, IsOwnerOrReadOnly
 
 
 class NoteViewSet(viewsets.ModelViewSet):
@@ -21,7 +21,7 @@ class NoteViewSet(viewsets.ModelViewSet):
     filter_fields = ('element',)
     ordering_fields = ('created_at', 'updated_at')
 
-    permission_classes = (IsOwnerOrReadOnlyElements,)
+    permission_classes = (IsOwnerOrReadOnly,)
     pagination_class = None
 
     def filter_queryset(self, queryset):

@@ -1,11 +1,11 @@
-<div class="ms-Panel" id="editElementPanelID">
+<div class="ms-Panel" id="editMessagePanelID">
     <button class="ms-Panel-closeButton ms-PanelAction-close">
         <i class="ms-Panel-closeIcon ms-Icon ms-Icon--Cancel"></i>
     </button>
     <spinner-component *ngIf="inProcess" [SupportText]="spinnerText"></spinner-component>
     <br>
     <div class="ms-Panel-contentInner">
-        <p class="ms-Panel-headerText">Редактировать элемент</p>
+        <p class="ms-Panel-headerText">Редактировать заметку</p>
         <div class="ms-Panel-content">
 
             <div *ngIf="hasError">
@@ -22,19 +22,21 @@
                 <br>
             </div>
 
-            <div [ngClass]="{'ms-TextField':true, 'is-required':true, 'is-disabled': inProcess || permission_denied}">
-                <label class="ms-Label">Название</label>
-                <input [(ngModel)]="name" class="ms-TextField-field" type="text" maxlength="100">
+            <div *ngIf="false" [ngClass]="{'ms-TextField':true, 'is-required':true, 'is-disabled': !editMode || inProcess || permission_denied}">
+                <label class="ms-Label">Тема</label>
+                <input [(ngModel)]="currentMessage.subject" class="ms-TextField-field" type="text">
             </div>
 
-            <div [ngClass]="{'ms-TextField':true, 'ms-TextField--multiline':true, 'is-required':false, 'is-disabled': inProcess || permission_denied}">
-                <label class="ms-Label">Описание</label>
-                <textarea [(ngModel)]="description" class="ms-TextField-field" type="text" maxlength="300"></textarea>
+            <div [ngClass]="{'ms-TextField':true, 'is-required':true, 'is-disabled': !editMode || inProcess || permission_denied, 'ms-TextField--multiline':true}">
+                <label class="ms-Label">Заметка</label>
+                <textarea [(ngModel)]="currentMessage.body" class="ms-TextField-field" type="text" maxlength="300"></textarea>
             </div>
+
         </div>
 
         <div class="ms-Dialog-actions">
-            <button *ngIf="!inProcess && !permission_denied" (click)="onSaveElement()" class="ms-Button  ms-Button--primary">
+            <button *ngIf="(editMode==true && inProcess == false && permission_denied == false)" (click)="onSaveNoteDialog()"
+                    [ngClass]="{'ms-Button':true, 'is-disabled': inProcess, 'ms-Button--primary':true}">
                 <span class="ms-Button-label">Сохранить</span>
             </button>
         </div>

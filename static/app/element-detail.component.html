@@ -1,18 +1,22 @@
 <!--
 <add-note-dialog [parentElement]="element" (onAddNote)="dataChange($event)"></add-note-dialog>
--->
 <view-message-dialog></view-message-dialog>
-<edit-note-dialog (onSaveNote)="dataChange($event)"></edit-note-dialog>
-<delete-note-dialog (onDeleteNote)="dataChange($event)"></delete-note-dialog>
+-->
+
 <view-members-dialog [currentElement]="element"></view-members-dialog>
 <add-members-dialog [currentElement]="element"></add-members-dialog>
+
+<add-note-panel [parentElement]="element" (onAddNote)="dataChange($event)"></add-note-panel>
+<edit-note-dialog (onSaveNote)="dataChange($event)"></edit-note-dialog>
+<delete-note-dialog (onDeleteNote)="dataChange($event)"></delete-note-dialog>
 
 <delete-element-dialog [deletedElement]="element" (onDeleteElement)="dataChange($event)"></delete-element-dialog>
 <add-element-panel [parentElement]="element" (onAddElement)="dataChange($event)"></add-element-panel>
 <edit-element-panel [editedElement]="element" (onEditElement)="dataChange($event)"></edit-element-panel>
-<add-message-panel [parentElement]="element" (onAddMessage)="dataChange($event)"></add-message-panel>
-<add-note-panel [parentElement]="element" (onAddNote)="dataChange($event)"></add-note-panel>
 
+<add-message-panel [parentElement]="element" (onAddMessage)="dataChange($event)"></add-message-panel>
+<delete-message-dialog (onDeleteMessage)="dataChange($event)"></delete-message-dialog>
+<edit-message-panel (onSaveNote)="dataChange($event)"></edit-message-panel>
 
 <!--
 <detail-command-bar [addMemberDialog]="addMemberDialog" [memberViewDlg]="membersViewDialog" [addNoteDialogLocal]="addNoteDialog" (onDataChange)="dataChange($event)" [currentElement]="element"></detail-command-bar>
@@ -84,9 +88,11 @@
                     </div>
                     <h4>Сообщения</h4>
                 </div>
-                <messages-list [addNoteDialogLocal]="addNoteDialog"
-                               [viewMessageDialog]="viewMessageDialog"
-                               [localMessages]="messagesSet">Загрузка ...
+                <messages-list [addNoteDialogLocal]="addNotePanel"
+                               [localMessages]="messagesSet"
+                               [deleteMessageDialog]="deleteMessageDialog"
+                               [editMessageDialog]="editMessagePanel"
+                >Загрузка ...
                 </messages-list>
                 <h2 *ngIf="messagesSet.length == 0" class="ms-font-xl">Нет сообщений для отображения</h2>
             </div>

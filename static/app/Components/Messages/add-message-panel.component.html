@@ -29,7 +29,7 @@
 
             <div [ngClass]="{'ms-TextField':true, 'ms-TextField--multiline':true, 'is-required':false, 'is-disabled': inProcess}">
                 <label class="ms-Label">Сообщение</label>
-                <textarea [(ngModel)]="message" class="ms-TextField-field" type="text"></textarea>
+                <textarea [(ngModel)]="message" class="ms-TextField-field" type="text" maxlength="300"></textarea>
             </div>
 
         </div>

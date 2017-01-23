@@ -1,18 +1,19 @@
 import {Component, Input, Output, EventEmitter} from '@angular/core';
 import {OnInit, AfterViewInit} from '@angular/core';
-import {ElementsService} from '../Utility/elements.service';
-import {WindowRef} from '../Utility/WindowRef';
-import {BaseDialog} from "../Utility/BaseDialog";
-import {ElementVi, MessageVi, BaseObject, TransportObject, NoteVi} from "../Utility/base-classes";
+import {ElementsService} from '../../Utility/elements.service';
+import {WindowRef} from '../../Utility/WindowRef';
+import {BaseDialog} from "../../Utility/BaseDialog";
+import {ElementVi, MessageVi, BaseObject, TransportObject, NoteVi} from "../../Utility/base-classes";
 import {tryCatch} from "rxjs/util/tryCatch";
+import {BasePanel} from "../../Utility/BasePanel";
 
 
 @Component({
     selector: 'edit-note-dialog',
-    templateUrl: '/static/app/Dialogs/edit-note-dialog.component.html',
+    templateUrl: '/static/app/Components/Notes/edit-note-dialog.component.html',
 })
 
-export class EditNoteDialogComponent extends BaseDialog {
+export class EditNoteDialogComponent extends BasePanel {
 
     @Output() onSaveNote = new EventEmitter<TransportObject>();
     currentNote: NoteVi;
@@ -37,8 +38,7 @@ export class EditNoteDialogComponent extends BaseDialog {
     }
 
     initComponent(): void {
-        let dialog = document.querySelector("#editNoteDialogID");
-        this.dialogInstance = new this.winRef.nativeWindow.fabric['Dialog'](dialog);
+        this.panelTemplate = document.querySelector("#editNotePanelID");
     }
 
     onSaveNoteDialog(): void {
@@ -46,7 +46,7 @@ export class EditNoteDialogComponent extends BaseDialog {
         this.currentNote.subject = this.currentNote.subject.trim();
         this.currentNote.body = this.currentNote.body.trim();
 
-        // if (this.currentNote.subject == null || this.currentNote.subject == ' ' || this.currentNote.subject.length == 0) {
+        // if (this.currentMessage.subject == null || this.currentMessage.subject == ' ' || this.currentMessage.subject.length == 0) {
         //     this.hasError = true;
         //     this.errorMessage = 'Заполните заголовок.';
         //     return;
@@ -74,7 +74,8 @@ export class EditNoteDialogComponent extends BaseDialog {
                 this.hasError = false;
                 this.inProcess = false;
 
-                this.closeDialog();
+                //Close panel
+                this.panelInstance.dismiss();
             })
             .catch((error) => {
                 this.errorMessage = error;

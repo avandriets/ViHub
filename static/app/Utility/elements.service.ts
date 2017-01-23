@@ -269,4 +269,26 @@ export class ElementsService {
                 return false;
             });
     }
+
+    editMessage(editedMessage: MessageVi): Promise<MessageVi> {
+
+        const url = `${this.messageUrl}${editedMessage.id}/`;
+
+        return this.http
+            .put(url, JSON.stringify(editedMessage), {headers: this.headers})
+            .toPromise()
+            .then((res) => res.json() as MessageVi)
+            .catch(this.handleError);
+    }
+
+    deleteMessage(deleteMessage: MessageVi): Promise<MessageVi> {
+
+        const url = `${this.messageUrl}${deleteMessage.id}/`;
+
+        return this.http
+            .delete(url, {headers: this.headers})
+            .toPromise()
+            .then(() => deleteMessage)
+            .catch(this.handleError);
+    }
 }

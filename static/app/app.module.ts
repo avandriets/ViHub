@@ -21,7 +21,7 @@ import {MessagesListComponent} from "./Components/Messages/messages-list.compone
 import {NotesListComponent} from "./Components/Notes/notes-list.component";
 import {BreadCrumbsComponent} from "./Components/breadcrumbs.component";
 import {ViewMessageDialogComponent} from "./Dialogs/view-message-dialog.component";
-import {EditNoteDialogComponent} from "./Dialogs/edit-note-dialog.component";
+import {EditNoteDialogComponent} from "./Components/Notes/edit-note-dialog.component";
 import {DeleteNoteDialogComponent} from "./Components/Notes/delete-note-dialog.component";
 import {ViewMemberDialogComponent} from "./Components/Members/view-members-dialog.component";
 import {AddMemberDialogComponent} from "./Components/Members/add-member-dialog.component";
@@ -30,6 +30,8 @@ import {AddElementPanelComponent} from "./Components/Elements/add-element-panel.
 import {EditElementPanelComponent} from "./Components/Elements/edit-element-panel.component";
 import {AddMessagePanelComponent} from "./Components/Messages/add-message-panel.component";
 import {AddNotePanelComponent} from "./Components/Notes/add-note-panel.component";
+import {EditMessagePanelComponent} from "./Components/Messages/edit-message-panel.component";
+import {DeleteMessageDialogComponent} from "./Components/Messages/delete-message-dialog.component";
 
 @NgModule({
     imports: [
@@ -59,7 +61,9 @@ import {AddNotePanelComponent} from "./Components/Notes/add-note-panel.component
         AddElementPanelComponent,
         EditElementPanelComponent,
         AddMessagePanelComponent,
-        AddNotePanelComponent
+        AddNotePanelComponent,
+        EditMessagePanelComponent,
+        DeleteMessageDialogComponent
     ],
     providers: [
         ElementsService, WindowRef,

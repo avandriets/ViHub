@@ -5,7 +5,7 @@ import {ElementVi, TransportObject, MessageVi, NoteVi} from './Utility/base-clas
 import {ElementsService} from './Utility/elements.service'
 import {WindowRef} from './Utility/WindowRef';
 import {ViewMessageDialogComponent} from "./Dialogs/view-message-dialog.component";
-import {EditNoteDialogComponent} from "./Dialogs/edit-note-dialog.component";
+import {EditNoteDialogComponent} from "./Components/Notes/edit-note-dialog.component";
 import {DeleteNoteDialogComponent} from "./Components/Notes/delete-note-dialog.component";
 import {AddNoteDialogComponent} from "./Dialogs/add-note-dialog.component";
 import {ViewMemberDialogComponent} from "./Components/Members/view-members-dialog.component";
@@ -15,6 +15,8 @@ import {AddElementPanelComponent} from "./Components/Elements/add-element-panel.
 import {EditElementPanelComponent} from "./Components/Elements/edit-element-panel.component";
 import {AddMessagePanelComponent} from "./Components/Messages/add-message-panel.component";
 import {AddNotePanelComponent} from "./Components/Notes/add-note-panel.component";
+import {DeleteMessageDialogComponent} from "./Components/Messages/delete-message-dialog.component";
+import {EditMessagePanelComponent} from "./Components/Messages/edit-message-panel.component";
 
 
 @Component({
@@ -38,9 +40,7 @@ export class ElementDetailComponent implements OnInit, AfterViewInit {
     loading: boolean = true;
     spinnerText:string = "Загрузка данных ...";
 
-    @ViewChild(ViewMessageDialogComponent) viewMessageDialog: ViewMessageDialogComponent;
-    @ViewChild(EditNoteDialogComponent) editNoteDialog: EditNoteDialogComponent;
-    @ViewChild(DeleteNoteDialogComponent) deleteNoteDialog: DeleteNoteDialogComponent;
+    // @ViewChild(ViewMessageDialogComponent) viewMessageDialog: ViewMessageDialogComponent;
 
     //Element action
     @ViewChild(DeleteElementDialogComponent) deleteElementDialog: DeleteElementDialogComponent;
@@ -49,9 +49,14 @@ export class ElementDetailComponent implements OnInit, AfterViewInit {
 
     //Message action
     @ViewChild(AddMessagePanelComponent) addMessageObjectPanel: AddMessagePanelComponent;
+    @ViewChild(DeleteMessageDialogComponent) deleteMessageDialog: DeleteMessageDialogComponent;
+    @ViewChild(EditMessagePanelComponent) editMessagePanel: EditMessagePanelComponent;
+
 
     //Note action
     @ViewChild(AddNotePanelComponent) addNotePanel: AddNotePanelComponent;
+    @ViewChild(EditNoteDialogComponent) editNoteDialog: EditNoteDialogComponent;
+    @ViewChild(DeleteNoteDialogComponent) deleteNoteDialog: DeleteNoteDialogComponent;
 
     //USer action
     @ViewChild(ViewMemberDialogComponent) membersViewDialog: ViewMemberDialogComponent;
