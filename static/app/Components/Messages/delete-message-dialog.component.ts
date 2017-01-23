@@ -45,7 +45,7 @@ export class DeleteMessageDialogComponent extends BaseDialog {
             .then((data) => {
                 let trsObj = new TransportObject();
                 trsObj.type = "Note";
-                trsObj.object = (data as NoteVi);
+                trsObj.object = (data as MessageVi);
 
                 this.onDeleteMessage.emit(trsObj);
 

@@ -64,7 +64,7 @@ export class EditMessagePanelComponent extends BasePanel {
             .then((data) => {
                 let trsObj = new TransportObject();
                 trsObj.type = "Note";
-                trsObj.object = (data as NoteVi);
+                trsObj.object = (data as MessageVi);
 
                 this.onSaveNote.emit(trsObj);
 
