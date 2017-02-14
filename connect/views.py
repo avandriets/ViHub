@@ -158,7 +158,7 @@ def profile_edit(request):
     return render(request, 'auth/profile.html', context)
 
 
-@login_required
+# @login_required
 @api_view(['GET'])
 def get_current_user_info(request):
 
@@ -173,7 +173,7 @@ def get_current_user_info(request):
                          "last_name":user.last_name, "provider":user.provider})
 
 
-@login_required
+# @login_required
 @api_view(['GET'])
 def search_user(request):
 

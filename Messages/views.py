@@ -1,3 +1,4 @@
+from oauth2_provider.ext.rest_framework import IsAuthenticatedOrTokenHasScope
 from rest_framework import exceptions
 from rest_framework import filters
 from rest_framework import viewsets
@@ -19,7 +20,8 @@ class MessageViewSet(viewsets.ModelViewSet):
     filter_fields = ('element',)
     ordering_fields = ('created_at', 'updated_at')
 
-    permission_classes = (IsOwnerOrReadOnly,)
+    permission_classes = (IsOwnerOrReadOnly, IsAuthenticatedOrTokenHasScope)
+    required_scopes = ['read', 'write']
     pagination_class = None
 
     def filter_queryset(self, queryset):

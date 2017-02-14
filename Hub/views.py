@@ -6,6 +6,7 @@ from django.db.models import Q
 from django.shortcuts import render
 from django.urls import reverse
 from msgraph.error import GraphError
+from oauth2_provider.ext.rest_framework import IsAuthenticatedOrTokenHasScope
 from rest_framework import filters
 from rest_framework import status
 from rest_framework import viewsets
@@ -59,7 +60,8 @@ class ElementViewSet(viewsets.ModelViewSet):
     filter_fields = ('parent',)
     ordering_fields = ('created_at', 'updated_at')
 
-    permission_classes = (IsOwnerOrReadOnlyElements,)
+    permission_classes = (IsOwnerOrReadOnlyElements, IsAuthenticatedOrTokenHasScope)
+    required_scopes = ['read', 'write']
     pagination_class = None
 
     def filter_queryset(self, queryset):
@@ -258,11 +260,19 @@ class ElementViewSet(viewsets.ModelViewSet):
         except Element.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        # send invitation
-        invitation = Invitation.objects.create(element=element, invited_user=member_obj)
-        invitation.save()
+        try:
+            hub_members = Members()
+            hub_members.user_involved = member_obj
+            hub_members.element = element
+            hub_members.save()
+        except Error:
+            raise Response(status=status.HTTP_404_NOT_FOUND)
 
-        send_invitation(request, invitation)
+        # send invitation
+        # invitation = Invitation.objects.create(element=element, invited_user=member_obj)
+        # invitation.save()
+        #
+        # send_invitation(request, invitation)
 
         return Response({"result": True})
 
@@ -353,7 +363,9 @@ class FavoriteViewSet(viewsets.ReadOnlyModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    permission_classes = (IsOwnerOrReadOnly,)
+    permission_classes = (IsOwnerOrReadOnly, IsAuthenticatedOrTokenHasScope)
+    required_scopes = ['read']
+
     queryset = Favorite.objects.all()
     serializer_class = FavoriteSerializer
     pagination_class = None

@@ -27,7 +27,7 @@ SECRET_KEY = 'ijxz135d#8b2+t1&5#_g_zu&5jujj_-1d4v_(828-7cr6a&!0m'
 DEBUG = False
 TEMPLATE_DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1','localhost', 'digitallifelab.cloudapp.net']
+ALLOWED_HOSTS = ['127.0.0.1','localhost', 'ditcom-dev.westeurope.cloudapp.azure.com']
 
 
 # Application definition
@@ -47,6 +47,8 @@ INSTALLED_APPS = [
     'Messages',
     'Notes',
     'Invitations',
+    'oauth2_provider',
+    'corsheaders',
 ]
 
 MIDDLEWARE = [
@@ -57,6 +59,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
 ]
 
 ROOT_URLCONF = 'ViHub.urls'
@@ -143,9 +146,15 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, "static"),
 ]
 
+OAUTH2_PROVIDER = {
+    # this is the list of available scopes
+    'SCOPES': {'read': 'Read scope', 'write': 'Write scope', 'groups': 'Access to your groups'}
+}
+
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.SessionAuthentication',
+        'oauth2_provider.ext.rest_framework.OAuth2Authentication',
     ),
     'PAGE_SIZE': 2,
     'DEFAULT_PAGINATION_CLASSES': 'rest_framework.pagination.PageNumberPagination',
@@ -158,8 +167,9 @@ LOGIN_URL = '/connect/'
 
 SITE_NAME = 'Vi Hub'
 
-EMAIL_USE_TLS = True
-EMAIL_HOST = 'smtp.gmail.com'
-EMAIL_PORT = 587
-EMAIL_HOST_USER = 'ditcomio@gmail.com'
-EMAIL_HOST_PASSWORD = 'gjx2890-123'
+CORS_ORIGIN_ALLOW_ALL = False
+CORS_ORIGIN_WHITELIST = (
+    'ditcom-dev.westeurope.cloudapp.azure.com',
+    'localhost',
+    '127.0.0.1'
+)
