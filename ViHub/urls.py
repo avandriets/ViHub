@@ -27,6 +27,7 @@ router.register(r'elements', ElementViewSet)
 router.register(r'element-favorite', FavoriteViewSet)
 router.register(r'messages', MessageViewSet)
 router.register(r'notes', NoteViewSet)
+router.register(r'users', AccountViewSet)
 
 
 urlpatterns = [

@@ -1,12 +1,15 @@
 import msgraph
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
+from django.db import Error
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
+from oauth2_provider.ext.rest_framework import IsAuthenticatedOrTokenHasScope
 from rest_framework.decorators import api_view, detail_route
 from ViHub import settings
+from ViHub.permission import IsOwnerOrReadOnlyUsers, IsAuthenticatedOrTokenHasScopeUsers
 from connect import config
 from connect.MsProvider import MyAuthProvider
 from connect.account_serializer import AccountSerializer
@@ -16,15 +19,137 @@ from connect.models import Account
 from rest_framework import viewsets
 from rest_framework import status
 from rest_framework.response import Response
+import django.contrib.auth.password_validation as validators
+from django.core import exceptions
 
 
 class AccountViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
+    permission_classes = (IsAuthenticatedOrTokenHasScopeUsers,)
+    required_scopes = ['read', 'write']
+
     queryset = Account.objects.all()
     serializer_class = AccountSerializer
     pagination_class = None
+
+    def filter_queryset(self, queryset):
+        queryset = Account.objects.all()
+        return queryset
+
+    def update(self, request, *args, **kwargs):
+        try:
+            first_name = request.data["first_name"]
+            last_name = request.data["last_name"]
+            username = request.data["username"]
+        except Exception:
+            # TODO made international description
+            return Response({"error_description": "Can not get all parameters."},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        if not first_name:
+            # TODO made international description
+            return Response({"error_description": "Field 'first name' is empty."},
+                            status=status.HTTP_400_BAD_REQUEST)
+        if not last_name:
+            # TODO made international description
+            return Response({"error_description": "Field 'last name' is empty."},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        if not username:
+            # TODO made international description
+            return Response({"error_description": "Field 'user name' is empty."},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            user = Account.objects.get(id=request.user.id)
+        except Account.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
+        user.first_name = first_name
+        user.last_name = last_name
+        user.username = username
+        user.save()
+
+        return Response({"result": True})
+
+
+    def create(self, request, *args, **kwargs):
+        try:
+            email = request.data["email"]
+            first_name = request.data["first_name"]
+            last_name = request.data["last_name"]
+            password = request.data["password1"]
+            password_confirmation = request.data["password2"]
+        except Exception:
+            # TODO made international description
+            return Response({"error_description": "Can not get all parameters."},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        if not email:
+            # TODO made international description
+            return Response({"error_description": "Field 'email' is empty."},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        if not first_name:
+            # TODO made international description
+            return Response({"error_description": "Field 'first name' is empty."},
+                            status=status.HTTP_400_BAD_REQUEST)
+        if not last_name:
+            # TODO made international description
+            return Response({"error_description": "Field 'last name' is empty."},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        if not password:
+            # TODO made international description
+            return Response({"error_description": "Field 'password' is empty."},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        if not password_confirmation:
+            # TODO made international description
+            return Response({"error_description": "Field 'password confirmation' is empty."},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        if password != password_confirmation:
+            # TODO made international description
+            return Response({"error_description": "Passwords don't match. Please enter both fields again."},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            # validate the password and catch the exception
+            validators.validate_password(password=password)
+
+            # the exception raised here is different than serializers.ValidationError
+        except exceptions.ValidationError as e:
+            return Response({"error_description": e.messages},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            user = Account.objects.create_user(email=email, password=password)
+        except Exception:
+            return Response({"error_description": "Email already exists try another."},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        user.first_name = first_name
+        user.last_name = last_name
+        user.save()
+
+        # from oauth2_provider.models import AccessToken
+        # access_token = AccessToken(
+        #     user=request.user,
+        #     scope=token['scope'],
+        #     expires=expires,
+        #     token=token['access_token'],
+        #     application=request.client
+        # )
+        # access_token.save()
+
+        return Response({"result": True})
+
+    @detail_route(methods=['post'], url_path='change-user=data')
+    def change_user_data(self, request):
+        pass
 
 
 def get_token(request):
@@ -103,7 +228,7 @@ def register(request):
     else:
         form = RegistrationForm()
 
-    return render(request, 'auth/registration.html', {'form': form,})
+    return render(request, 'auth/registration.html', {'form': form, })
 
 
 def my_login(request):
@@ -135,7 +260,6 @@ def my_login(request):
 
 @login_required
 def profile_edit(request):
-
     user = request.user
 
     if request.method == 'POST':
@@ -161,25 +285,23 @@ def profile_edit(request):
 # @login_required
 @api_view(['GET'])
 def get_current_user_info(request):
-
     if request.method == 'GET':
         try:
             user = Account.objects.get(id=request.user.id)
         except Account.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
-        return Response({"id": user.id, "email":user.email,
+        return Response({"id": user.id, "email": user.email,
                          "username": user.username, "first_name": user.first_name,
-                         "last_name":user.last_name, "provider":user.provider})
+                         "last_name": user.last_name, "provider": user.provider})
 
 
 # @login_required
 @api_view(['GET'])
 def search_user(request):
-
     search_param = request.query_params['search']
 
-    users = Account.objects.filter(Q(last_name__contains=search_param) |Q(first_name__contains=search_param) | Q(email__contains=search_param))[:20]
+    users = Account.objects.filter(Q(last_name__contains=search_param) | Q(first_name__contains=search_param) | Q(email__contains=search_param))[:20]
     serializer = AccountSerializer(users, many=True)
 
     return Response(serializer.data)
