@@ -1,33 +1,28 @@
-import msgraph
+import django.contrib.auth.password_validation as validators
 from django.contrib.auth import login, logout, authenticate
 from django.contrib.auth.decorators import login_required
-from django.db import Error
+from django.core import exceptions
 from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.urls import reverse
-from oauth2_provider.ext.rest_framework import IsAuthenticatedOrTokenHasScope
+from rest_framework import status
+from rest_framework import viewsets
 from rest_framework.decorators import api_view, detail_route
-from ViHub import settings
-from ViHub.permission import IsOwnerOrReadOnlyUsers, IsAuthenticatedOrTokenHasScopeUsers
-from connect import config
-from connect.MsProvider import MyAuthProvider
+from rest_framework.response import Response
+
+from ViHub.permission import IsAuthenticatedOrTokenHasScopeUsers, IsSelf
 from connect.account_serializer import AccountSerializer
 from connect.auth_helper import get_signin_url, get_signout_url, get_token_from_code, get_user_info_from_token
 from connect.form import MyRegistrationForm as RegistrationForm, MyAuthenticationForm, UserEditForm
 from connect.models import Account
-from rest_framework import viewsets
-from rest_framework import status
-from rest_framework.response import Response
-import django.contrib.auth.password_validation as validators
-from django.core import exceptions
 
 
 class AccountViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    permission_classes = (IsAuthenticatedOrTokenHasScopeUsers,)
+    permission_classes = (IsAuthenticatedOrTokenHasScopeUsers, )
     required_scopes = ['read', 'write']
 
     queryset = Account.objects.all()
@@ -38,7 +33,16 @@ class AccountViewSet(viewsets.ModelViewSet):
         queryset = Account.objects.all()
         return queryset
 
-    def update(self, request, *args, **kwargs):
+    def update(self, request, pk=None, *args, **kwargs):
+
+        try:
+            edited_user = Account.objects.get(id=pk)
+        except (Account.DoesNotExist, ValueError) as e:
+            return Response({"error_description": "Object does not exist."},
+                            status=status.HTTP_404_NOT_FOUND)
+
+        self.check_object_permissions(request, edited_user)
+
         try:
             first_name = request.data["first_name"]
             last_name = request.data["last_name"]
@@ -73,7 +77,6 @@ class AccountViewSet(viewsets.ModelViewSet):
         user.save()
 
         return Response({"result": True})
-
 
     def create(self, request, *args, **kwargs):
         try:
@@ -147,9 +150,53 @@ class AccountViewSet(viewsets.ModelViewSet):
 
         return Response({"result": True})
 
-    @detail_route(methods=['post'], url_path='change-user=data')
-    def change_user_data(self, request):
-        pass
+    @detail_route(methods=['post'], permission_classes=[IsSelf], url_path='change-password')
+    def change_password(self, request, pk=None):
+
+        try:
+            edited_user = Account.objects.get(id=pk)
+        except (Account.DoesNotExist, ValueError) as e:
+            return Response({"error_description": "Object does not exist."},
+                            status=status.HTTP_404_NOT_FOUND)
+
+        self.check_object_permissions(request, edited_user)
+
+        try:
+            password = request.data["password1"]
+            password_confirmation = request.data["password2"]
+        except Exception:
+            # TODO made international description
+            return Response({"error_description": "Can not get all parameters."},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        if not password:
+            # TODO made international description
+            return Response({"error_description": "Field 'password' is empty."},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        if not password_confirmation:
+            # TODO made international description
+            return Response({"error_description": "Field 'password confirmation' is empty."},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        if password != password_confirmation:
+            # TODO made international description
+            return Response({"error_description": "Passwords don't match. Please enter both fields again."},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        try:
+            # validate the password and catch the exception
+            validators.validate_password(password=password, user=edited_user)
+
+            # the exception raised here is different than serializers.ValidationError
+        except exceptions.ValidationError as e:
+            return Response({"error_description": e.messages},
+                            status=status.HTTP_400_BAD_REQUEST)
+
+        edited_user.set_password(password)
+        edited_user.save()
+
+        return Response({"result": True})
 
 
 def get_token(request):
