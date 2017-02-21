@@ -52,8 +52,11 @@ class IsAuthenticatedOrTokenHasScopeUsers(IsAuthenticatedOrTokenHasScope):
     def has_permission(self, request, view):
         has_permissions = super().has_permission(request, view)
 
-        if not request.user.is_authenticated and request.method in ('POST',):
-            return True
+        if request.method in ('POST',):
+            if not request.user.is_authenticated():
+                return True
+            else:
+                return False
 
         if not has_permissions or request.method in ('DELETE',):
             return False

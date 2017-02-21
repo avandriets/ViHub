@@ -10,7 +10,6 @@ from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.decorators import api_view, detail_route
 from rest_framework.response import Response
-
 from ViHub.permission import IsAuthenticatedOrTokenHasScopeUsers, IsSelf
 from connect.account_serializer import AccountSerializer
 from connect.auth_helper import get_signin_url, get_signout_url, get_token_from_code, get_user_info_from_token
@@ -22,7 +21,7 @@ class AccountViewSet(viewsets.ModelViewSet):
     """
     API endpoint that allows users to be viewed or edited.
     """
-    permission_classes = (IsAuthenticatedOrTokenHasScopeUsers, )
+    permission_classes = (IsAuthenticatedOrTokenHasScopeUsers,)
     required_scopes = ['read', 'write']
 
     queryset = Account.objects.all()
@@ -30,7 +29,7 @@ class AccountViewSet(viewsets.ModelViewSet):
     pagination_class = None
 
     def filter_queryset(self, queryset):
-        queryset = Account.objects.all()
+        queryset = Account.objects.none()
         return queryset
 
     def update(self, request, pk=None, *args, **kwargs):
@@ -47,7 +46,7 @@ class AccountViewSet(viewsets.ModelViewSet):
             first_name = request.data["first_name"]
             last_name = request.data["last_name"]
             username = request.data["username"]
-        except Exception:
+        except KeyError:
             # TODO made international description
             return Response({"error_description": "Can not get all parameters."},
                             status=status.HTTP_400_BAD_REQUEST)
@@ -85,7 +84,7 @@ class AccountViewSet(viewsets.ModelViewSet):
             last_name = request.data["last_name"]
             password = request.data["password1"]
             password_confirmation = request.data["password2"]
-        except Exception:
+        except KeyError:
             # TODO made international description
             return Response({"error_description": "Can not get all parameters."},
                             status=status.HTTP_400_BAD_REQUEST)
@@ -164,7 +163,7 @@ class AccountViewSet(viewsets.ModelViewSet):
         try:
             password = request.data["password1"]
             password_confirmation = request.data["password2"]
-        except Exception:
+        except KeyError:
             # TODO made international description
             return Response({"error_description": "Can not get all parameters."},
                             status=status.HTTP_400_BAD_REQUEST)
