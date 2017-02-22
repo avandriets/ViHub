@@ -175,4 +175,5 @@ CORS_ORIGIN_WHITELIST = (
     '127.0.0.1'
 )
 
-# TODO add media filder
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR,  'media')
