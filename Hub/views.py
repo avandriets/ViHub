@@ -13,6 +13,10 @@ from rest_framework import viewsets
 from rest_framework.decorators import detail_route, list_route
 from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
+
+import Attachments
+from Attachments.models import Attachment
+from Attachments.serializers import AttachmentSerializer
 from Hub.models import Element, Members, Favorite
 from Hub.serializers import ElementSerializer, MembersSerializer, FavoriteSerializer
 from Invitations.models import Invitation
@@ -149,6 +153,26 @@ class ElementViewSet(viewsets.ModelViewSet):
             self.get_elements_tree(elements_list, element.parent)
         else:
             return elements_list
+
+    @detail_route(methods=['get'], url_path='get-attachments')
+    def get_attachments(self, request, pk=None):
+
+        members_set = Members.objects.filter(element=pk, user_involved=request.user)
+        if members_set.count() > 0:
+
+            files_set = Attachment.objects.filter(element=pk)
+
+            page = self.paginate_queryset(files_set)
+            if page is not None:
+                serializer = AttachmentSerializer(page, many=True)
+                return self.get_paginated_response(serializer.data)
+
+            serializer = AttachmentSerializer(files_set, many=True)
+            return Response(serializer.data)
+
+        else:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+
 
     @detail_route(methods=['get'], url_path='get-breadcrumbs')
     def get_breadcrumbs(self, request, pk=None):

@@ -49,6 +49,7 @@ INSTALLED_APPS = [
     'Invitations',
     'oauth2_provider',
     'corsheaders',
+    'Attachments',
 ]
 
 MIDDLEWARE = [
@@ -173,3 +174,5 @@ CORS_ORIGIN_WHITELIST = (
     'localhost',
     '127.0.0.1'
 )
+
+# TODO add media filder

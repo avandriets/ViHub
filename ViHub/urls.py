@@ -15,6 +15,8 @@ Including another URLconf
 """
 from django.conf.urls import url, include
 from django.contrib import admin
+
+from Attachments.views import AttachmentsViewSet
 from Hub.views import ElementViewSet, MembersViewSet, FavoriteViewSet
 from Invitations.views import accept_invitation, decline_invitation
 from Messages.views import MessageViewSet
@@ -31,6 +33,7 @@ router.register(r'element-favorite', FavoriteViewSet)
 router.register(r'messages', MessageViewSet)
 router.register(r'notes', NoteViewSet)
 router.register(r'users', AccountViewSet)
+router.register(r'attachments', AttachmentsViewSet)
 
 
 oauth2_endpoint_views = [

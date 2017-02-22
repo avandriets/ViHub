@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'Invitations',
     'oauth2_provider',
     'corsheaders',
+    'Attachments',
 ]
 
 MIDDLEWARE = [
@@ -170,3 +171,6 @@ LOGIN_URL = '/connect/'
 SITE_NAME = 'Vi Hub'
 
 CORS_ORIGIN_ALLOW_ALL = True
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = '/Users/AVAndriets/PycharmProjects/ViHub/media'
