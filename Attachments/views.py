@@ -24,6 +24,7 @@ class AttachmentsViewSet(viewsets.ModelViewSet):
     required_scopes = ['read', 'write']
     pagination_class = None
 
+    # TODO Add check permissions before delete
     def create(self, request, *args, **kwargs):
         # TODO add check before add file to element
         return super().create(request, *args, **kwargs)
