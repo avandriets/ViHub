@@ -32,8 +32,19 @@
         # Перезапускаем сервер
         $ sudo systemctl restart apache2
         ```
-
-
+    - для избежания ошибки
+        ```
+        Fixing UnicodeEncodeError for file uploads
+        If you get a UnicodeEncodeError when uploading files with file names that contain non-ASCII characters, make sure Apache is configured to accept non-ASCII file names:
+        export LANG='en_US.UTF-8'
+        export LC_ALL='en_US.UTF-8'
+        A common location to put this configuration is /etc/apache2/envvars.
+        See the Files section of the Unicode reference guide for details.
+        ```
+    - устанавливаем поддержку UTF8 у Apache
+        ```
+        sudo nano /etc/apache2/conf-available/charset.conf
+        ```
 2. Скопируйте проект в локальную папку
     ```$ git clone https://github.com/digitallifelab/ViHub.git [project-folder]```
 

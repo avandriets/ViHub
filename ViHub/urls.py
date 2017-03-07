@@ -25,7 +25,7 @@ from connect.views import AccountViewSet, get_current_user_info, search_user
 from rest_framework import routers
 import oauth2_provider.views as oauth2_views
 from django.conf import settings
-
+from django.conf.urls.static import static
 
 router = routers.DefaultRouter()
 router.register(r'elements', ElementViewSet)
@@ -34,7 +34,6 @@ router.register(r'messages', MessageViewSet)
 router.register(r'notes', NoteViewSet)
 router.register(r'users', AccountViewSet)
 router.register(r'attachments', AttachmentsViewSet)
-
 
 oauth2_endpoint_views = [
     url(r'^authorize/$', oauth2_views.AuthorizationView.as_view(), name="authorize"),
@@ -66,3 +65,6 @@ urlpatterns = [
     url(r'^vi-hub/search-user', search_user),
     url(r'^o/', include(oauth2_endpoint_views, namespace="oauth2_provider")),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
