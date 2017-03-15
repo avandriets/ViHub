@@ -10,6 +10,9 @@ from rest_framework import status
 from rest_framework import viewsets
 from rest_framework.decorators import api_view, detail_route
 from rest_framework.response import Response
+
+from Hub.models import Members, Element
+from Hub.serializers import ElementSerializer
 from ViHub.permission import IsAuthenticatedOrTokenHasScopeUsers, IsSelf
 from connect.account_serializer import AccountSerializer
 from connect.auth_helper import get_signin_url, get_signout_url, get_token_from_code, get_user_info_from_token
@@ -351,3 +354,20 @@ def search_user(request):
     serializer = AccountSerializer(users, many=True)
 
     return Response(serializer.data)
+
+
+@api_view(['GET'])
+def get_signals(request):
+
+    elements_list = list(Members.objects.filter(user_involved=request.user).values_list('element', flat=True))
+    if len(elements_list) > 0:
+
+        json_list = []
+        elements = Element.objects.filter(id__in=elements_list)
+        for el in elements:
+            if el.is_signal:
+                json_list.append(ElementSerializer(el, context={'request': request}).data)
+
+        return Response(json_list)
+    else:
+        return Response([])

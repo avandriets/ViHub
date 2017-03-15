@@ -33,7 +33,7 @@ class IsOwnerOrReadOnlyElements(IsOwnerOrReadOnly):
             return True
 
         # Instance must have an attribute named `owner`.
-        if request.method in ('GET',):
+        if request.method in ('GET', 'POST', ):
             members = obj.members.filter(user_involved=request.user)
             for member in members:
                 if member.user_involved == request.user:

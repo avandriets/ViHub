@@ -198,6 +198,38 @@ class ElementViewSet(viewsets.ModelViewSet):
         else:
             return Response(status=status.HTTP_404_NOT_FOUND)
 
+    @detail_route(methods=['post'], url_path='set-signal')
+    def set_signal(self, request, pk=None):
+
+        if request.method == 'POST':
+            try:
+                element = Element.objects.get(id=pk)
+            except Element.DoesNotExist:
+                return Response(status=status.HTTP_404_NOT_FOUND)
+
+            self.check_object_permissions(request, element)
+
+            # members = element.members.filter(user_involved=request.user)
+            # user_has_permission = False
+            # for member in members:
+            #     if member.user_involved == request.user:
+            #         user_has_permission = True
+            #
+            # if not user_has_permission:
+            #     return Response({"message": "don't have permission"}, status=status.HTTP_404_NOT_FOUND)
+
+            try:
+                if element.is_signal:
+                    element.is_signal = False
+                    element.save()
+                    return Response({"message": "successfully delete signal"})
+                else:
+                    element.is_signal = True
+                    element.save()
+                    return Response({"message": "successfully make signal"})
+            except Error:
+                return Response({"message": "db error"}, status=status.HTTP_404_NOT_FOUND)
+
     @detail_route(methods=['post'], url_path='set-favorite')
     def set_favorite(self, request, pk=None):
 

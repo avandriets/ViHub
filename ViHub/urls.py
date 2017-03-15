@@ -21,7 +21,7 @@ from Hub.views import ElementViewSet, MembersViewSet, FavoriteViewSet
 from Invitations.views import accept_invitation, decline_invitation
 from Messages.views import MessageViewSet
 from Notes.views import NoteViewSet
-from connect.views import AccountViewSet, get_current_user_info, search_user
+from connect.views import AccountViewSet, get_current_user_info, search_user, get_signals
 from rest_framework import routers
 import oauth2_provider.views as oauth2_views
 from django.conf import settings
@@ -63,6 +63,8 @@ urlpatterns = [
     url(r'^rest/', include(router.urls)),
     url(r'^vi-hub/me$', get_current_user_info),
     url(r'^vi-hub/search-user', search_user),
+    url(r'^vi-hub/get-signals', get_signals),
+
     url(r'^o/', include(oauth2_endpoint_views, namespace="oauth2_provider")),
 ]
 

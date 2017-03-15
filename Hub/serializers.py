@@ -40,7 +40,7 @@ class ElementSerializer(serializers.ModelSerializer):
     class Meta:
         list_serializer_class = ElementsListSerializer
         model = Element
-        fields = ('id', 'element', 'parent', 'name', 'description', 'is_delete', 'element_type', 'created_at', 'updated_at',
+        fields = ('id', 'element', 'parent', 'name', 'description', 'is_delete', 'is_signal', 'element_type', 'created_at', 'updated_at',
                   'members', 'owner', 'username', 'first_name', 'last_name'
                   , 'is_favorite'
                   )
@@ -74,6 +74,7 @@ class FavoriteSerializer(serializers.ModelSerializer):
     name = serializers.ReadOnlyField(source='element.name', required=False)
     description = serializers.ReadOnlyField(source='element.description', required=False)
     is_delete = serializers.ReadOnlyField(source='element.is_delete', required=False)
+    is_signal = serializers.ReadOnlyField(source='element.is_signal', required=False)
     element_type = serializers.ReadOnlyField(source='element.element_type', required=False)
     username = serializers.ReadOnlyField(source='element.owner.username', required=False)
     first_name = serializers.ReadOnlyField(source='element.owner.first_name', required=False)
@@ -89,7 +90,7 @@ class FavoriteSerializer(serializers.ModelSerializer):
     class Meta:
         list_serializer_class = FavoriteListSerializer
         model = Favorite
-        fields = ('id', 'element', 'parent', 'name', 'description', 'is_delete', 'element_type',
+        fields = ('id', 'element', 'parent', 'name', 'description', 'is_delete', 'is_signal' , 'element_type',
                   'element_created_at', 'element_updated_at', 'element_owner',
                   'username', 'first_name', 'last_name',
                   'is_favorite', 'created_at', 'updated_at', 'owner',

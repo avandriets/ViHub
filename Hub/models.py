@@ -15,6 +15,7 @@ class Element(models.Model):
     description = models.CharField(verbose_name='Описание', max_length=5000, null=True, blank=True, help_text='Описание')
     element_type = models.CharField(verbose_name='Тип хаба', max_length=1, choices=ELEM_TYPE, help_text='Тип хаба')
     is_delete = models.SmallIntegerField(verbose_name='Удален', null=False, blank=False, help_text='Удален - 1', default=0)
+    is_signal = models.BooleanField(verbose_name='Личная', help_text='Личная', default=False)
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
     owner = models.ForeignKey(Account, null=True, related_name='element_owner')
