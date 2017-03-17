@@ -12,7 +12,7 @@ ELEM_TYPE = (
 class Element(models.Model):
     parent = models.ForeignKey('self', blank=True, null=True, related_name='tree', on_delete=models.CASCADE)
     name = models.CharField(verbose_name='Наименование', max_length=100, help_text='Наименование')
-    description = models.CharField(verbose_name='Описание', max_length=5000, null=True, blank=True, help_text='Описание')
+    description = models.CharField(verbose_name='Описание', max_length=30000, null=True, blank=True, help_text='Описание')
     element_type = models.CharField(verbose_name='Тип хаба', max_length=1, choices=ELEM_TYPE, help_text='Тип хаба')
     is_delete = models.SmallIntegerField(verbose_name='Удален', null=False, blank=False, help_text='Удален - 1', default=0)
     is_signal = models.BooleanField(verbose_name='Личная', help_text='Личная', default=False)
